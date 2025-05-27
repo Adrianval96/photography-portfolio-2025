@@ -1,0 +1,30 @@
+.media-group-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .media-group-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .media-group-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.media-group-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.media-caption {
+  margin-top: 1.5rem;
+}

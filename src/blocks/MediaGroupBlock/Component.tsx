@@ -3,6 +3,7 @@ import type { MediaGroupBlock as MediaGroupBlockProps } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
+import './styles.css'
 
 type MediaGroupItem = {
   media: any
@@ -24,15 +25,12 @@ export const MediaGroupBlock: React.FC<Props> = ({
   if (!mediaItems || mediaItems.length === 0) return null
 
   return (
-    <div className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6', className)}>
+    <div className={cn('media-group-container', className)}>
       {mediaItems.map((item: MediaGroupItem, i: number) => (
-        <div key={i} className="flex flex-col">
-          <Media
-            imgClassName={cn('rounded-[0.8rem] border border-border', imgClassName)}
-            resource={item.media}
-          />
+        <div key={i} className="media-group-item">
+          <Media imgClassName={cn('media-image', imgClassName)} resource={item.media} />
           {item.caption && (
-            <div className={cn('mt-4', captionClassName)}>
+            <div className={cn('media-caption', captionClassName)}>
               <RichText data={item.caption} enableGutter={false} />
             </div>
           )}
