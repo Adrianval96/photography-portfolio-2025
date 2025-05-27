@@ -70,8 +70,11 @@ export default buildConfig({
   plugins: [
     ...plugins,
     vercelBlobStorage({
+      enabled: true,
       collections: {
-        media: true,
+        media: {
+          prefix: 'uploads',
+        },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
