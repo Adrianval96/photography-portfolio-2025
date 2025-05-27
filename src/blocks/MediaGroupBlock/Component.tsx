@@ -5,7 +5,7 @@ import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
 
 type MediaGroupItem = {
-  media: any // Replace with your actual Media type if available
+  media: any
   caption?: any
 }
 

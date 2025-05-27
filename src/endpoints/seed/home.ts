@@ -514,6 +514,41 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
         media: metaImage.id,
       },
       {
+        blockName: 'Media Group Block',
+        blockType: 'mediaGroupBlock',
+        mediaItems: [
+          {
+            media: metaImage.id,
+            caption: {
+              root: {
+                type: 'root',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'Example caption for this image',
+                        version: 1,
+                      },
+                    ],
+                    direction: 'ltr',
+                    format: '',
+                    indent: 0,
+                    textFormat: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                version: 1,
+              },
+            },
+          },
+        ],
+      },
+      {
         blockName: 'Archive Block',
         blockType: 'archive',
         categories: [],
