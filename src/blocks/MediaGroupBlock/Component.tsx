@@ -2,7 +2,6 @@ import React from 'react'
 import type { MediaGroupBlock as MediaGroupBlockProps } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import { cn } from '@/utilities/ui'
 import './styles.css'
 
 type MediaGroupItem = {
@@ -10,29 +9,18 @@ type MediaGroupItem = {
   caption?: any
 }
 
-type Props = MediaGroupBlockProps & {
-  className?: string
-  imgClassName?: string
-  captionClassName?: string
-}
-
-export const MediaGroupBlock: React.FC<Props> = ({
-  mediaItems,
-  className,
-  imgClassName,
-  captionClassName,
-}) => {
+export const MediaGroupBlock: React.FC<MediaGroupBlockProps> = ({ mediaItems }) => {
   if (!mediaItems || mediaItems.length === 0) return null
 
   return (
-    <div className={cn('media-group-container', className)}>
+    <div className="media-group-container">
       {mediaItems.map(
         (item: MediaGroupItem, i: number) =>
           item.media && (
             <div key={i} className="media-group-item">
-              <Media imgClassName={cn('media-image', imgClassName)} resource={item.media} />
+              <Media imgClassName="media-image" resource={item.media} />
               {item.caption && (
-                <div className={cn('media-caption', captionClassName)}>
+                <div className="media-caption">
                   <RichText data={item.caption} enableGutter={false} />
                 </div>
               )}
