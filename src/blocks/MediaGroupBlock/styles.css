@@ -1,23 +1,11 @@
 .media-group-container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
   padding: 1rem;
   max-width: 100%;
   box-sizing: border-box;
-}
-
-@media (min-width: 640px) {
-  .media-group-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .media-group-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .media-header {
@@ -26,6 +14,8 @@
 }
 
 .media-group-item {
+  max-width: 450px;
+  flex: 1 1 300px;
   display: flex;
   flex-direction: column;
 }
