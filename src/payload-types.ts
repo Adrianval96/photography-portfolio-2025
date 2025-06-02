@@ -498,6 +498,21 @@ export interface MediaBlock {
  * via the `definition` "mediaGroupBlock".
  */
 export interface MediaGroupBlock {
+  header?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   mediaItems: {
     media: number | Media;
     caption?: {
@@ -1125,6 +1140,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "mediaGroupBlock_select".
  */
 export interface MediaGroupBlockSelect<T extends boolean = true> {
+  header?: T;
   mediaItems?:
     | T
     | {

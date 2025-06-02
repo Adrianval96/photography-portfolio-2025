@@ -20,6 +20,11 @@
   }
 }
 
+.media-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 .media-group-item {
   display: flex;
   flex-direction: column;

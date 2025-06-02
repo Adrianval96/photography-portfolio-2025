@@ -1,9 +1,18 @@
+import { HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'
 
 export const MediaGroupBlock: Block = {
   slug: 'mediaGroupBlock',
   interfaceName: 'mediaGroupBlock',
   fields: [
+    {
+      name: 'header',
+      type: 'richText',
+      required: false,
+      editor: lexicalEditor({
+        features: [HeadingFeature()],
+      }),
+    },
     {
       name: 'mediaItems',
       type: 'array',
