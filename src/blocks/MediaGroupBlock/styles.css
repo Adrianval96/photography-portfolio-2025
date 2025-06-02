@@ -1,0 +1,25 @@
+.media-group-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.media-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.media-group-item {
+  max-width: 450px;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-caption {
+  margin-top: 1.5rem;
+}
