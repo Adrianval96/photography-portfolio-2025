@@ -1,6 +1,12 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { resendAdapter } from '@payloadcms/email-resend'
+import {
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+  LinkFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -15,7 +21,6 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -54,8 +59,11 @@ export default buildConfig({
       ],
     },
   },
-  // This config helps us configure global or default features that the other editors can inherit
-  editor: defaultLexical,
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => {
+      return [...defaultFeatures, FixedToolbarFeature(), InlineToolbarFeature(), LinkFeature()]
+    },
+  }),
   db: vercelPostgresAdapter({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
