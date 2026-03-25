@@ -48,7 +48,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
   const siteName = siteSettings?.siteName || 'Cinematic State Photography'
-  const twitterHandle = siteSettings?.twitterHandle || undefined
 
   return {
     metadataBase: new URL(getServerSideURL()),
@@ -57,9 +56,5 @@ export async function generateMetadata(): Promise<Metadata> {
       title: siteName,
       description: siteSettings?.siteDescription || '',
     }),
-    twitter: {
-      card: 'summary_large_image',
-      ...(twitterHandle ? { creator: twitterHandle } : {}),
-    },
   }
 }

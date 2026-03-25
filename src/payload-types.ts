@@ -1702,7 +1702,6 @@ export interface SiteSetting {
    * Fallback image used in social sharing previews.
    */
   defaultOgImage?: (number | null) | Media;
-  twitterHandle?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1760,7 +1759,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   siteDescription?: T;
   defaultOgImage?: T;
-  twitterHandle?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

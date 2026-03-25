@@ -28,14 +28,6 @@ export const SiteSettings: GlobalConfig = {
         description: 'Fallback image used in social sharing previews.',
       },
     },
-    {
-      name: 'twitterHandle',
-      type: 'text',
-      label: 'Twitter / X Handle',
-      admin: {
-        placeholder: '@yourhandle',
-      },
-    },
   ],
   hooks: {
     afterChange: [revalidateSiteSettings],
