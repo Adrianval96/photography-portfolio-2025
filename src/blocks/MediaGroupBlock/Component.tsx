@@ -4,12 +4,6 @@ import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import './styles.css'
 
-type MediaGroupItem = {
-  header?: any
-  media: any
-  caption?: any
-}
-
 export const MediaGroupBlock: React.FC<MediaGroupBlockProps> = ({ header, mediaItems }) => {
   if (!mediaItems || mediaItems.length === 0) return null
 
@@ -22,7 +16,7 @@ export const MediaGroupBlock: React.FC<MediaGroupBlockProps> = ({ header, mediaI
       )}
       <div className="media-group-container">
         {mediaItems.map(
-          (item: MediaGroupItem, i: number) =>
+          (item, i: number) =>
             item.media && (
               <div key={i} className="media-group-item">
                 <Media imgClassName="media-image" resource={item.media} />
