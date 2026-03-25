@@ -54,7 +54,6 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(getServerSideURL()),
     openGraph: mergeOpenGraph({
       siteName,
-      title: siteName,
       description: siteSettings?.siteDescription || '',
     }),
   }
