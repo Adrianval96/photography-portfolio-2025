@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import NextImage from 'next/image'
 import React from 'react'
 import styles from './index.module.css'
 
@@ -7,5 +8,14 @@ interface Props {
 }
 
 export const Logo = ({ className }: Props) => {
-  return <span className={clsx(styles.logo, className)}>Cinematic State</span>
+  return (
+    <NextImage
+      src="/logo.png"
+      alt="Cinematic State"
+      width={160}
+      height={40}
+      className={clsx(styles.logoImage, className)}
+      priority
+    />
+  )
 }
