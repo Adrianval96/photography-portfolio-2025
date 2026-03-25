@@ -1,5 +1,9 @@
-.logoImage {
-  height: 2rem;
-  width: auto;
-  object-fit: contain;
+.logo {
+  font-family: var(--font-geist-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: inherit; /* inherits white from the header link */
+  white-space: nowrap;
 }
