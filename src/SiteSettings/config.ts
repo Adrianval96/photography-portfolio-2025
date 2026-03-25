@@ -19,15 +19,6 @@ export const SiteSettings: GlobalConfig = {
       type: 'textarea',
       label: 'Default Site Description',
     },
-    {
-      name: 'defaultOgImage',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Default OG Image',
-      admin: {
-        description: 'Fallback image used in social sharing previews.',
-      },
-    },
   ],
   hooks: {
     afterChange: [revalidateSiteSettings],

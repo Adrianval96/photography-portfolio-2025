@@ -1698,10 +1698,6 @@ export interface SiteSetting {
   id: number;
   siteName: string;
   siteDescription?: string | null;
-  /**
-   * Fallback image used in social sharing previews.
-   */
-  defaultOgImage?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1758,7 +1754,6 @@ export interface FooterSelect<T extends boolean = true> {
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   siteDescription?: T;
-  defaultOgImage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

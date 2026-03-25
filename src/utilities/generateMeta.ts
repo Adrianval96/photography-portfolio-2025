@@ -9,7 +9,7 @@ import { getServerSideURL } from './getURL'
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = serverUrl + '/og-image.png'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
@@ -28,13 +28,7 @@ export const generateMeta = async (args: {
   const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
   const siteName = siteSettings?.siteName || 'Cinematic State Photography'
 
-  const defaultOgImage =
-    siteSettings?.defaultOgImage && typeof siteSettings.defaultOgImage === 'object'
-      ? getImageURL(siteSettings.defaultOgImage as Media)
-      : getServerSideURL() + '/website-template-OG.webp'
-
-  const ogImage = doc?.meta?.image ? getImageURL(doc.meta.image as Media) : defaultOgImage
-
+  const ogImage = getImageURL(doc?.meta?.image as Media | null)
   const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
 
   return {
