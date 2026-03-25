@@ -20,7 +20,7 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
-import { SiteSettings } from './components/SiteSettings/config'
+import { SiteSettings } from './SiteSettings/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 
