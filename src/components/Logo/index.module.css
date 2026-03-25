@@ -4,6 +4,6 @@
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: currentColor;
+  color: inherit; /* inherits white from the header link */
   white-space: nowrap;
 }
