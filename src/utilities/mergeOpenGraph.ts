@@ -6,7 +6,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: '',
   images: [
     {
-      url: `${getServerSideURL()}/og-image.png`,
+      url: `${getServerSideURL()}/website-template-OG.webp`,
     },
   ],
   siteName: 'Cinematic State Photography',
