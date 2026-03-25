@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
+import { SITE_NAME } from '@/constants'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -12,7 +13,7 @@ export const SiteSettings: GlobalConfig = {
       name: 'siteName',
       type: 'text',
       required: true,
-      defaultValue: 'Cinematic State Photography',
+      defaultValue: SITE_NAME,
     },
     {
       name: 'siteDescription',

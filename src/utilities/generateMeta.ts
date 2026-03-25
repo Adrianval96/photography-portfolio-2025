@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import type { Media, Page, Post, Config, SiteSetting } from '../payload-types'
 
 import { getCachedGlobal } from './getGlobals'
+import { SITE_NAME } from '@/constants'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
@@ -26,7 +27,7 @@ export const generateMeta = async (args: {
   const { doc } = args
 
   const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
-  const siteName = siteSettings?.siteName || 'Cinematic State Photography'
+  const siteName = siteSettings?.siteName || SITE_NAME
 
   const ogImage = getImageURL(doc?.meta?.image as Media | null)
   const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName

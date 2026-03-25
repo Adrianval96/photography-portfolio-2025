@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getServerSideURL } from './getURL'
+import { SITE_NAME } from '@/constants'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
@@ -9,8 +10,8 @@ const defaultOpenGraph: Metadata['openGraph'] = {
       url: `${getServerSideURL()}/website-template-OG.webp`,
     },
   ],
-  siteName: 'Cinematic State Photography',
-  title: 'Cinematic State Photography',
+  siteName: SITE_NAME,
+  title: SITE_NAME,
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

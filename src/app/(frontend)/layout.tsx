@@ -13,6 +13,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { SiteSetting } from '@/payload-types'
+import { SITE_NAME } from '@/constants'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
@@ -47,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
-  const siteName = siteSettings?.siteName || 'Cinematic State Photography'
+  const siteName = siteSettings?.siteName || SITE_NAME
 
   return {
     metadataBase: new URL(getServerSideURL()),
