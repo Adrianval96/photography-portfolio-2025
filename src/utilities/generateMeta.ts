@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Config } from '../payload-types'
+import type { Media, Page, Post, Config, SiteSetting } from '../payload-types'
 
+import { getCachedGlobal } from './getGlobals'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
@@ -24,23 +25,24 @@ export const generateMeta = async (args: {
 }): Promise<Metadata> => {
   const { doc } = args
 
-  const ogImage = getImageURL(doc?.meta?.image)
+  const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
+  const siteName = siteSettings?.siteName || 'Cinematic State Photography'
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const defaultOgImage =
+    siteSettings?.defaultOgImage && typeof siteSettings.defaultOgImage === 'object'
+      ? getImageURL(siteSettings.defaultOgImage as Media)
+      : getServerSideURL() + '/website-template-OG.webp'
+
+  const ogImage = doc?.meta?.image ? getImageURL(doc.meta.image as Media) : defaultOgImage
+
+  const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
 
   return {
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
+      images: [{ url: ogImage }],
+      siteName,
       title,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
