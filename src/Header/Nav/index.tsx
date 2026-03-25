@@ -8,30 +8,40 @@ import { SearchIcon, MenuIcon, XIcon } from 'lucide-react'
 import clsx from 'clsx'
 import styles from './index.module.css'
 
-const NAV_LINKS = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/shop', label: 'Shop' },
-  { href: '/book', label: 'Book a Session' },
-  { href: '/about', label: 'About' },
-]
+type NavLink = NonNullable<HeaderType['navItems']>[number]['link']
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = () => {
+function resolveHref(link: NavLink): string | null {
+  if (link.type === 'reference' && typeof link.reference?.value === 'object') {
+    const slug = link.reference.value.slug
+    const prefix = link.reference.relationTo !== 'pages' ? `/${link.reference.relationTo}` : ''
+    return slug ? `${prefix}/${slug}` : null
+  }
+  return link.url ?? null
+}
+
+export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const navItems = data?.navItems ?? []
 
   return (
     <>
       {/* Desktop nav */}
       <nav className={styles.desktopNav}>
-        {NAV_LINKS.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className={clsx(styles.navLink, pathname === href && styles.navLinkActive)}
-          >
-            {label}
-          </Link>
-        ))}
+        {navItems.map(({ link }, i) => {
+          const href = resolveHref(link)
+          if (!href) return null
+          return (
+            <Link
+              key={i}
+              href={href}
+              {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className={clsx(styles.navLink, pathname === href && styles.navLinkActive)}
+            >
+              {link.label}
+            </Link>
+          )
+        })}
         <Link href="/search" className={styles.iconLink}>
           <span className="sr-only">Search</span>
           <SearchIcon className={styles.icon} />
@@ -58,16 +68,21 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = () => {
             <XIcon className={styles.icon} />
           </button>
 
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setMobileOpen(false)}
-              className={clsx(styles.mobileNavLink, pathname === href && styles.navLinkActive)}
-            >
-              {label}
-            </Link>
-          ))}
+          {navItems.map(({ link }, i) => {
+            const href = resolveHref(link)
+            if (!href) return null
+            return (
+              <Link
+                key={i}
+                href={href}
+                {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                onClick={() => setMobileOpen(false)}
+                className={clsx(styles.mobileNavLink, pathname === href && styles.navLinkActive)}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
 
           <Link href="/search" onClick={() => setMobileOpen(false)} className={styles.iconLink}>
             <SearchIcon className={styles.icon} />
