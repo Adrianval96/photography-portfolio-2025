@@ -15,11 +15,6 @@ export const SiteSettings: GlobalConfig = {
       required: true,
       defaultValue: SITE_NAME,
     },
-    {
-      name: 'siteDescription',
-      type: 'textarea',
-      label: 'Default Site Description',
-    },
   ],
   hooks: {
     afterChange: [revalidateSiteSettings],

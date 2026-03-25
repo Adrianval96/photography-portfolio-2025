@@ -1697,7 +1697,6 @@ export interface Footer {
 export interface SiteSetting {
   id: number;
   siteName: string;
-  siteDescription?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1753,7 +1752,6 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
-  siteDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
