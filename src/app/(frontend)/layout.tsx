@@ -48,11 +48,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
+  const siteName = siteSettings?.siteName || SITE_NAME
 
   return {
     metadataBase: new URL(getServerSideURL()),
     openGraph: mergeOpenGraph({
-      siteSettings?.siteName || SITE_NAME,
+      siteName,
       description: siteSettings?.siteDescription || '',
     }),
   }
