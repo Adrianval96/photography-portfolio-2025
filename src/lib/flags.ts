@@ -9,7 +9,8 @@ const fetchFlag = async (key: string): Promise<boolean> => {
     where: { key: { equals: key } },
     limit: 1,
   })
-  return result.docs[0]?.enabled ?? false
+  const [flag] = result.docs
+  return flag?.enabled ?? false
 }
 
 export const isEnabled = (key: string) =>
