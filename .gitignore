@@ -9,6 +9,11 @@ node_modules
 # Payload default media upload directory
 public/media/
 
+# Payload migrations — generated locally, applied manually
+src/migrations/*.ts
+src/migrations/*.json
+!src/migrations/index.ts
+
 public/robots.txt
 public/sitemap*.xml
 .env*.local
