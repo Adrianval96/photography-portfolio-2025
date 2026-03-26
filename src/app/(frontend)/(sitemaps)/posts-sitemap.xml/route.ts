@@ -45,6 +45,7 @@ const getPostsSitemap = unstable_cache(
   ['posts-sitemap'],
   {
     tags: ['posts-sitemap'],
+    revalidate: 3600,
   },
 )
 

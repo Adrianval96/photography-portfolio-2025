@@ -58,6 +58,7 @@ const getPagesSitemap = unstable_cache(
   ['pages-sitemap'],
   {
     tags: ['pages-sitemap'],
+    revalidate: 3600,
   },
 )
 
