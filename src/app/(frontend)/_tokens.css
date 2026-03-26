@@ -27,6 +27,9 @@
   --text-caption: 0.875rem;
   --text-label:   0.75rem;
 
+  /* Typography — family */
+  --font-primary: var(--font-primary); /* resolved by Next.js at runtime */
+
   /* Typography — weights */
   --weight-light:   300;
   --weight-regular: 400;

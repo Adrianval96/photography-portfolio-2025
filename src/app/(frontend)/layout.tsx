@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import { Cormorant_Garamond } from 'next/font/google'
 import React from 'react'
 
-const cormorantGaramond = Cormorant_Garamond({
+const font = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-cormorant-garamond',
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-primary',
+  display: 'swap',
 })
 
 import { AdminBar } from '@/components/AdminBar'
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable, cormorantGaramond.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
