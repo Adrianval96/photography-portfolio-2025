@@ -2,15 +2,11 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+import { is_flag_active } from './helpers'
+
 const fetchFlag = async (key: string): Promise<boolean> => {
   const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'feature-flags',
-    where: { key: { equals: key } },
-    limit: 1,
-  })
-  const [flag] = result.docs
-  return flag?.enabled ?? false
+  return is_flag_active(payload, key)
 }
 
 export const isEnabled = (key: string) =>
