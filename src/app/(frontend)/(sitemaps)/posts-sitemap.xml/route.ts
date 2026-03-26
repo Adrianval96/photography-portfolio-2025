@@ -2,7 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
-import { REVALIDATE_SECONDS } from '@/constants'
+import { CACHE_TAG_POSTS_SITEMAP, REVALIDATE_SECONDS } from '@/constants'
 
 const getPostsSitemap = unstable_cache(
   async () => {
@@ -45,7 +45,7 @@ const getPostsSitemap = unstable_cache(
   },
   ['posts-sitemap'],
   {
-    tags: ['posts-sitemap'],
+    tags: [CACHE_TAG_POSTS_SITEMAP],
     revalidate: REVALIDATE_SECONDS,
   },
 )
