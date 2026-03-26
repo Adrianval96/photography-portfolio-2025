@@ -4,7 +4,7 @@
 }
 
 .inner {
-  max-width: var(--container-width, 1400px);
+  max-width: var(--max-width);
   margin: 0 auto;
   padding: 1.25rem 2rem 2.5rem;
   display: flex;
@@ -14,7 +14,7 @@
 
 .logoLink {
   text-decoration: none;
-  color: #ffffff;
+  color: var(--text-primary);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   transition: opacity 0.2s ease;
 }
