@@ -1,6 +1,6 @@
 import type { Payload } from 'payload'
 
-export const is_flag_active = async (payload: Payload, key: string): Promise<boolean> => {
+export const isFlagActive = async (payload: Payload, key: string): Promise<boolean> => {
   const result = await payload.find({
     collection: 'feature-flags',
     where: { key: { equals: key } },
