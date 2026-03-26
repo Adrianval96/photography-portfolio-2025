@@ -20,6 +20,7 @@ import { PortfolioItems } from './collections/PortfolioItems'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Homepage } from './Homepage/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -71,7 +72,7 @@ export default buildConfig({
   }),
   collections: [Pages, Media, Users, Categories, PortfolioItems],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, Homepage],
   plugins: [
     ...plugins,
     vercelBlobStorage({
