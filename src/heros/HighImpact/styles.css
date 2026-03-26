@@ -1,0 +1,48 @@
+.hero {
+  position: relative;
+  margin-top: -10.4rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.hero-content {
+  max-width: var(--container-width, 1400px);
+  margin: 0 auto;
+  padding-top: 6rem;
+  margin-bottom: 2rem;
+  z-index: 10;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  max-width: 36.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-text {
+    text-align: center;
+  }
+}
+
+.hero-links {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-links {
+    justify-content: center;
+  }
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  user-select: none;
+}

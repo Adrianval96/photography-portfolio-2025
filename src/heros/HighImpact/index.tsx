@@ -7,7 +7,7 @@ import type { Page } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import styles from './index.module.css'
+import './styles.css'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   const { setHeaderTheme } = useHeaderTheme()
@@ -17,12 +17,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   })
 
   return (
-    <div className={styles.hero} data-theme="dark">
-      <div className={styles.content}>
-        <div className={styles.text}>
+    <div className="hero" data-theme="dark">
+      <div className="hero-content">
+        <div className="hero-text">
           {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className={styles.links}>
+            <ul className="hero-links">
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>
@@ -34,7 +34,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           )}
         </div>
       </div>
-      <div className={styles.media}>
+      <div className="hero-media">
         {media && typeof media === 'object' && (
           <Media
             fill
