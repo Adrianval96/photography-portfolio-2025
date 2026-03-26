@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinematic State — Homepage Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────────── */
+    :root {
+      --bg-base:        #0a0a0a;
+      --bg-surface:     #111111;
+      --border:         #333333;
+      --text-primary:   #f0f0f0;
+      --text-secondary: #888888;
+      --text-muted:     #444444;
+
+      --space-xs:  4px;
+      --space-sm:  8px;
+      --space-md:  16px;
+      --space-lg:  24px;
+      --space-xl:  32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+      --space-5xl: 128px;
+
+      --text-display: clamp(3.5rem, 7vw, 6rem);
+      --text-h1:      clamp(2rem, 4vw, 3rem);
+      --text-h2:      1.5rem;
+      --text-h3:      1.125rem;
+      --text-body:    1rem;
+      --text-caption: 0.875rem;
+      --text-label:   0.72rem;
+
+      --weight-light:   300;
+      --weight-regular: 400;
+      --weight-medium:  500;
+
+      --transition-fast: 150ms ease;
+      --transition-base: 250ms ease;
+
+      --max-width:    1400px;
+      --page-padding: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: var(--weight-light);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Nav ───────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-lg) var(--page-padding);
+      /* subtle gradient so nav text stays legible over hero image */
+      background: linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2xl);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a:hover { color: var(--text-secondary); }
+
+    /* ─── Hero ──────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://picsum.photos/1920/1080?grayscale&blur=1');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.45);
+    }
+
+    /* dark vignette to anchor the text */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,10,0.6) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 var(--page-padding);
+    }
+
+    .hero-headline {
+      font-size: var(--text-display);
+      font-weight: var(--weight-light);
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero-subline {
+      font-size: var(--text-h3);
+      font-weight: var(--weight-light);
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-2xl);
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: var(--text-caption);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: var(--space-md) var(--space-2xl);
+      transition: border-color var(--transition-base), color var(--transition-base);
+    }
+
+    .hero-cta:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-secondary);
+    }
+
+    /* ─── Positioning Strip ─────────────────────────────────────────── */
+    .strip {
+      padding: var(--space-4xl) var(--page-padding);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .strip p {
+      font-size: var(--text-h2);
+      font-weight: var(--weight-light);
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 720px;
+    }
+
+    /* ─── Selected Work ─────────────────────────────────────────────── */
+    .selected-work {
+      padding: var(--space-5xl) var(--page-padding);
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .section-label {
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-link {
+      font-size: var(--text-caption);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .section-link:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+    }
+
+    /* Each row is either all-landscape or all-portrait — never mixed */
+    .work-item {
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    .work-item.landscape {
+      aspect-ratio: 3 / 2;
+    }
+
+    .work-item.portrait {
+      aspect-ratio: 2 / 3;
+    }
+
+    .work-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%);
+      transition: transform var(--transition-base), filter var(--transition-base);
+    }
+
+    .work-item:hover img {
+      transform: scale(1.02);
+      filter: grayscale(0%);
+    }
+
+    /* ─── Booking ───────────────────────────────────────────────────── */
+    .booking {
+      padding: var(--space-5xl) var(--page-padding);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3xl);
+    }
+
+    .booking-copy h2 {
+      font-size: var(--text-h1);
+      font-weight: var(--weight-light);
+      font-style: italic;
+      margin-bottom: var(--space-md);
+    }
+
+    .booking-copy p {
+      font-size: var(--text-body);
+      color: var(--text-secondary);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .booking-cta {
+      flex-shrink: 0;
+      display: inline-block;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: var(--text-caption);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: var(--space-md) var(--space-2xl);
+      transition: border-color var(--transition-base), color var(--transition-base);
+    }
+
+    .booking-cta:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-secondary);
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: var(--space-xl) var(--page-padding);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: var(--space-xl);
+      list-style: none;
+    }
+
+    .footer-nav a {
+      font-size: var(--text-label);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-nav a:hover { color: var(--text-secondary); }
+
+    .footer-copy {
+      font-size: var(--text-label);
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="nav-logo">Cinematic State Photography</a>
+    <ul class="nav-links">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-headline">Still frames from<br>a moving world.</h1>
+      <p class="hero-subline">Based in Australia, I explore the cinematic<br>in both the everyday and the unexpected.</p>
+      <a href="#" class="hero-cta">View the work →</a>
+    </div>
+  </section>
+
+  <!-- Positioning Strip -->
+  <section class="strip">
+    <p>I shoot the moments between moments — live performance, street, and the quiet found in unexpected places.</p>
+  </section>
+
+  <!-- Selected Work -->
+  <section class="selected-work">
+    <div class="section-header">
+      <span class="section-label">Selected Work</span>
+      <a href="#" class="section-link">See the full portfolio →</a>
+    </div>
+    <div class="work-grid">
+      <!-- Row 1: all landscape -->
+      <div class="work-item landscape">
+        <img src="https://picsum.photos/900/600?grayscale&random=1" alt="" />
+      </div>
+      <div class="work-item landscape">
+        <img src="https://picsum.photos/900/600?grayscale&random=2" alt="" />
+      </div>
+      <div class="work-item landscape">
+        <img src="https://picsum.photos/900/600?grayscale&random=3" alt="" />
+      </div>
+      <!-- Row 2: all portrait -->
+      <div class="work-item portrait">
+        <img src="https://picsum.photos/600/900?grayscale&random=4" alt="" />
+      </div>
+      <div class="work-item portrait">
+        <img src="https://picsum.photos/600/900?grayscale&random=5" alt="" />
+      </div>
+      <div class="work-item portrait">
+        <img src="https://picsum.photos/600/900?grayscale&random=6" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking">
+    <div class="booking-copy">
+      <h2>Let's make something together.</h2>
+      <p>Whether it's a live event, an editorial shoot, or something you haven't quite put into words yet — get in touch.</p>
+    </div>
+    <a href="#" class="booking-cta">Get in touch →</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-logo">Cinematic State</span>
+    <ul class="footer-nav">
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Adrian Valdes</span>
+  </footer>
+
+</body>
+</html>
