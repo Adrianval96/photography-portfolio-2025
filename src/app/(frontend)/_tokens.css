@@ -1,0 +1,42 @@
+:root {
+  /* Colour */
+  --bg-base:        #0a0a0a;
+  --bg-surface:     #111111;
+  --border:         #222222;
+  --text-primary:   #f0f0f0;
+  --text-secondary: #888888;
+  --text-muted:     #444444;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+
+  /* Typography — sizes */
+  --text-display: clamp(3rem, 6vw, 5rem);
+  --text-h1:      clamp(2rem, 4vw, 3rem);
+  --text-h2:      1.5rem;
+  --text-h3:      1.125rem;
+  --text-body:    1rem;
+  --text-caption: 0.875rem;
+  --text-label:   0.75rem;
+
+  /* Typography — weights */
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+
+  /* Layout */
+  --max-width:    1400px;
+  --page-padding: clamp(1rem, 5vw, 4rem);
+}
