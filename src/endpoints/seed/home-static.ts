@@ -1,8 +1,9 @@
+import { HOME_PAGE_SLUG } from '@/constants'
 import type { RequiredDataFromCollectionSlug } from 'payload'
 
 // Used for pre-seeded content so that the homepage is not empty
 export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
-  slug: 'home',
+  slug: HOME_PAGE_SLUG,
   _status: 'published',
   hero: {
     type: 'lowImpact',
@@ -83,6 +84,6 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
     description: 'An open-source website built with Payload and Next.js.',
     title: 'Payload Website Template',
   },
-  title: 'Home',
+  title: HOME_PAGE_SLUG,
   layout: [],
 }

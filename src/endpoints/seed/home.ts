@@ -1,5 +1,6 @@
 import type { RequiredDataFromCollectionSlug } from 'payload'
 import type { Media } from '@/payload-types'
+import { HOME_PAGE_SLUG } from '@/constants'
 
 type HomeArgs = {
   heroImage: Media
@@ -11,7 +12,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
   metaImage,
 }) => {
   return {
-    slug: 'home',
+    slug: HOME_PAGE_SLUG,
     _status: 'published',
     hero: {
       type: 'highImpact',
@@ -705,6 +706,6 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       image: heroImage.id,
       title: 'Payload Website Template',
     },
-    title: 'Home',
+    title: HOME_PAGE_SLUG,
   }
 }
