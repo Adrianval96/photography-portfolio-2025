@@ -1508,6 +1508,16 @@ export interface Homepage {
   heroImage: number | Media;
   heroHeadline: string;
   heroSubline?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1565,6 +1575,15 @@ export interface HomepageSelect<T extends boolean = true> {
   heroImage?: T;
   heroHeadline?: T;
   heroSubline?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

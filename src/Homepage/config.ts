@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import { link } from '@/fields/link'
 
 export const Homepage: GlobalConfig = {
   slug: 'homepage',
@@ -28,5 +29,9 @@ export const Homepage: GlobalConfig = {
       type: 'text',
       label: 'Hero Subline',
     },
+    link({
+      appearances: false,
+      overrides: { name: 'cta', label: 'CTA' },
+    }),
   ],
 }
