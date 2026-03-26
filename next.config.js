@@ -1,7 +1,8 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
-import { DEFAULT_SERVER_URL } from '@/constants.js'
+
+const DEFAULT_SERVER_URL = 'http://localhost:3000'
 
 const VERCEL_BLOB_HOSTNAME = '*.blob.vercel-storage.com'
 
