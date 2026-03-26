@@ -1,0 +1,17 @@
+.strip {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-4xl) var(--page-padding);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.text {
+  font-size: var(--text-h2);
+  font-style: italic;
+  font-weight: var(--weight-light);
+  color: var(--text-secondary);
+  margin: 0;
+}
