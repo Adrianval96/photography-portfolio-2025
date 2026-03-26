@@ -104,10 +104,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    homepage: Homepage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1499,6 +1501,28 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  heroImage: number | Media;
+  heroHeadline: string;
+  heroSubline?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1538,6 +1562,27 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  heroImage?: T;
+  heroHeadline?: T;
+  heroSubline?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   updatedAt?: T;
   createdAt?: T;
