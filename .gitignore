@@ -10,7 +10,8 @@ node_modules
 public/media/
 
 # Payload migrations — generated locally, never committed
-src/migrations/
+src/migrations/*.ts
+src/migrations/*.json
 
 public/robots.txt
 public/sitemap*.xml
