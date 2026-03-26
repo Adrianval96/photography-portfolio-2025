@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     users: User;
     categories: Category;
+    'portfolio-items': PortfolioItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -86,6 +87,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'portfolio-items': PortfolioItemsSelect<false> | PortfolioItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -673,6 +675,34 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-items".
+ */
+export interface PortfolioItem {
+  id: number;
+  title: string;
+  media: number | Media;
+  categories?: (number | Category)[] | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  location?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -840,6 +870,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'portfolio-items';
+        value: number | PortfolioItem;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1154,6 +1188,19 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-items_select".
+ */
+export interface PortfolioItemsSelect<T extends boolean = true> {
+  title?: T;
+  media?: T;
+  categories?: T;
+  description?: T;
+  location?: T;
   updatedAt?: T;
   createdAt?: T;
 }
