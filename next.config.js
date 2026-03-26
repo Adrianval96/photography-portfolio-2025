@@ -2,8 +2,6 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
 
-const VERCEL_BLOB_HOSTNAME = '*.blob.vercel-storage.com'
-
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : undefined || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -14,8 +12,7 @@ const nextConfig = {
     qualities: [75, 100],
     localPatterns: [
       {
-        pathname: '/api/media/file/**',
-        search: '**',
+        pathname: '/api/media/**',
       },
     ],
     remotePatterns: [
@@ -27,10 +24,6 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      {
-        protocol: 'https',
-        hostname: VERCEL_BLOB_HOSTNAME,
-      },
     ],
   },
   reactStrictMode: true,

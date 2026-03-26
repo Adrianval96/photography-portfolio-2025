@@ -44,10 +44,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
-    src =
-      url?.startsWith('/') || url?.startsWith('http')
-        ? `${url}?${cacheTag}`
-        : `${getClientSideURL()}${url}?${cacheTag}`
+    src = url?.startsWith('/') ? `${url}?${cacheTag}` : `${getClientSideURL()}${url}?${cacheTag}`
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
