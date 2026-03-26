@@ -20,7 +20,7 @@ export const PortfolioItems: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'categories', 'location', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'categories', 'location', 'featured', 'updatedAt'],
   },
   fields: [
     {
@@ -52,6 +52,16 @@ export const PortfolioItems: CollectionConfig = {
     {
       name: 'location',
       type: 'text',
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Featured on homepage',
+      defaultValue: false,
+      admin: {
+        description: 'Tick to include this image in the Selected Work section on the homepage.',
+        position: 'sidebar',
+      },
     },
     ...slugField(),
   ],

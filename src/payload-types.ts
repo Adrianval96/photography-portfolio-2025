@@ -698,6 +698,10 @@ export interface PortfolioItem {
     [k: string]: unknown;
   } | null;
   location?: string | null;
+  /**
+   * Tick to include this image in the Selected Work section on the homepage.
+   */
+  featured?: boolean | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -1203,6 +1207,7 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
   categories?: T;
   description?: T;
   location?: T;
+  featured?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
