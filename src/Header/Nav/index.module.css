@@ -12,7 +12,7 @@
 }
 
 .navLink {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-primary);
   font-size: 0.7rem;
   font-weight: var(--weight-regular);
   letter-spacing: 0.2em;
@@ -86,7 +86,7 @@
 }
 
 .mobileNavLink {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-primary);
   font-size: var(--text-h3);
   font-weight: var(--weight-regular);
   letter-spacing: 0.3em;
