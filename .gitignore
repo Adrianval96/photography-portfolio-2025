@@ -9,8 +9,8 @@ node_modules
 # Payload default media upload directory
 public/media/
 
-# Payload migrations — generated locally, never committed
-src/migrations/
+# Payload migration snapshots — generated, never committed
+src/migrations/*.json
 
 public/robots.txt
 public/sitemap*.xml
