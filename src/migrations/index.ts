@@ -1,15 +1,14 @@
-import * as migration_20250404_194237_initial from './20250404_194237_initial';
-import * as migration_20260325_022748 from './20260325_022748';
-import * as migration_20260325_052824 from './20260325_052824';
-import * as migration_20260326_045825 from './20260326_045825';
-import * as migration_20260326_053904 from './20260326_053904';
-import * as migration_20260326_055411 from './20260326_055411';
-import * as migration_20260326_060452 from './20260326_060452';
-import * as migration_20260326_062713 from './20260326_062713';
-import * as migration_20260326_085611 from './20260326_085611';
-import * as migration_20260326_homepage_global from './20260326_homepage_global';
-import * as migration_20260326_homepage_cta from './20260326_homepage_cta';
-import * as migration_20260326_feature_flags from './20260326_feature_flags';
+import * as migration_20250404_194237_initial from './20250404_194237_initial'
+import * as migration_20260325_022748 from './20260325_022748'
+import * as migration_20260325_052824 from './20260325_052824'
+import * as migration_20260326_045825 from './20260326_045825'
+import * as migration_20260326_053904 from './20260326_053904'
+import * as migration_20260326_055411 from './20260326_055411'
+import * as migration_20260326_060452 from './20260326_060452'
+import * as migration_20260326_062713 from './20260326_062713'
+import * as migration_20260326_085611 from './20260326_085611'
+import * as migration_20260326_homepage_global from './20260326_homepage_global'
+import * as migration_20260326_homepage_cta from './20260326_homepage_cta'
 
 export const migrations = [
   {
@@ -72,4 +71,4 @@ export const migrations = [
     down: migration_20260326_feature_flags.down,
     name: '20260326_feature_flags',
   },
-];
+]
