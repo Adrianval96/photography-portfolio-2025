@@ -2,7 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
-import { CACHE_TAG_PAGES_SITEMAP, REVALIDATE_SECONDS } from '@/constants'
+import { CACHE_TAG_PAGES_SITEMAP, HOME_PAGE_SLUG, REVALIDATE_SECONDS } from '@/constants'
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -48,7 +48,7 @@ const getPagesSitemap = unstable_cache(
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
+              loc: page?.slug === HOME_PAGE_SLUG ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
               lastmod: page.updatedAt || dateFallback,
             }
           })
@@ -56,7 +56,7 @@ const getPagesSitemap = unstable_cache(
 
     return [...defaultSitemap, ...sitemap]
   },
-  ['pages-sitemap'],
+  [CACHE_TAG_PAGES_SITEMAP],
   {
     tags: [CACHE_TAG_PAGES_SITEMAP],
     revalidate: REVALIDATE_SECONDS,

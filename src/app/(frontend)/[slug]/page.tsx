@@ -12,6 +12,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { HOME_PAGE_SLUG } from '@/constants'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -28,7 +29,7 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return doc.slug !== HOME_PAGE_SLUG
     })
     .map(({ slug }) => {
       return { slug }
@@ -45,7 +46,7 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
+  const { slug = HOME_PAGE_SLUG } = await paramsPromise
   const url = '/' + slug
 
   let page: RequiredDataFromCollectionSlug<'pages'> | null
@@ -55,7 +56,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
+  if (!page && slug === HOME_PAGE_SLUG) {
     page = homeStatic
   }
 
@@ -80,7 +81,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { slug = HOME_PAGE_SLUG } = await paramsPromise
   const page = await queryPageBySlug({
     slug,
   })

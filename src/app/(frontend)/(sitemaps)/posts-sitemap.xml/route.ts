@@ -43,7 +43,7 @@ const getPostsSitemap = unstable_cache(
 
     return sitemap
   },
-  ['posts-sitemap'],
+  [CACHE_TAG_POSTS_SITEMAP],
   {
     tags: [CACHE_TAG_POSTS_SITEMAP],
     revalidate: REVALIDATE_SECONDS,
