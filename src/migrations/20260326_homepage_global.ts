@@ -13,10 +13,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     "cta_type" "enum_homepage_cta_type" DEFAULT 'reference',
     "cta_new_tab" boolean,
     "cta_url" varchar,
-    "cta_label" varchar NOT NULL,
+    "cta_label" varchar,
     "updated_at" timestamp(3) with time zone,
     "created_at" timestamp(3) with time zone
   )`)
+
+  await db.execute(sql`ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "cta_type" "enum_homepage_cta_type" DEFAULT 'reference'`)
+  await db.execute(sql`ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "cta_new_tab" boolean`)
+  await db.execute(sql`ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "cta_url" varchar`)
+  await db.execute(sql`ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "cta_label" varchar`)
 
   await db.execute(sql`CREATE TABLE IF NOT EXISTS "homepage_rels" (
     "id" serial PRIMARY KEY NOT NULL,
