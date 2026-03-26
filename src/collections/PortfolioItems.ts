@@ -8,6 +8,7 @@ import {
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import { slugField } from '@/fields/slug'
 
 export const PortfolioItems: CollectionConfig = {
   slug: 'portfolio-items',
@@ -19,7 +20,7 @@ export const PortfolioItems: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'categories', 'location', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'categories', 'location', 'updatedAt'],
   },
   fields: [
     {
@@ -52,5 +53,6 @@ export const PortfolioItems: CollectionConfig = {
       name: 'location',
       type: 'text',
     },
+    ...slugField(),
   ],
 }
