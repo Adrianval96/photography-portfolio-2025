@@ -72,6 +72,7 @@ export interface Config {
     users: User;
     categories: Category;
     'portfolio-items': PortfolioItem;
+    'feature-flags': FeatureFlag;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'portfolio-items': PortfolioItemsSelect<false> | PortfolioItemsSelect<true>;
+    'feature-flags': FeatureFlagsSelect<false> | FeatureFlagsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -711,6 +713,24 @@ export interface PortfolioItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feature-flags".
+ */
+export interface FeatureFlag {
+  id: number;
+  /**
+   * kebab-case identifier, e.g. shop-enabled
+   */
+  key: string;
+  enabled?: boolean | null;
+  /**
+   * What does this flag control?
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -882,6 +902,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'portfolio-items';
         value: number | PortfolioItem;
+      } | null)
+    | ({
+        relationTo: 'feature-flags';
+        value: number | FeatureFlag;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1212,6 +1236,17 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
   featured?: T;
   slug?: T;
   slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feature-flags_select".
+ */
+export interface FeatureFlagsSelect<T extends boolean = true> {
+  key?: T;
+  enabled?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -14,6 +14,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { FeatureFlags } from './collections/FeatureFlags'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { PortfolioItems } from './collections/PortfolioItems'
@@ -70,7 +71,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Media, Users, Categories, PortfolioItems],
+  collections: [Pages, Media, Users, Categories, PortfolioItems, FeatureFlags],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, Homepage],
   plugins: [
