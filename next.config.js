@@ -12,7 +12,7 @@ const nextConfig = {
     qualities: [75, 100],
     localPatterns: [
       {
-        pathname: '/api/media/file/**',
+        pathname: '/api/media/**',
         search: '**',
       },
     ],
