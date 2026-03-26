@@ -3,10 +3,11 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import redirects from './redirects.js'
 
 const VERCEL_BLOB_HOSTNAME = '*.blob.vercel-storage.com'
+const DEFAULT_SERVER_URL = 'http://localhost:3000'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : undefined || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  : undefined || process.env.NEXT_PUBLIC_SERVER_URL || DEFAULT_SERVER_URL
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

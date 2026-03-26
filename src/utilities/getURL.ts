@@ -1,4 +1,5 @@
 import canUseDOM from './canUseDOM'
+import { DEFAULT_SERVER_URL } from '@/constants'
 
 export const getServerSideURL = () => {
   let url = process.env.NEXT_PUBLIC_SERVER_URL
@@ -8,7 +9,7 @@ export const getServerSideURL = () => {
   }
 
   if (!url) {
-    url = 'http://localhost:3000'
+    url = DEFAULT_SERVER_URL
   }
 
   return url
