@@ -698,6 +698,8 @@ export interface PortfolioItem {
     [k: string]: unknown;
   } | null;
   location?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1201,6 +1203,8 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
   categories?: T;
   description?: T;
   location?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
