@@ -12,7 +12,8 @@ const nextConfig = {
     qualities: [75, 100],
     localPatterns: [
       {
-        pathname: '/api/media/**',
+        pathname: '/api/media/file/**',
+        search: '**',
       },
     ],
     remotePatterns: [
