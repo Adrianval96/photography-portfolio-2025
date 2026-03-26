@@ -9,6 +9,7 @@ import * as migration_20260326_062713 from './20260326_062713'
 import * as migration_20260326_085611 from './20260326_085611'
 import * as migration_20260326_homepage_global from './20260326_homepage_global'
 import * as migration_20260326_homepage_cta from './20260326_homepage_cta'
+import * as migration_20260326_feature_flags from './20260326_feature_flags'
 
 export const migrations = [
   {
