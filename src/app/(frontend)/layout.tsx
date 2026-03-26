@@ -4,7 +4,7 @@ import { cn } from '@/utilities/ui'
 import { Cormorant_Garamond } from 'next/font/google'
 import React from 'react'
 
-const cormorant = Cormorant_Garamond({
+const font = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   style: ['normal', 'italic'],
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(cormorant.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
