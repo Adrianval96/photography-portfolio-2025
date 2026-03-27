@@ -10,25 +10,6 @@ type Props = {
   categories: Category[]
 }
 
-function PortfolioItemCard({ item }: { item: PortfolioItem }) {
-  if (!item.media || typeof item.media === 'number') return null
-  const media = item.media as MediaType
-  const category = item.categories?.find((cat) => typeof cat !== 'number') as Category | undefined
-
-  return (
-    <div className="portfolio-item">
-      <Media resource={media} imgClassName="portfolio-item__image" />
-      {(item.title || item.location || category) && (
-        <div className="portfolio-item__overlay">
-          {item.title && <p className="portfolio-item__title">{item.title}</p>}
-          {item.location && <p className="portfolio-item__location">{item.location}</p>}
-          {category && <p className="portfolio-item__category">{category.name}</p>}
-        </div>
-      )}
-    </div>
-  )
-}
-
 export function PortfolioGrid({ items, categories }: Props) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null)
 
@@ -63,9 +44,33 @@ export function PortfolioGrid({ items, categories }: Props) {
       </div>
 
       <div className="portfolio-grid">
-        {filtered.map((item) => (
-          <PortfolioItemCard key={item.id} item={item} />
-        ))}
+        {filtered.map((item) => {
+          if (!item.media || typeof item.media === 'number') return null
+          const media = item.media as MediaType
+          const category =
+            item.categories?.find((cat) => typeof cat !== 'number') as
+              | Category
+              | undefined
+
+          return (
+            <div key={item.id} className="portfolio-item">
+              <Media resource={media} imgClassName="portfolio-item__image" />
+              {(item.title || item.location || category) && (
+                <div className="portfolio-item__overlay">
+                  {item.title && (
+                    <p className="portfolio-item__title">{item.title}</p>
+                  )}
+                  {item.location && (
+                    <p className="portfolio-item__location">{item.location}</p>
+                  )}
+                  {category && (
+                    <p className="portfolio-item__category">{category.name}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )
+        })}
       </div>
     </>
   )
