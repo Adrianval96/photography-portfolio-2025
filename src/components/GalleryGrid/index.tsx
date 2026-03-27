@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { Category, PortfolioItem } from '@/payload-types'
-import { PortfolioItemCard } from '@/components/PortfolioItemCard'
+import { GalleryCard } from '@/components/GalleryCard'
 import './styles.css'
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   categories: Category[]
 }
 
-export function PortfolioGrid({ items, categories }: Props) {
+export function GalleryGrid({ items, categories }: Props) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null)
 
   const filtered =
@@ -45,7 +45,7 @@ export function PortfolioGrid({ items, categories }: Props) {
 
       <div className="portfolio-grid">
         {filtered.map((item) => (
-          <PortfolioItemCard key={item.id} item={item} />
+          <GalleryCard key={item.id} item={item} />
         ))}
       </div>
     </>

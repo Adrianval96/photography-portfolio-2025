@@ -8,7 +8,7 @@ type Props = {
   item: PortfolioItem
 }
 
-export function PortfolioItemCard({ item }: Props) {
+export function GalleryCard({ item }: Props) {
   if (!item.media || typeof item.media === 'number') return null
   const media = item.media as MediaType
   const category = item.categories?.find((cat) => typeof cat !== 'number') as

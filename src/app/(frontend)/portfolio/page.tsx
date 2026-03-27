@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { PortfolioGrid } from '@/components/PortfolioGrid'
+import { GalleryGrid } from '@/components/GalleryGrid'
 
 export const metadata: Metadata = {
   title: 'Portfolio',
@@ -27,7 +27,7 @@ export default async function PortfolioPage() {
 
   return (
     <div className="pt-16">
-      <PortfolioGrid items={items} categories={categories} />
+      <GalleryGrid items={items} categories={categories} />
     </div>
   )
 }
