@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { Media } from '@/components/Media'
 import type { Category, Media as MediaType, PortfolioItem } from '@/payload-types'
+import './styles.css'
 
 type Props = {
   items: PortfolioItem[]
