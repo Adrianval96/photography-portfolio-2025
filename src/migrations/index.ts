@@ -11,6 +11,7 @@ import * as migration_20260326_feature_flags from './20260326_feature_flags';
 import * as migration_20260326_homepage_cta from './20260326_homepage_cta';
 import * as migration_20260326_homepage_global from './20260326_homepage_global';
 import * as migration_20260327_025519 from './20260327_025519';
+import * as migration_20260327_homepage_cta_section from './20260327_homepage_cta_section';
 
 export const migrations = [
   {
@@ -77,5 +78,10 @@ export const migrations = [
     up: migration_20260327_025519.up,
     down: migration_20260327_025519.down,
     name: '20260327_025519'
+  },
+  {
+    up: migration_20260327_homepage_cta_section.up,
+    down: migration_20260327_homepage_cta_section.down,
+    name: '20260327_homepage_cta_section'
   },
 ];

@@ -41,5 +41,83 @@ export const Homepage: GlobalConfig = {
         description: 'Single-line statement shown in the strip below the hero.',
       },
     },
+    {
+      name: 'ctaSection',
+      type: 'group',
+      label: 'CTA Section',
+      admin: {
+        description: 'Bottom CTA section shown after the featured work grid.',
+      },
+      fields: [
+        {
+          name: 'headline',
+          type: 'text',
+          label: 'Headline',
+        },
+        {
+          name: 'subline',
+          type: 'text',
+          label: 'Subline',
+        },
+        {
+          name: 'link',
+          type: 'group',
+          admin: { hideGutter: true },
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'type',
+                  type: 'radio',
+                  defaultValue: 'reference',
+                  options: [
+                    { label: 'Internal link', value: 'reference' },
+                    { label: 'Custom URL', value: 'custom' },
+                  ],
+                  admin: { layout: 'horizontal', width: '50%' },
+                },
+                {
+                  name: 'newTab',
+                  type: 'checkbox',
+                  label: 'Open in new tab',
+                  admin: { width: '50%' },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'reference',
+                  type: 'relationship',
+                  relationTo: ['pages'],
+                  label: 'Document to link to',
+                  admin: {
+                    condition: (_, siblingData) => siblingData?.type === 'reference',
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'url',
+                  type: 'text',
+                  label: 'Custom URL',
+                  admin: {
+                    condition: (_, siblingData) => siblingData?.type === 'custom',
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'label',
+                  type: 'text',
+                  label: 'Label',
+                  admin: { width: '50%' },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

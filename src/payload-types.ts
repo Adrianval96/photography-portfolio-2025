@@ -1607,6 +1607,23 @@ export interface Homepage {
    * Single-line statement shown in the strip below the hero.
    */
   positioningStatement?: string | null;
+  /**
+   * Bottom CTA section shown after the featured work grid.
+   */
+  ctaSection?: {
+    headline?: string | null;
+    subline?: string | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?: {
+        relationTo: 'pages';
+        value: number | Page;
+      } | null;
+      url?: string | null;
+      label?: string | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1674,6 +1691,21 @@ export interface HomepageSelect<T extends boolean = true> {
         label?: T;
       };
   positioningStatement?: T;
+  ctaSection?:
+    | T
+    | {
+        headline?: T;
+        subline?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
