@@ -192,7 +192,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | MediaGroupBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | MediaGroupBlock | FormBlock | PromoSectionBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -643,6 +643,33 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoSectionBlock".
+ */
+export interface PromoSectionBlock {
+  /**
+   * Vertical stacks content. Horizontal places image and text side by side.
+   */
+  orientation?: ('vertical' | 'horizontal') | null;
+  image?: (number | null) | Media;
+  headline: string;
+  body?: string | null;
+  enableLink?: boolean | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'promoSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -703,7 +730,7 @@ export interface PortfolioItem {
   } | null;
   location?: string | null;
   /**
-   * Tick to include this image in the Selected Work section on the homepage.
+   * Tick to include this image in the Featured Work section on the homepage.
    */
   featured?: boolean | null;
   slug?: string | null;
@@ -997,6 +1024,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         mediaGroupBlock?: T | MediaGroupBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        promoSection?: T | PromoSectionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1095,6 +1123,28 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoSectionBlock_select".
+ */
+export interface PromoSectionBlockSelect<T extends boolean = true> {
+  orientation?: T;
+  image?: T;
+  headline?: T;
+  body?: T;
+  enableLink?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   id?: T;
   blockName?: T;
 }
