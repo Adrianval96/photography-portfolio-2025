@@ -1,5 +1,5 @@
 .featured-work {
-  padding: var(--space-5xl) var(--page-padding);
+  padding: var(--space-3xl) var(--page-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
