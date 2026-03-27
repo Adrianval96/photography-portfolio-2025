@@ -4,18 +4,23 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  transition: transform 400ms ease-out;
+}
+
+.gallery-card:hover {
+  transform: scale(1.06);
+  z-index: 1;
 }
 
 .gallery-card__image {
   display: block;
   width: 100%;
   height: auto;
-  transition: transform 400ms ease-out, filter 400ms ease-out;
   filter: grayscale(15%);
+  transition: filter 400ms ease-out;
 }
 
 .gallery-card:hover .gallery-card__image {
-  transform: scale(1.03);
   filter: grayscale(0%);
 }
 
