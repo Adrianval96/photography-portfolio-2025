@@ -1,5 +1,3 @@
-'use client'
-
 import { Media } from '@/components/Media'
 import type { Category, Media as MediaType, PortfolioItem } from '@/payload-types'
 import './styles.css'
