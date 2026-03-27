@@ -5,6 +5,7 @@ import { HeroSection } from './HeroSection'
 import { PositioningStrip } from './PositioningStrip'
 import { FeaturedWork } from './FeaturedWork'
 import { CTASection } from './CTASection'
+import { About } from '@/components/About'
 
 export async function HomePage() {
   const payload = await getPayload({ config: configPromise })
@@ -22,6 +23,7 @@ export async function HomePage() {
       {featuredItems.docs.length > 0 && (
         <FeaturedWork items={featuredItems.docs} />
       )}
+      {homepage.aboutSection && <About data={homepage.aboutSection} />}
       {homepage.ctaSection && <CTASection data={homepage.ctaSection} />}
     </main>
   )

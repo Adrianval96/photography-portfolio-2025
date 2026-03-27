@@ -1561,6 +1561,11 @@ export interface Homepage {
    * Single-line statement shown in the strip below the hero.
    */
   positioningStatement?: string | null;
+  aboutSection?: {
+    photo?: (number | null) | Media;
+    name?: string | null;
+    bio?: string | null;
+  };
   /**
    * Bottom CTA section shown after the featured work grid.
    */
@@ -1646,6 +1651,13 @@ export interface HomepageSelect<T extends boolean = true> {
         label?: T;
       };
   positioningStatement?: T;
+  aboutSection?:
+    | T
+    | {
+        photo?: T;
+        name?: T;
+        bio?: T;
+      };
   ctaSection?:
     | T
     | {

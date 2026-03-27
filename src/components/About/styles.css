@@ -1,0 +1,44 @@
+.about {
+  border-top: 1px solid var(--border);
+  padding: var(--space-5xl) var(--page-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--space-5xl);
+  align-items: center;
+}
+
+.about__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.about__image {
+  object-fit: cover;
+}
+
+.about__label {
+  display: block;
+  font-size: var(--text-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.about__name {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-light);
+  font-style: italic;
+  line-height: 1.15;
+  margin-bottom: var(--space-xl);
+}
+
+.about__bio {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 520px;
+}
