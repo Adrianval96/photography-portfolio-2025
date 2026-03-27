@@ -14,11 +14,13 @@ const font = Cormorant_Garamond({
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
+import { NewFooter } from '@/Footer/NewFooter'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
+import { isFlagEnabled } from '@/utilities/flags'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
@@ -26,6 +28,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const newFooterEnabled = await isFlagEnabled('enable-new-footer')
 
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
@@ -44,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
           <Header />
           {children}
-          <Footer />
+          {newFooterEnabled ? <NewFooter /> : <Footer />}
         </Providers>
       </body>
     </html>
