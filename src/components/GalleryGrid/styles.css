@@ -39,7 +39,7 @@
   border-color: var(--text-secondary);
 }
 
-.portfolio-grid {
+.gallery-grid {
   columns: 1;
   column-gap: var(--space-lg);
   padding: 0 var(--page-padding) var(--space-5xl);
@@ -48,13 +48,13 @@
 }
 
 @media (min-width: 640px) {
-  .portfolio-grid {
+  .gallery-grid {
     columns: 2;
   }
 }
 
 @media (min-width: 1024px) {
-  .portfolio-grid {
+  .gallery-grid {
     columns: 3;
   }
 }

@@ -43,7 +43,7 @@ export function GalleryGrid({ items, categories }: Props) {
         ))}
       </div>
 
-      <div className="portfolio-grid">
+      <div className="gallery-grid">
         {filtered.map((item) => (
           <GalleryCard key={item.id} item={item} />
         ))}

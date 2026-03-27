@@ -14,13 +14,13 @@ export function GalleryCard({ item }: Props) {
     | undefined
 
   return (
-    <div className="portfolio-item">
-      <Media resource={media} imgClassName="portfolio-item__image" />
+    <div className="gallery-card">
+      <Media resource={media} imgClassName="gallery-card__image" />
       {(item.title || item.location || category) && (
-        <div className="portfolio-item__overlay">
-          {item.title && <p className="portfolio-item__title">{item.title}</p>}
-          {item.location && <p className="portfolio-item__location">{item.location}</p>}
-          {category && <p className="portfolio-item__category">{category.name}</p>}
+        <div className="gallery-card__overlay">
+          {item.title && <p className="gallery-card__title">{item.title}</p>}
+          {item.location && <p className="gallery-card__location">{item.location}</p>}
+          {category && <p className="gallery-card__category">{category.name}</p>}
         </div>
       )}
     </div>
