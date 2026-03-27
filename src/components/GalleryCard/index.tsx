@@ -10,9 +10,7 @@ type Props = {
 export function GalleryCard({ item, onOpen }: Props) {
   if (!item.media || typeof item.media === 'number') return null
   const media = item.media as MediaType
-  const category = item.categories?.find((cat) => typeof cat !== 'number') as
-    | Category
-    | undefined
+  const category = item.categories?.find((cat) => typeof cat !== 'number') as Category | undefined
 
   return (
     <div className="gallery-card" onClick={onOpen} role="button" tabIndex={0}>
