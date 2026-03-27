@@ -13,7 +13,7 @@ const font = Cormorant_Garamond({
 })
 
 import { AdminBar } from '@/components/AdminBar'
-import { NewFooter } from '@/Footer/NewFooter'
+import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
           <Header />
           {children}
-          <NewFooter />
+          <Footer />
         </Providers>
       </body>
     </html>
