@@ -1,0 +1,118 @@
+.filter-bar {
+  padding: var(--space-2xl) var(--page-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-bar__label {
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: var(--space-sm);
+}
+
+.filter-btn {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid transparent;
+  padding: var(--space-xs) var(--space-md);
+  cursor: pointer;
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.filter-btn--active {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.portfolio-grid {
+  columns: 1;
+  column-gap: var(--space-lg);
+  padding: 0 var(--page-padding) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .portfolio-grid {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-grid {
+    columns: 3;
+  }
+}
+
+.portfolio-item {
+  break-inside: avoid;
+  margin-bottom: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.portfolio-item__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 400ms ease-out, filter 400ms ease-out;
+  filter: grayscale(15%);
+}
+
+.portfolio-item:hover .portfolio-item__image {
+  transform: scale(1.03);
+  filter: grayscale(0%);
+}
+
+.portfolio-item__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-xl) var(--space-md) var(--space-md);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.portfolio-item:hover .portfolio-item__overlay {
+  opacity: 1;
+}
+
+.portfolio-item__title {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  margin: 0 0 2px;
+}
+
+.portfolio-item__location {
+  font-size: var(--text-label);
+  color: rgba(240, 240, 240, 0.6);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.portfolio-item__category {
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 240, 0.45);
+  margin: var(--space-xs) 0 0;
+}
