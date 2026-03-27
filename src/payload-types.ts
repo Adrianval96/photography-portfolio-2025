@@ -1553,6 +1553,10 @@ export interface Homepage {
     url?: string | null;
     label: string;
   };
+  /**
+   * Single-line statement shown in the strip below the hero.
+   */
+  positioningStatement?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1619,6 +1623,7 @@ export interface HomepageSelect<T extends boolean = true> {
         url?: T;
         label?: T;
       };
+  positioningStatement?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
