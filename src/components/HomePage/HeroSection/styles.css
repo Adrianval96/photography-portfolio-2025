@@ -53,14 +53,16 @@
 
 .hero-section__cta {
   display: inline-block;
-  padding: var(--space-sm) var(--space-xl);
-  border: 1px solid var(--border);
+  font-family: var(--font-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--text-primary);
   text-decoration: none;
-  font-size: var(--text-label);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  transition: border-color var(--transition-fast), color var(--transition-fast);
+  border: 1px solid var(--border);
+  padding: var(--space-md) var(--space-2xl);
+  transition: border-color var(--transition-base), color var(--transition-base);
 }
 
 .hero-section__cta:hover {
