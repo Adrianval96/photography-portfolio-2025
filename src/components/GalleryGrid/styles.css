@@ -1,0 +1,60 @@
+.filter-bar {
+  padding: var(--space-2xl) var(--page-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-bar__label {
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: var(--space-sm);
+}
+
+.filter-btn {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid transparent;
+  padding: var(--space-xs) var(--space-md);
+  cursor: pointer;
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.filter-btn--active {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.gallery-grid {
+  columns: 1;
+  column-gap: var(--space-lg);
+  padding: 0 var(--page-padding) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-grid {
+    columns: 3;
+  }
+}
