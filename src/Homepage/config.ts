@@ -33,5 +33,13 @@ export const Homepage: GlobalConfig = {
       appearances: false,
       overrides: { name: 'cta', label: 'CTA' },
     }),
+    {
+      name: 'positioningStatement',
+      type: 'text',
+      label: 'Positioning Statement',
+      admin: {
+        description: 'Single-line statement shown in the strip below the hero.',
+      },
+    },
   ],
 }

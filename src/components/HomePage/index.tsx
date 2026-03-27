@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { HeroSection } from './HeroSection'
+import { PositioningStrip } from './PositioningStrip'
 
 export async function HomePage() {
   const payload = await getPayload({ config: configPromise })
@@ -9,6 +10,9 @@ export async function HomePage() {
   return (
     <main>
       <HeroSection data={homepage} />
+      {homepage.positioningStatement && (
+        <PositioningStrip statement={homepage.positioningStatement} />
+      )}
     </main>
   )
 }

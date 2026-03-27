@@ -1,0 +1,15 @@
+.positioning-strip {
+  padding: var(--space-4xl) var(--page-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.positioning-strip__statement {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-light);
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 720px;
+}
