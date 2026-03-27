@@ -12,6 +12,10 @@ function isLandscape(media: Media): boolean {
   return !width || !height || width >= height
 }
 
+function getOrientation(media: Media): 'landscape' | 'portrait' {
+  return isLandscape(media) ? 'landscape' : 'portrait'
+}
+
 function resolveMedia(item: PortfolioItem): Media | null {
   return typeof item.media === 'object' ? item.media : null
 }
@@ -39,7 +43,7 @@ export function FeaturedWork({ items }: Props) {
       <div className="featured-work__grid">
         {sorted.map((item) => {
           const media = resolveMedia(item)
-          const orientation = media && isLandscape(media) ? 'landscape' : 'portrait'
+          const orientation = media ? getOrientation(media) : 'portrait'
           return (
             <div key={item.id} className={`featured-work__item featured-work__item--${orientation}`}>
               {media && (
