@@ -1,5 +1,5 @@
 .selected-work {
-  padding: var(--space-5xl) var(--page-padding);
+  padding: var(--space-2xl) var(--page-padding) var(--space-3xl);
   max-width: var(--max-width);
   margin: 0 auto;
 }

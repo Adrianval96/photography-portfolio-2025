@@ -1,5 +1,5 @@
 .positioning-strip {
-  padding: var(--space-4xl) var(--page-padding);
+  padding: var(--space-4xl) var(--page-padding) var(--space-2xl);
   max-width: var(--max-width);
   margin: 0 auto;
   border-bottom: 1px solid var(--border);
