@@ -12,15 +12,21 @@ function isLandscape(media: Media): boolean {
   return !width || !height || width >= height
 }
 
-export function SelectedWork({ items }: Props) {
-  const sorted = [...items].sort((a, b) => {
-    const aMedia = typeof a.media === 'object' ? a.media : null
-    const bMedia = typeof b.media === 'object' ? b.media : null
-    const aLandscape = aMedia ? isLandscape(aMedia) : true
-    const bLandscape = bMedia ? isLandscape(bMedia) : true
+function resolveMedia(item: PortfolioItem): Media | null {
+  return typeof item.media === 'object' ? item.media : null
+}
+
+function sortPortraitFirst(items: PortfolioItem[]): PortfolioItem[] {
+  return [...items].sort((a, b) => {
+    const aLandscape = isLandscape(resolveMedia(a) ?? ({} as Media))
+    const bLandscape = isLandscape(resolveMedia(b) ?? ({} as Media))
     if (aLandscape === bLandscape) return 0
-    return aLandscape ? -1 : 1
+    return aLandscape ? 1 : -1
   })
+}
+
+export function SelectedWork({ items }: Props) {
+  const sorted = sortPortraitFirst(items)
 
   return (
     <section className="selected-work">
@@ -32,13 +38,10 @@ export function SelectedWork({ items }: Props) {
       </header>
       <div className="selected-work__grid">
         {sorted.map((item) => {
-          const media = typeof item.media === 'object' ? item.media : null
-          const landscape = media ? isLandscape(media) : true
+          const media = resolveMedia(item)
+          const orientation = media && isLandscape(media) ? 'landscape' : 'portrait'
           return (
-            <div
-              key={item.id}
-              className={`selected-work__item selected-work__item--${landscape ? 'landscape' : 'portrait'}`}
-            >
+            <div key={item.id} className={`selected-work__item selected-work__item--${orientation}`}>
               {media && (
                 <MediaComponent
                   fill
