@@ -4,17 +4,16 @@ import './styles.css'
 
 type Props = {
   item: PortfolioItem
+  onOpen: () => void
 }
 
-export function GalleryCard({ item }: Props) {
+export function GalleryCard({ item, onOpen }: Props) {
   if (!item.media || typeof item.media === 'number') return null
   const media = item.media as MediaType
-  const category = item.categories?.find((cat) => typeof cat !== 'number') as
-    | Category
-    | undefined
+  const category = item.categories?.find((cat) => typeof cat !== 'number') as Category | undefined
 
   return (
-    <div className="gallery-card">
+    <div className="gallery-card" onClick={onOpen} role="button" tabIndex={0}>
       <Media resource={media} imgClassName="gallery-card__image" />
       {(item.title || item.location || category) && (
         <div className="gallery-card__overlay">

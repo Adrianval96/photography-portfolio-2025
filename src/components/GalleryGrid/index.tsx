@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Category, PortfolioItem } from '@/payload-types'
 import { GalleryCard } from '@/components/GalleryCard'
+import { Lightbox } from '@/components/Lightbox'
 import './styles.css'
 
 type Props = {
@@ -15,6 +16,7 @@ const getFilterButtonClass = (isActive: boolean) =>
 
 export function GalleryGrid({ items, categories }: Props) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const filtered =
     activeFilter === null
@@ -47,10 +49,20 @@ export function GalleryGrid({ items, categories }: Props) {
       </div>
 
       <div className="gallery-grid">
-        {filtered.map((item) => (
-          <GalleryCard key={item.id} item={item} />
+        {filtered.map((item, index) => (
+          <GalleryCard key={item.id} item={item} onOpen={() => setLightboxIndex(index)} />
         ))}
       </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          items={filtered}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length)}
+          onNext={() => setLightboxIndex((lightboxIndex + 1) % filtered.length)}
+        />
+      )}
     </>
   )
 }
