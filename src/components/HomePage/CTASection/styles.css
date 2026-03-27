@@ -23,6 +23,7 @@
   font-size: var(--text-h1);
   font-weight: var(--weight-light);
   font-style: italic;
+  color: var(--text-primary);
   margin: 0;
 }
 
