@@ -10,7 +10,7 @@ type Props = {
   categories: Category[]
 }
 
-const getSelectedFilter = (isActive: boolean) =>
+const getFilterButtonClass = (isActive: boolean) =>
   `filter-btn${isActive ? ' filter-btn--active' : ''}`
 
 export function GalleryGrid({ items, categories }: Props) {
@@ -30,7 +30,7 @@ export function GalleryGrid({ items, categories }: Props) {
       <div className="filter-bar">
         <span className="filter-bar__label">Filter</span>
         <button
-          className={getSelectedFilter(activeFilter === null)}
+          className={getFilterButtonClass(activeFilter === null)}
           onClick={() => setActiveFilter(null)}
         >
           All
@@ -38,7 +38,7 @@ export function GalleryGrid({ items, categories }: Props) {
         {categories.map((cat) => (
           <button
             key={cat.id}
-            className={getSelectedFilter(activeFilter === cat.id)}
+            className={getFilterButtonClass(activeFilter === cat.id)}
             onClick={() => setActiveFilter(cat.id)}
           >
             {cat.name}
