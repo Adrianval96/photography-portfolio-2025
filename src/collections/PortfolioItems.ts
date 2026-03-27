@@ -59,7 +59,7 @@ export const PortfolioItems: CollectionConfig = {
       label: 'Featured on homepage',
       defaultValue: false,
       admin: {
-        description: 'Tick to include this image in the Selected Work section on the homepage.',
+        description: 'Tick to include this image in the Featured Work section on the homepage.',
         position: 'sidebar',
       },
     },
