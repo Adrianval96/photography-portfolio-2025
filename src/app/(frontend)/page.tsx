@@ -1,15 +1,7 @@
-import { isFlagEnabled } from '@/utilities/flags'
-import PageTemplate, { generateMetadata } from './[slug]/page'
 import { HomePage } from '@/components/HomePage'
 
-export { generateMetadata }
+export { generateMetadata } from './[slug]/page'
 
-export default async function Page() {
-  const homepageAsCode = await isFlagEnabled('enable-homepage-as-code')
-
-  if (homepageAsCode) {
-    return <HomePage />
-  }
-
-  return <PageTemplate params={Promise.resolve({})} />
+export default function Page() {
+  return <HomePage />
 }
