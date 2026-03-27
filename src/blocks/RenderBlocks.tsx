@@ -7,7 +7,6 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaGroupBlock } from '@/blocks/MediaGroupBlock/Component'
-import { PromoSectionBlock } from '@/blocks/PromoSection/Component'
 
 const blockComponents = {
   content: ContentBlock,
@@ -15,7 +14,6 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   mediaGroupBlock: MediaGroupBlock,
-  promoSection: PromoSectionBlock,
 }
 
 export const RenderBlocks: React.FC<{
