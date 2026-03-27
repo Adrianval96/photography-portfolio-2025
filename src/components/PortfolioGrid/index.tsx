@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Media } from '@/components/Media'
-import type { Category, Media as MediaType, PortfolioItem } from '@/payload-types'
+import type { Category, PortfolioItem } from '@/payload-types'
+import { PortfolioItemCard } from '@/components/PortfolioItemCard'
 import './styles.css'
 
 type Props = {
@@ -44,33 +44,9 @@ export function PortfolioGrid({ items, categories }: Props) {
       </div>
 
       <div className="portfolio-grid">
-        {filtered.map((item) => {
-          if (!item.media || typeof item.media === 'number') return null
-          const media = item.media as MediaType
-          const category =
-            item.categories?.find((cat) => typeof cat !== 'number') as
-              | Category
-              | undefined
-
-          return (
-            <div key={item.id} className="portfolio-item">
-              <Media resource={media} imgClassName="portfolio-item__image" />
-              {(item.title || item.location || category) && (
-                <div className="portfolio-item__overlay">
-                  {item.title && (
-                    <p className="portfolio-item__title">{item.title}</p>
-                  )}
-                  {item.location && (
-                    <p className="portfolio-item__location">{item.location}</p>
-                  )}
-                  {category && (
-                    <p className="portfolio-item__category">{category.name}</p>
-                  )}
-                </div>
-              )}
-            </div>
-          )
-        })}
+        {filtered.map((item) => (
+          <PortfolioItemCard key={item.id} item={item} />
+        ))}
       </div>
     </>
   )
