@@ -20,15 +20,15 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
-import { isEnabled } from '@/utilities/flags'
+import { isFlagEnabled } from '@/utilities/flags'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled: isDraftMode } = await draftMode()
-  const newFooterEnabled = await isEnabled('enable-new-footer')
+  const { isEnabled } = await draftMode()
+  const newFooterEnabled = await isFlagEnabled('enable-new-footer')
 
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           <AdminBar
             adminBarProps={{
-              preview: isDraftMode,
+              preview: isEnabled,
             }}
           />
 

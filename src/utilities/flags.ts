@@ -3,7 +3,7 @@ import type { Payload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
-export const isEnabled = (key: string) =>
+export const isFlagEnabled = (key: string) =>
   unstable_cache(() => fetchFlag(key), [`flag-${key}`], { revalidate: 60, tags: [`flag-${key}`] })()
 
 const isFlagActive = async (payload: Payload, key: string): Promise<boolean> => {
