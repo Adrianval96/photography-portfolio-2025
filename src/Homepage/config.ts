@@ -42,6 +42,29 @@ export const Homepage: GlobalConfig = {
       },
     },
     {
+      name: 'aboutSection',
+      type: 'group',
+      label: 'About Section',
+      fields: [
+        {
+          name: 'photo',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Photo',
+        },
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Name',
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
+          label: 'Bio',
+        },
+      ],
+    },
+    {
       name: 'ctaSection',
       type: 'group',
       label: 'CTA Section',

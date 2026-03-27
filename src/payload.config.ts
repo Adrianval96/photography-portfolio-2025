@@ -19,7 +19,6 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { PortfolioItems } from './collections/PortfolioItems'
 import { Users } from './collections/Users'
-import { About } from './About/config'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { Homepage } from './Homepage/config'
@@ -74,7 +73,7 @@ export default buildConfig({
   }),
   collections: [Pages, Media, Users, Categories, PortfolioItems, FeatureFlags],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, Homepage, About],
+  globals: [Header, Footer, Homepage],
   plugins: [
     ...plugins,
     vercelBlobStorage({

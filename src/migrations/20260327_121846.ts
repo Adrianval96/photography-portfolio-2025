@@ -2,19 +2,18 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   CREATE TABLE "about" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"photo_id" integer NOT NULL,
-  	"name" varchar NOT NULL,
-  	"bio" varchar NOT NULL,
-  	"updated_at" timestamp(3) with time zone,
-  	"created_at" timestamp(3) with time zone
-  );
-  ALTER TABLE "about" ADD CONSTRAINT "about_photo_id_media_id_fk" FOREIGN KEY ("photo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  CREATE INDEX "about_photo_idx" ON "about" USING btree ("photo_id");`)
+   ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_photo_id" integer;
+   ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_name" varchar;
+   ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_bio" varchar;
+   ALTER TABLE "homepage" ADD CONSTRAINT "homepage_about_section_photo_id_media_id_fk" FOREIGN KEY ("about_section_photo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+   CREATE INDEX IF NOT EXISTS "homepage_about_section_photo_idx" ON "homepage" USING btree ("about_section_photo_id");`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
-   DROP TABLE "about" CASCADE;`)
+   DROP INDEX IF EXISTS "homepage_about_section_photo_idx";
+   ALTER TABLE "homepage" DROP CONSTRAINT IF EXISTS "homepage_about_section_photo_id_media_id_fk";
+   ALTER TABLE "homepage" DROP COLUMN IF EXISTS "about_section_photo_id";
+   ALTER TABLE "homepage" DROP COLUMN IF EXISTS "about_section_name";
+   ALTER TABLE "homepage" DROP COLUMN IF EXISTS "about_section_bio";`)
 }

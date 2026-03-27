@@ -1,14 +1,14 @@
 import Image from 'next/image'
-import type { About as AboutType, Media } from '@/payload-types'
+import type { Homepage, Media } from '@/payload-types'
 import './styles.css'
 
 type Props = {
-  data: AboutType
+  data: NonNullable<Homepage['aboutSection']>
 }
 
 export function About({ data }: Props) {
   const { photo, name, bio } = data
-  if (!photo || typeof photo === 'number') return null
+  if (!photo || typeof photo === 'number' || !name || !bio) return null
   const media = photo as Media
 
   return (
