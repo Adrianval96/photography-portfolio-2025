@@ -1,6 +1,11 @@
 @import '~@payloadcms/ui/scss';
 
 .admin-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+
   @include small-break {
     display: none;
   }
