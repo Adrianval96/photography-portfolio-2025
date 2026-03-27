@@ -16,3 +16,6 @@ public/robots.txt
 public/sitemap*.xml
 .env*.local
 tsconfig.tsbuildinfo
+
+# Local design references — not part of the codebase
+docs/
