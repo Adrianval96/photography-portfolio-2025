@@ -6,9 +6,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-3xl);
 }
 
 .new-footer__logo {
+  white-space: nowrap;
   font-size: var(--text-label);
   font-weight: var(--weight-regular);
   letter-spacing: 0.2em;
@@ -38,6 +40,8 @@
 }
 
 .new-footer__copy {
+  flex: 1;
+  text-align: right;
   font-size: var(--text-label);
   color: var(--text-muted);
   letter-spacing: 0.05em;
