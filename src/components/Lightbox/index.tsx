@@ -27,8 +27,11 @@ export function Lightbox({ items, index, onClose, onPrev, onNext }: Props) {
   }, [onClose, onPrev, onNext])
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
+    const lockScrolling = () => {
+      document.body.style.overflow = 'hidden'
+      return () => { document.body.style.overflow = '' }
+    }
+    return lockScrolling()
   }, [])
 
   if (!item || !item.media || typeof item.media === 'number') return null
