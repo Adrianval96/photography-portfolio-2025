@@ -14,8 +14,10 @@ export function CTASection({ data }: Props) {
   return (
     <section className="cta-section">
       <div className="cta-section__content">
-        {headline && <h2 className="cta-section__headline">{headline}</h2>}
-        {subline && <p className="cta-section__subline">{subline}</p>}
+        <div className="cta-section__text">
+          {headline && <h2 className="cta-section__headline">{headline}</h2>}
+          {subline && <p className="cta-section__subline">{subline}</p>}
+        </div>
         {link && <CMSLink {...link} className="cta-section__link" />}
       </div>
     </section>
