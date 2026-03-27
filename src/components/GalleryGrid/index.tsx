@@ -15,6 +15,7 @@ const getFilterButtonClass = (isActive: boolean) =>
 
 export function GalleryGrid({ items, categories }: Props) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const filtered =
     activeFilter === null
@@ -47,8 +48,8 @@ export function GalleryGrid({ items, categories }: Props) {
       </div>
 
       <div className="gallery-grid">
-        {filtered.map((item) => (
-          <GalleryCard key={item.id} item={item} />
+        {filtered.map((item, index) => (
+          <GalleryCard key={item.id} item={item} onOpen={() => setLightboxIndex(index)} />
         ))}
       </div>
     </>
