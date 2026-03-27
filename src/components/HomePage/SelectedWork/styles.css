@@ -44,6 +44,12 @@
 .selected-work__item {
   position: relative;
   overflow: hidden;
+  transition: transform 400ms ease-out;
+}
+
+.selected-work__item:hover {
+  transform: scale(1.06);
+  z-index: 1;
 }
 
 .selected-work__item--landscape {
@@ -62,12 +68,9 @@
 .selected-work__image {
   object-fit: cover;
   filter: grayscale(15%);
-  transition:
-    transform var(--transition-base),
-    filter var(--transition-base);
+  transition: filter 400ms ease-out;
 }
 
 .selected-work__item:hover .selected-work__image {
-  transform: scale(1.02);
   filter: grayscale(0%);
 }
