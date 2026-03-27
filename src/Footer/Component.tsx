@@ -1,34 +1,27 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import Link from 'next/link'
-import React from 'react'
-
-import type { Footer } from '@/payload-types'
-
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
-import { Logo } from '@/components/Logo'
+import { SITE_NAME } from '@/constants'
+import type { Footer } from '@/payload-types'
+import './Component.css'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
-
   const navItems = footerData?.navItems || []
+  const copyright = footerData?.copyright
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
-
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
-        </div>
-      </div>
+    <footer className="footer">
+      <span className="footer__logo">{SITE_NAME}</span>
+      {navItems.length > 0 && (
+        <ul className="footer__nav">
+          {navItems.map(({ link }, i) => (
+            <li key={i}>
+              <CMSLink {...link} className="footer__nav-link" />
+            </li>
+          ))}
+        </ul>
+      )}
+      {copyright && <span className="footer__copy">{copyright}</span>}
     </footer>
   )
 }
