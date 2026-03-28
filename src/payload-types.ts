@@ -107,11 +107,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     homepage: Homepage;
+    contact: Contact;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1588,6 +1590,26 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  eyebrow?: string | null;
+  headline: string;
+  subline?: string | null;
+  /**
+   * Shown below the context panel items.
+   */
+  locationNote?: string | null;
+  /**
+   * Inquiry submissions are forwarded to this address.
+   */
+  notificationEmail?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1673,6 +1695,20 @@ export interface HomepageSelect<T extends boolean = true> {
               label?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  eyebrow?: T;
+  headline?: T;
+  subline?: T;
+  locationNote?: T;
+  notificationEmail?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
