@@ -1,0 +1,35 @@
+import Image from 'next/image'
+import type { Contact, Media } from '@/payload-types'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { ContactContextPanel } from '@/components/ContactContextPanel'
+import './styles.css'
+
+export async function ContactPage() {
+  const contact = (await getCachedGlobal('contact', 1)()) as Contact
+  const backgroundImage =
+    contact.backgroundImage && typeof contact.backgroundImage === 'object'
+      ? (contact.backgroundImage as Media)
+      : null
+
+  return (
+    <div className="contact-page">
+      {backgroundImage?.url && (
+        <div className="contact-page__ambient" aria-hidden="true">
+          <Image src={backgroundImage.url} alt="" fill className="contact-page__ambient-image" />
+        </div>
+      )}
+
+      <header className="contact-header">
+        {contact.eyebrow && <p className="contact-header__eyebrow">{contact.eyebrow}</p>}
+        <h1 className="contact-header__headline">{contact.headline}</h1>
+        {contact.subline && <p className="contact-header__sub">{contact.subline}</p>}
+      </header>
+
+      <div className="contact-body">
+        <ContactContextPanel locationNote={contact.locationNote ?? ''} />
+
+        <section className="contact-form-section">{/* ContactForm — PR 2b */}</section>
+      </div>
+    </div>
+  )
+}

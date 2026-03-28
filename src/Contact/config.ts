@@ -11,6 +11,15 @@ export const Contact: GlobalConfig = {
   },
   fields: [
     {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Background image',
+      admin: {
+        description: 'Ambient background shown at low opacity behind the page.',
+      },
+    },
+    {
       name: 'eyebrow',
       type: 'text',
     },
