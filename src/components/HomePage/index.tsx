@@ -11,7 +11,7 @@ export async function HomePage() {
   const payload = await getPayload({ config: configPromise })
   const [
     { heroImage, heroHeadline, heroSubline, cta, positioningStatement, aboutSection, ctaSection },
-    featuredItems,
+    { docs: featuredItems },
   ] = await Promise.all([
     payload.findGlobal({ slug: 'homepage', depth: 1 }),
     payload.find({
@@ -31,7 +31,7 @@ export async function HomePage() {
         cta={cta}
       />
       {positioningStatement && <PositioningStrip statement={positioningStatement} />}
-      {featuredItems.docs.length > 0 && <FeaturedWork items={featuredItems.docs} />}
+      {featuredItems.length > 0 && <FeaturedWork items={featuredItems} />}
       {aboutSection && <About data={aboutSection} />}
       {ctaSection && <CTASection data={ctaSection} />}
     </main>
