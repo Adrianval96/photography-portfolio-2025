@@ -30,8 +30,6 @@ export const Contact: GlobalConfig = {
       admin: {
         description: 'Shown below the context panel items.',
       },
-      defaultValue:
-        'Based in Melbourne but travel for the right project. Response time is usually 48 hours.',
     },
     {
       name: 'notificationEmail',
