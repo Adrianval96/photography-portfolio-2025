@@ -15,6 +15,7 @@ import * as migration_20260327_121846 from './20260327_121846';
 import * as migration_20260327_footer_copyright from './20260327_footer_copyright';
 import * as migration_20260327_homepage_cta_section from './20260327_homepage_cta_section';
 import * as migration_20260328_add_contact_global from './20260328_add_contact_global';
+import * as migration_20260328_contact_background_image from './20260328_contact_background_image';
 
 export const migrations = [
   {
@@ -101,5 +102,10 @@ export const migrations = [
     up: migration_20260328_add_contact_global.up,
     down: migration_20260328_add_contact_global.down,
     name: '20260328_add_contact_global',
+  },
+  {
+    up: migration_20260328_contact_background_image.up,
+    down: migration_20260328_contact_background_image.down,
+    name: '20260328_contact_background_image',
   },
 ];

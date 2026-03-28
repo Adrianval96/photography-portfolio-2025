@@ -1594,6 +1594,10 @@ export interface Homepage {
  */
 export interface Contact {
   id: number;
+  /**
+   * Ambient background shown at low opacity behind the page.
+   */
+  backgroundImage?: (number | null) | Media;
   eyebrow?: string | null;
   headline: string;
   subline?: string | null;
@@ -1704,6 +1708,7 @@ export interface HomepageSelect<T extends boolean = true> {
  * via the `definition` "contact_select".
  */
 export interface ContactSelect<T extends boolean = true> {
+  backgroundImage?: T;
   eyebrow?: T;
   headline?: T;
   subline?: T;
