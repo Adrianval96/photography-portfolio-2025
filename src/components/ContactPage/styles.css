@@ -1,0 +1,79 @@
+.contact-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 88px; /* nav height */
+}
+
+/* ─── Ambient background ─────────────────────────────────────────── */
+
+.contact-page__ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.045;
+  pointer-events: none;
+  background: var(--text-secondary);
+}
+
+/* ─── Page header ────────────────────────────────────────────────── */
+
+.contact-header {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-5xl) var(--page-padding) var(--space-4xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+}
+
+.contact-header__eyebrow {
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.contact-header__headline {
+  font-size: var(--text-display);
+  font-weight: var(--weight-light);
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xl);
+  max-width: 800px;
+}
+
+.contact-header__sub {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-light);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ─── Two-column body ────────────────────────────────────────────── */
+
+.contact-body {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-5xl) var(--page-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5xl);
+  align-items: start;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .contact-body {
+    grid-template-columns: 1fr;
+    gap: var(--space-4xl);
+  }
+}
