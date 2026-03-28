@@ -24,8 +24,8 @@ export function About({ data }: Props) {
         )}
       </div>
       <div className="about__text">
-        <h2 className="about__name">{name}</h2>
         <span className="about__label">About</span>
+        <h2 className="about__name">{name}</h2>
         <p className="about__bio">{bio}</p>
       </div>
     </section>
