@@ -33,6 +33,7 @@
   font-weight: var(--weight-light);
   font-style: italic;
   line-height: 1.15;
+  color: var(--text-primary);
   margin-bottom: var(--space-xl);
 }
 
