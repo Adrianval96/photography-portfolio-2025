@@ -15,12 +15,7 @@ export async function ContactPage() {
     <div className="contact-page">
       {backgroundImage?.url && (
         <div className="contact-page__ambient" aria-hidden="true">
-          <Image
-            src={backgroundImage.url}
-            alt=""
-            fill
-            className="contact-page__ambient-image"
-          />
+          <Image src={backgroundImage.url} alt="" fill className="contact-page__ambient-image" />
         </div>
       )}
 
