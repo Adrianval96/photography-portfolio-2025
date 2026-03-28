@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     'portfolio-items': PortfolioItem;
     'feature-flags': FeatureFlag;
+    'service-items': ServiceItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'portfolio-items': PortfolioItemsSelect<false> | PortfolioItemsSelect<true>;
     'feature-flags': FeatureFlagsSelect<false> | FeatureFlagsSelect<true>;
+    'service-items': ServiceItemsSelect<false> | ServiceItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -733,6 +735,21 @@ export interface FeatureFlag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-items".
+ */
+export interface ServiceItem {
+  id: number;
+  title: string;
+  text: string;
+  /**
+   * Lower numbers appear first.
+   */
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -908,6 +925,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'feature-flags';
         value: number | FeatureFlag;
+      } | null)
+    | ({
+        relationTo: 'service-items';
+        value: number | ServiceItem;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1249,6 +1270,17 @@ export interface FeatureFlagsSelect<T extends boolean = true> {
   key?: T;
   enabled?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-items_select".
+ */
+export interface ServiceItemsSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -18,6 +18,7 @@ import { FeatureFlags } from './collections/FeatureFlags'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { PortfolioItems } from './collections/PortfolioItems'
+import { ServiceItems } from './collections/ServiceItems'
 import { Users } from './collections/Users'
 import { Contact } from './Contact/config'
 import { Footer } from './Footer/config'
@@ -72,7 +73,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Media, Users, Categories, PortfolioItems, FeatureFlags],
+  collections: [Pages, Media, Users, Categories, PortfolioItems, FeatureFlags, ServiceItems],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, Homepage, Contact],
   plugins: [

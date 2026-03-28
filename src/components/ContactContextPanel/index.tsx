@@ -1,41 +1,28 @@
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import './styles.css'
-
-const CONTEXT_ITEMS = [
-  {
-    title: 'Live performance',
-    text: 'Concerts, theatre, club nights, fire arts — the unrepeatable moment.',
-  },
-  {
-    title: 'Street',
-    text: 'Self-directed work — unposed, environmental, driven by light and gesture.',
-  },
-  {
-    title: 'Portrait sessions',
-    text: 'Collaborative, unhurried, aimed at something real.',
-  },
-  {
-    title: 'Prints & custom orders',
-    text: 'Existing prints available in limited runs — custom sizes and finishes on request.',
-  },
-]
 
 type Props = {
   locationNote: string
 }
 
-export function ContactContextPanel({ locationNote }: Props) {
+export async function ContactContextPanel({ locationNote }: Props) {
+  const payload = await getPayload({ config: configPromise })
+  const { docs: serviceItems } = await payload.find({
+    collection: 'service-items',
+    sort: 'order',
+  })
+
   return (
     <aside className="contact-context">
-      {CONTEXT_ITEMS.map(({ title, text }) => (
+      {serviceItems.map(({ title, text }) => (
         <div key={title} className="contact-context__item">
           <p className="contact-context__item-title">{title}</p>
           <p className="contact-context__item-text">{text}</p>
         </div>
       ))}
 
-      {locationNote && (
-        <p className="contact-context__note">{locationNote}</p>
-      )}
+      {locationNote && <p className="contact-context__note">{locationNote}</p>}
     </aside>
   )
 }
