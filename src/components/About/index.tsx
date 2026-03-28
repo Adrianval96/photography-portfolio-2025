@@ -3,11 +3,11 @@ import type { Homepage, Media } from '@/payload-types'
 import './styles.css'
 
 type Props = {
-  data: Homepage
+  data: NonNullable<Homepage['aboutSection']>
 }
 
 export function About({ data }: Props) {
-  const { photo, name, bio } = data.aboutSection ?? {}
+  const { photo, name, bio } = data
   if (!photo || typeof photo === 'number' || !name || !bio) return null
   const media = photo as Media
 

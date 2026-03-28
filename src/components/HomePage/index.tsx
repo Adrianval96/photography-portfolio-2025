@@ -23,7 +23,7 @@ export async function HomePage() {
       {featuredItems.docs.length > 0 && (
         <FeaturedWork items={featuredItems.docs} />
       )}
-      {homepage.aboutSection && <About data={homepage} />}
+      {homepage.aboutSection && <About data={homepage.aboutSection} />}
       {homepage.ctaSection && <CTASection data={homepage.ctaSection} />}
     </main>
   )
