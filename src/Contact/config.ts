@@ -13,19 +13,15 @@ export const Contact: GlobalConfig = {
     {
       name: 'eyebrow',
       type: 'text',
-      defaultValue: 'Get in touch',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'The work starts with a conversation.',
     },
     {
       name: 'subline',
       type: 'text',
-      defaultValue:
-        "Whether you have a project in mind or just want to explore what's possible — tell me a little about what you're after and I'll get back to you within a couple of days.",
     },
     {
       name: 'locationNote',
@@ -44,7 +40,6 @@ export const Contact: GlobalConfig = {
       admin: {
         description: 'Inquiry submissions are forwarded to this address.',
       },
-      defaultValue: 'cinematicstatephotography@gmail.com',
     },
   ],
 }
