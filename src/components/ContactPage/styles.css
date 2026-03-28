@@ -12,14 +12,10 @@
   z-index: 0;
   opacity: 0.045;
   pointer-events: none;
-<<<<<<< HEAD
 }
 
 .contact-page__ambient-image {
   object-fit: cover;
-=======
-  background: var(--text-secondary);
->>>>>>> 3881788 ([Add] ContactPage component, ContactContextPanel, and page styles)
 }
 
 /* ─── Page header ────────────────────────────────────────────────── */
