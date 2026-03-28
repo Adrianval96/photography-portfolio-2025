@@ -15,31 +15,20 @@ export async function ContactPage() {
     <div className="contact-page">
       {backgroundImage?.url && (
         <div className="contact-page__ambient" aria-hidden="true">
-          <Image
-            src={backgroundImage.url}
-            alt=""
-            fill
-            className="contact-page__ambient-image"
-          />
+          <Image src={backgroundImage.url} alt="" fill className="contact-page__ambient-image" />
         </div>
       )}
 
       <header className="contact-header">
-        {contact.eyebrow && (
-          <p className="contact-header__eyebrow">{contact.eyebrow}</p>
-        )}
+        {contact.eyebrow && <p className="contact-header__eyebrow">{contact.eyebrow}</p>}
         <h1 className="contact-header__headline">{contact.headline}</h1>
-        {contact.subline && (
-          <p className="contact-header__sub">{contact.subline}</p>
-        )}
+        {contact.subline && <p className="contact-header__sub">{contact.subline}</p>}
       </header>
 
       <div className="contact-body">
         <ContactContextPanel locationNote={contact.locationNote ?? ''} />
 
-        <section className="contact-form-section">
-          {/* ContactForm — PR 2b */}
-        </section>
+        <section className="contact-form-section">{/* ContactForm — PR 2b */}</section>
       </div>
     </div>
   )
