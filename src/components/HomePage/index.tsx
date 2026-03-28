@@ -16,7 +16,12 @@ export async function HomePage() {
 
   return (
     <main>
-      <HeroSection data={homepage} />
+      <HeroSection
+        heroImage={homepage.heroImage}
+        heroHeadline={homepage.heroHeadline}
+        heroSubline={homepage.heroSubline}
+        cta={homepage.cta}
+      />
       {homepage.positioningStatement && (
         <PositioningStrip statement={homepage.positioningStatement} />
       )}
