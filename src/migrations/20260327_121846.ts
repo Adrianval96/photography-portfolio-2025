@@ -4,8 +4,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_photo_id" integer;
    ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_name" varchar;
-   ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_bio" varchar;
+   ALTER TABLE "homepage" ADD COLUMN IF NOT EXISTS "about_section_bio" varchar;`)
+  await db.execute(sql`DO $$ BEGIN
    ALTER TABLE "homepage" ADD CONSTRAINT "homepage_about_section_photo_id_media_id_fk" FOREIGN KEY ("about_section_photo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  EXCEPTION WHEN duplicate_object THEN null; END $$`)
+  await db.execute(sql`
    CREATE INDEX IF NOT EXISTS "homepage_about_section_photo_idx" ON "homepage" USING btree ("about_section_photo_id");`)
 }
 
