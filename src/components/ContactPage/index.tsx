@@ -1,14 +1,28 @@
-import type { Contact } from '@/payload-types'
+import Image from 'next/image'
+import type { Contact, Media } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { ContactContextPanel } from '@/components/ContactContextPanel'
 import './styles.css'
 
 export async function ContactPage() {
-  const contact = (await getCachedGlobal('contact')()) as Contact
+  const contact = (await getCachedGlobal('contact', 1)()) as Contact
+  const backgroundImage =
+    contact.backgroundImage && typeof contact.backgroundImage === 'object'
+      ? (contact.backgroundImage as Media)
+      : null
 
   return (
     <div className="contact-page">
-      <div className="contact-page__ambient" aria-hidden="true" />
+      {backgroundImage?.url && (
+        <div className="contact-page__ambient" aria-hidden="true">
+          <Image
+            src={backgroundImage.url}
+            alt=""
+            fill
+            className="contact-page__ambient-image"
+          />
+        </div>
+      )}
 
       <header className="contact-header">
         {contact.eyebrow && (

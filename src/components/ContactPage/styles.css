@@ -12,7 +12,10 @@
   z-index: 0;
   opacity: 0.045;
   pointer-events: none;
-  background: var(--text-secondary);
+}
+
+.contact-page__ambient-image {
+  object-fit: cover;
 }
 
 /* ─── Page header ────────────────────────────────────────────────── */
