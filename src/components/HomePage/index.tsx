@@ -9,22 +9,31 @@ import { About } from '@/components/About'
 
 export async function HomePage() {
   const payload = await getPayload({ config: configPromise })
-  const [homepage, featuredItems] = await Promise.all([
+  const [
+    { heroImage, heroHeadline, heroSubline, cta, positioningStatement, aboutSection, ctaSection },
+    { docs: featuredItems },
+  ] = await Promise.all([
     payload.findGlobal({ slug: 'homepage', depth: 1 }),
-    payload.find({ collection: 'portfolio-items', where: { featured: { equals: true } }, limit: FEATURED_WORK_LIMIT, depth: 1 }),
+    payload.find({
+      collection: 'portfolio-items',
+      where: { featured: { equals: true } },
+      limit: FEATURED_WORK_LIMIT,
+      depth: 1,
+    }),
   ])
 
   return (
     <main>
-      <HeroSection data={homepage} />
-      {homepage.positioningStatement && (
-        <PositioningStrip statement={homepage.positioningStatement} />
-      )}
-      {featuredItems.docs.length > 0 && (
-        <FeaturedWork items={featuredItems.docs} />
-      )}
-      {homepage.aboutSection && <About data={homepage.aboutSection} />}
-      {homepage.ctaSection && <CTASection data={homepage.ctaSection} />}
+      <HeroSection
+        heroImage={heroImage}
+        heroHeadline={heroHeadline}
+        heroSubline={heroSubline}
+        cta={cta}
+      />
+      {positioningStatement && <PositioningStrip statement={positioningStatement} />}
+      {featuredItems.length > 0 && <FeaturedWork items={featuredItems} />}
+      {aboutSection && <About data={aboutSection} />}
+      {ctaSection && <CTASection data={ctaSection} />}
     </main>
   )
 }

@@ -3,12 +3,9 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import './styles.css'
 
-type Props = {
-  data: Homepage
-}
+type Props = Pick<Homepage, 'heroImage' | 'heroHeadline' | 'heroSubline' | 'cta'>
 
-export function HeroSection({ data }: Props) {
-  const { heroImage, heroHeadline, heroSubline, cta } = data
+export function HeroSection({ heroImage, heroHeadline, heroSubline, cta }: Props) {
 
   return (
     <section className="hero-section">
