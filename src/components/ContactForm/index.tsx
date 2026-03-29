@@ -10,10 +10,25 @@ type Props = {
 
 export function ContactForm({ serviceItems }: Props) {
   const [inquiryType, setInquiryType] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setIsSubmitted(true)
   }
+
+  if (isSubmitted) {
+    return (
+      <section className="contact-form-section">
+        <div className="form-success visible" aria-live="polite">
+          <p className="form-success-mark">*</p>
+          <p className="form-success-headline">Message received.</p>
+          <p className="form-success-sub">I&apos;ll be in touch within a couple of days.</p>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="contact-form-section">
       <form id="contact-form" noValidate onSubmit={handleSubmit}>
