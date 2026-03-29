@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import type { Contact, Media } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { ContactContextPanel } from '@/components/ContactContextPanel'
+import { ServiceItemsList } from '@/components/ServiceItemsList'
 import './styles.css'
 
 export async function ContactPage() {
@@ -26,7 +26,7 @@ export async function ContactPage() {
       </header>
 
       <div className="contact-body">
-        <ContactContextPanel locationNote={contact.locationNote ?? ''} />
+        <ServiceItemsList locationNote={contact.locationNote ?? ''} />
 
         <section className="contact-form-section">{/* ContactForm — PR 2b */}</section>
       </div>

@@ -1,18 +1,18 @@
-.contact-context {
+.service-items {
   position: sticky;
   top: calc(88px + var(--space-3xl));
 }
 
-.contact-context__item {
+.service-items__item {
   padding: var(--space-xl) 0;
   border-bottom: 1px solid var(--border);
 }
 
-.contact-context__item:first-of-type {
+.service-items__item:first-of-type {
   border-top: 1px solid var(--border);
 }
 
-.contact-context__item-title {
+.service-items__item-title {
   font-size: var(--text-caption);
   font-weight: var(--weight-regular);
   letter-spacing: 0.15em;
@@ -21,7 +21,7 @@
   margin-bottom: var(--space-sm);
 }
 
-.contact-context__item-text {
+.service-items__item-text {
   font-size: var(--text-h3);
   font-weight: var(--weight-light);
   font-style: italic;
@@ -29,7 +29,7 @@
   line-height: 1.5;
 }
 
-.contact-context__note {
+.service-items__note {
   margin-top: var(--space-2xl);
   font-size: var(--text-caption);
   font-weight: var(--weight-light);
@@ -40,7 +40,7 @@
 /* ─── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 860px) {
-  .contact-context {
+  .service-items {
     position: static;
     border-bottom: 1px solid var(--border);
     padding-bottom: var(--space-3xl);
