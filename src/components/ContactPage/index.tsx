@@ -37,7 +37,7 @@ export async function ContactPage() {
 
       <div className="contact-body">
         <ItemsList locationNote={contact.locationNote} items={serviceItems} />
-        <ContactForm />
+        <ContactForm serviceItems={serviceItems} />
       </div>
     </div>
   )

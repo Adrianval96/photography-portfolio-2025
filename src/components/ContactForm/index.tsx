@@ -1,29 +1,19 @@
 'use client'
 
+import type { ServiceItem } from '@/payload-types'
 import { FormEvent, useState } from 'react'
 import './styles.css'
 
-export function ContactForm() {
+type Props = {
+  serviceItems: Pick<ServiceItem, 'id' | 'title'>[]
+}
+
+export function ContactForm({ serviceItems }: Props) {
   const [inquiryType, setInquiryType] = useState('')
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsSubmitted(true)
   }
-
-  if (isSubmitted) {
-    return (
-      <section className="contact-form-section">
-        <div className="form-success visible" aria-live="polite">
-          <p className="form-success-mark">*</p>
-          <p className="form-success-headline">Message received.</p>
-          <p className="form-success-sub">I&apos;ll be in touch within a couple of days.</p>
-        </div>
-      </section>
-    )
-  }
-
   return (
     <section className="contact-form-section">
       <form id="contact-form" noValidate onSubmit={handleSubmit}>
@@ -73,9 +63,11 @@ export function ContactForm() {
             <option value="" disabled>
               Select one
             </option>
-            <option value="portrait">Portrait session</option>
-            <option value="performance">Live event / performance</option>
-            <option value="print">Print or custom order</option>
+            {serviceItems.map(({ id, title }) => (
+              <option key={id} value={title}>
+                {title}
+              </option>
+            ))}
             <option value="other">Other</option>
           </select>
         </div>
@@ -107,7 +99,6 @@ export function ContactForm() {
         </div>
 
         <div className="form-submit-row">
-          <p className="form-submit-note">I&apos;ll reply within 48 hours.</p>
           <button type="submit" className="btn-submit">
             Send enquiry -&gt;
           </button>
