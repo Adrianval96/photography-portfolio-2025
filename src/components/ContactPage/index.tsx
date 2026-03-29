@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import type { Contact, Media } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { ContactContextPanel } from '@/components/ContactContextPanel'
+import { ItemsList } from '@/components/ItemsList'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+
 import './styles.css'
 
 export async function ContactPage() {
@@ -10,6 +13,12 @@ export async function ContactPage() {
     contact.backgroundImage && typeof contact.backgroundImage === 'object'
       ? (contact.backgroundImage as Media)
       : null
+
+  const payload = await getPayload({ config: configPromise })
+  const { docs: serviceItems } = await payload.find({
+    collection: 'service-items',
+    sort: 'order',
+  })
 
   return (
     <div className="contact-page">
@@ -26,7 +35,7 @@ export async function ContactPage() {
       </header>
 
       <div className="contact-body">
-        <ContactContextPanel locationNote={contact.locationNote ?? ''} />
+        <ItemsList locationNote={contact.locationNote} items={serviceItems} />
 
         <section className="contact-form-section">{/* ContactForm — PR 2b */}</section>
       </div>
