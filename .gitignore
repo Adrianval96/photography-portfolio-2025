@@ -19,3 +19,5 @@ tsconfig.tsbuildinfo
 
 # Local design references — not part of the codebase
 docs/
+
+.claude/
