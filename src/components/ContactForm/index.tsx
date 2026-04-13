@@ -92,8 +92,6 @@ export function ContactForm({ enquiryTypes }: Props) {
         </div>
       </div>
 
-      <div className="contact-form__divider" aria-hidden="true" />
-
       <div className="contact-form__group">
         <label className="contact-form__label" htmlFor="enquiryType">
           Type of enquiry <span>(optional)</span>
