@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { Contact, Media } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { ItemsList } from '@/components/ItemsList'
+import { ContactForm } from '@/components/ContactForm'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
@@ -37,7 +38,9 @@ export async function ContactPage() {
       <div className="contact-body">
         <ItemsList locationNote={contact.locationNote} items={serviceItems} />
 
-        <section className="contact-form-section">{/* ContactForm — PR 2b */}</section>
+        <section className="contact-form-section">
+          <ContactForm enquiryTypes={serviceItems} />
+        </section>
       </div>
     </div>
   )
