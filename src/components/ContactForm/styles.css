@@ -79,6 +79,14 @@
   line-height: 1.7;
 }
 
+/* ─── Section divider ────────────────────────────────────────────── */
+
+.contact-form__divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-md) 0 var(--space-2xl);
+}
+
 /* ─── Row layout (name + email) ──────────────────────────────────── */
 
 .contact-form__row {
@@ -115,7 +123,9 @@
   border: 1px solid var(--border-interactive);
   padding: var(--space-md) var(--space-2xl);
   cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base);
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base);
 }
 
 .contact-form__submit:hover:not(:disabled) {
