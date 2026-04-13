@@ -51,6 +51,8 @@
   }
 
   .about__photo {
+    /* Switch from portrait (4/5) to landscape (3/2) on mobile — reduces vertical
+       height so bio text is visible without scrolling on small phones. */
     aspect-ratio: 3 / 2;
   }
 
