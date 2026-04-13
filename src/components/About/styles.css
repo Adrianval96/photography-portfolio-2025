@@ -51,9 +51,9 @@
   }
 
   .about__photo {
-    /* Keep portrait orientation — cap height so bio text stays visible on small phones
-       without needing to scroll past the full image first. */
-    max-height: 50vh;
+    /* Full width, natural 4/5 portrait ratio — no height cap.
+       max-height caused the container to mismatch the ratio and offset the image. */
+    width: 100%;
   }
 
   .about__bio {
