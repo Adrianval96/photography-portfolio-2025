@@ -104,8 +104,7 @@
   margin: 0;
 }
 
-@media (max-width: 768px) { /* --bp-mobile */
-  /* Switch overlay to top-align so .lightbox__inner can scroll independently */
+@media (max-width: 768px) {
   .lightbox {
     align-items: flex-start;
   }
@@ -114,19 +113,16 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    /* Single shorthand: zero all sides, 80px bottom clears fixed nav arrows */
     padding: 0 0 80px;
-    max-height: 100%; /* constrain height so overflow-y: auto fires */
+    max-height: 100%;
     overflow-y: auto;
   }
 
   .lightbox__image-wrap {
     max-height: 60vh;
-    overflow: hidden; /* belt-and-suspenders: clip any image that still overflows the cap */
+    overflow: hidden;
   }
 
-  /* Override desktop 80vh so the image scales down on short viewports (e.g. iPhone SE)
-     instead of overflowing .lightbox__image-wrap and putting the divider inside the photo */
   .lightbox__image {
     max-height: 60vh;
   }
@@ -137,8 +133,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* Nav arrows: bottom corners instead of vertical-centre.
-     env(safe-area-inset-bottom) keeps them above iOS Safari's browser chrome. */
   .lightbox__nav {
     top: auto;
     bottom: calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
