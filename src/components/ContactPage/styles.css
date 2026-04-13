@@ -46,7 +46,6 @@
   line-height: 1.1;
   color: var(--text-primary);
   margin-bottom: var(--space-xl);
-  max-width: 800px;
 }
 
 .contact-header__sub {
