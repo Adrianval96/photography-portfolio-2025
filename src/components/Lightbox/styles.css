@@ -105,13 +105,18 @@
 }
 
 @media (max-width: 768px) { /* --bp-mobile */
+  /* Switch overlay to top-align so .lightbox__inner can scroll independently */
+  .lightbox {
+    align-items: flex-start;
+  }
+
   .lightbox__inner {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 0;
-    max-width: 100%;
-    padding-bottom: 80px; /* clear space for bottom nav arrows */
+    /* Single shorthand: zero all sides, 80px bottom clears fixed nav arrows */
+    padding: 0 0 80px;
+    max-height: 100%; /* constrain height so overflow-y: auto fires */
     overflow-y: auto;
   }
 
@@ -119,9 +124,7 @@
     max-height: 60vh;
   }
 
-  .lightbox__image {
-    max-height: 60vh;
-  }
+  /* .lightbox__image max-height omitted — parent image-wrap already clamps to 60vh */
 
   .lightbox__info {
     width: 100%;
@@ -129,10 +132,11 @@
     border-top: 1px solid var(--border);
   }
 
-  /* Move nav arrows to bottom corners so they don't bisect the image */
+  /* Nav arrows: bottom corners instead of vertical-centre.
+     env(safe-area-inset-bottom) keeps them above iOS Safari's browser chrome. */
   .lightbox__nav {
     top: auto;
-    bottom: var(--space-xl);
+    bottom: calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
     transform: none;
   }
 
