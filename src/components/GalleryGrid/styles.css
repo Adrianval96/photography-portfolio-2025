@@ -8,6 +8,20 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--space-md);
+  }
+
+  .filter-bar__label,
+  .filter-btn {
+    flex-shrink: 0;
+  }
+}
+
 .filter-bar__label {
   font-size: var(--text-label);
   letter-spacing: 0.12em;

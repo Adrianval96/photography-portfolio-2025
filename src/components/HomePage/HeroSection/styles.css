@@ -69,3 +69,10 @@
   border-color: var(--text-secondary);
   color: var(--text-secondary);
 }
+
+@media (max-width: 768px) {
+  .hero-section__cta {
+    display: block;
+    width: 100%;
+  }
+}
