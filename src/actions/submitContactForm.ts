@@ -54,8 +54,14 @@ export async function submitContactForm(data: ContactFormData): Promise<SubmitRe
       .readFileSync(path.join(EMAILS_DIR, 'contact-notification.html'), 'utf-8')
       .replace('{{name}}', escapeHtml(data.name))
       .replace('{{email}}', escapeHtml(data.email))
-      .replace('{{typeRow}}', data.enquiryType ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>` : '')
-      .replace('{{timeframeRow}}', data.timeframe ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>` : '')
+      .replace(
+        '{{typeRow}}',
+        data.enquiryType ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>` : '',
+      )
+      .replace(
+        '{{timeframeRow}}',
+        data.timeframe ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>` : '',
+      )
       .replace('{{message}}', escapedMessage)
 
     const confirmationHtml = fs
