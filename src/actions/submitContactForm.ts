@@ -28,6 +28,13 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#039;')
 }
 
+function loadTemplate(filename: string, vars: Record<string, string>): string {
+  return Object.entries(vars).reduce(
+    (html, [key, val]) => html.replace(`{{${key}}}`, val),
+    fs.readFileSync(path.join(EMAILS_DIR, filename), 'utf-8'),
+  )
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function submitContactForm(data: ContactFormData): Promise<SubmitResult> {
@@ -45,32 +52,31 @@ export async function submitContactForm(data: ContactFormData): Promise<SubmitRe
       return { success: false, error: 'Contact form is not configured. Please try again later.' }
     }
 
-    const siteUrl = getServerSideURL()
+    const escapedName = escapeHtml(data.name)
     const escapedMessage = escapeHtml(data.message).replace(/\n/g, '<br />')
-    const typeRow = data.enquiryType ? `<p>Type: ${escapeHtml(data.enquiryType)}</p>` : ''
-    const timeframeRow = data.timeframe ? `<p>Timeframe: ${escapeHtml(data.timeframe)}</p>` : ''
+    const typeRow = data.enquiryType
+      ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>`
+      : ''
+    const timeframeRow = data.timeframe
+      ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>`
+      : ''
 
-    const notificationHtml = fs
-      .readFileSync(path.join(EMAILS_DIR, 'contact-notification.html'), 'utf-8')
-      .replace('{{name}}', escapeHtml(data.name))
-      .replace('{{email}}', escapeHtml(data.email))
-      .replace(
-        '{{typeRow}}',
-        data.enquiryType ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>` : '',
-      )
-      .replace(
-        '{{timeframeRow}}',
-        data.timeframe ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>` : '',
-      )
-      .replace('{{message}}', escapedMessage)
-
-    const confirmationHtml = fs
-      .readFileSync(path.join(EMAILS_DIR, 'contact-confirmation.html'), 'utf-8')
-      .replace('{{name}}', escapeHtml(data.name))
-      .replace('{{typeRow}}', typeRow)
-      .replace('{{timeframeRow}}', timeframeRow)
-      .replace('{{message}}', escapedMessage)
-      .replace('{{portfolioUrl}}', `${siteUrl}/portfolio`)
+    const [notificationHtml, confirmationHtml] = [
+      loadTemplate('contact-notification.html', {
+        name: escapedName,
+        email: escapeHtml(data.email),
+        typeRow,
+        timeframeRow,
+        message: escapedMessage,
+      }),
+      loadTemplate('contact-confirmation.html', {
+        name: escapedName,
+        typeRow,
+        timeframeRow,
+        message: escapedMessage,
+        portfolioUrl: `${getServerSideURL()}/portfolio`,
+      }),
+    ]
 
     await Promise.all([
       payload.sendEmail({
