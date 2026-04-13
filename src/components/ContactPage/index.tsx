@@ -39,7 +39,7 @@ export async function ContactPage() {
         <ItemsList locationNote={contact.locationNote} items={serviceItems} />
 
         <section className="contact-form-section">
-          <ContactForm />
+          <ContactForm enquiryTypes={serviceItems} />
         </section>
       </div>
     </div>

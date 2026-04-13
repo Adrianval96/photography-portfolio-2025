@@ -5,12 +5,10 @@ import { useForm } from 'react-hook-form'
 import { submitContactForm } from '@/actions/submitContactForm'
 import './styles.css'
 
-const ENQUIRY_TYPES = [
-  { value: 'portrait', label: 'Portrait session' },
-  { value: 'performance', label: 'Live event / performance' },
-  { value: 'print', label: 'Print or custom order' },
-  { value: 'other', label: 'Other' },
-] as const
+type EnquiryType = {
+  id: number
+  title: string
+}
 
 type FormValues = {
   name: string
@@ -20,7 +18,11 @@ type FormValues = {
   message: string
 }
 
-export function ContactForm() {
+type Props = {
+  enquiryTypes: EnquiryType[]
+}
+
+export function ContactForm({ enquiryTypes }: Props) {
   const [submitted, setSubmitted] = useState(false)
   const {
     register,
@@ -87,9 +89,9 @@ export function ContactForm() {
           {...register('enquiryType')}
         >
           <option value="">Select one</option>
-          {ENQUIRY_TYPES.map(({ value, label }) => (
-            <option key={value} value={value}>
-              {label}
+          {enquiryTypes.map(({ id, title }) => (
+            <option key={id} value={title}>
+              {title}
             </option>
           ))}
         </select>
