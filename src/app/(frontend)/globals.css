@@ -99,7 +99,7 @@
 
 html {
   opacity: 0;
-  overflow-x: hidden; /* prevent horizontal scroll caused by any element wider than the viewport */
+  overflow-x: hidden;
 }
 
 html[data-theme='dark'],
