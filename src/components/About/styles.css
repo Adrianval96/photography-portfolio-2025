@@ -5,7 +5,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.6fr;
-  gap: var(--space-5xl);
+  gap: var(--space-3xl);
   align-items: center;
 }
 
