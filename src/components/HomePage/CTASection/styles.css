@@ -53,3 +53,18 @@
   border-color: var(--text-secondary);
   color: var(--text-secondary);
 }
+
+@media (max-width: 768px) { /* --bp-mobile */
+  .cta-section__content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .cta-section__link {
+    display: block; /* explicit — don't rely on flex context for width: 100% */
+    width: 100%;
+    text-align: center;
+    padding: var(--space-md) var(--space-xl);
+  }
+}
