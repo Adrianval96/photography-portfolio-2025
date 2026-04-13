@@ -20,6 +20,10 @@
   .filter-btn {
     flex-shrink: 0;
   }
+
+  .gallery-grid {
+    padding-top: var(--space-xl);
+  }
 }
 
 .filter-bar__label {
