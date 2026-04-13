@@ -103,3 +103,44 @@
   color: var(--text-secondary);
   margin: 0;
 }
+
+@media (max-width: 768px) { /* --bp-mobile */
+  .lightbox__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    max-width: 100%;
+    padding-bottom: 80px; /* clear space for bottom nav arrows */
+    overflow-y: auto;
+  }
+
+  .lightbox__image-wrap {
+    max-height: 60vh;
+  }
+
+  .lightbox__image {
+    max-height: 60vh;
+  }
+
+  .lightbox__info {
+    width: 100%;
+    padding: var(--space-xl) var(--page-padding);
+    border-top: 1px solid var(--border);
+  }
+
+  /* Move nav arrows to bottom corners so they don't bisect the image */
+  .lightbox__nav {
+    top: auto;
+    bottom: var(--space-xl);
+    transform: none;
+  }
+
+  .lightbox__nav--prev {
+    left: var(--space-xl);
+  }
+
+  .lightbox__nav--next {
+    right: var(--space-xl);
+  }
+}
