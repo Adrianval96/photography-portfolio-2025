@@ -1,11 +1,11 @@
 .about {
   border-top: 1px solid var(--border);
-  padding: var(--space-5xl) var(--page-padding);
+  padding: var(--space-3xl) var(--page-padding);
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.6fr;
-  gap: var(--space-5xl);
+  gap: var(--space-3xl);
   align-items: center;
 }
 

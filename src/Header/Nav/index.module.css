@@ -13,7 +13,7 @@
 
 .navLink {
   font-family: var(--font-primary);
-  font-size: 0.7rem;
+  font-size: var(--text-label);
   font-weight: var(--weight-regular);
   letter-spacing: 0.2em;
   text-transform: uppercase;

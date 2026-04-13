@@ -46,7 +46,6 @@
   line-height: 1.1;
   color: var(--text-primary);
   margin-bottom: var(--space-xl);
-  max-width: 800px;
 }
 
 .contact-header__sub {
@@ -54,7 +53,7 @@
   font-weight: var(--weight-light);
   color: var(--text-secondary);
   line-height: 1.7;
-  max-width: 560px;
+  max-width: 640px;
 }
 
 /* ─── Two-column body ────────────────────────────────────────────── */

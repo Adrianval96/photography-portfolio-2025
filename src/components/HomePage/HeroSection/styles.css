@@ -60,7 +60,7 @@
   text-transform: uppercase;
   color: var(--text-primary);
   text-decoration: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-interactive);
   padding: var(--space-md) var(--space-2xl);
   transition: border-color var(--transition-base), color var(--transition-base);
 }

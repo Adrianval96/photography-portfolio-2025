@@ -41,6 +41,18 @@
   gap: var(--space-lg);
 }
 
+@media (max-width: 860px) {
+  .featured-work__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 860px) {
+  .featured-work__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .featured-work__item {
   position: relative;
   overflow: hidden;
