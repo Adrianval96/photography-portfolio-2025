@@ -24,18 +24,24 @@ type Props = {
 
 export function ContactForm({ enquiryTypes }: Props) {
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<FormValues>()
 
   const enquiryTypeValue = watch('enquiryType')
 
   const onSubmit = async (data: FormValues) => {
+    setSubmitError(null)
     const result = await submitContactForm(data)
-    if (result.success) setSubmitted(true)
+    if (result.success) {
+      setSubmitted(true)
+    } else {
+      setSubmitError(result.error)
+    }
   }
 
   if (submitted) {
@@ -61,8 +67,9 @@ export function ContactForm({ enquiryTypes }: Props) {
             type="text"
             autoComplete="name"
             placeholder="Your name"
-            {...register('name', { required: true })}
+            {...register('name', { required: 'Name is required.' })}
           />
+          {errors.name && <p className="contact-form__field-error">{errors.name.message}</p>}
         </div>
         <div className="contact-form__group">
           <label className="contact-form__label" htmlFor="email">
@@ -74,8 +81,12 @@ export function ContactForm({ enquiryTypes }: Props) {
             type="email"
             autoComplete="email"
             placeholder="your@email.com"
-            {...register('email', { required: true })}
+            {...register('email', {
+              required: 'Email is required.',
+              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Enter a valid email.' },
+            })}
           />
+          {errors.email && <p className="contact-form__field-error">{errors.email.message}</p>}
         </div>
       </div>
 
@@ -118,9 +129,12 @@ export function ContactForm({ enquiryTypes }: Props) {
           className="contact-form__textarea"
           id="message"
           placeholder="What are you shooting for, what matters, what would make this good?"
-          {...register('message', { required: true })}
+          {...register('message', { required: 'Please tell me about the project.' })}
         />
+        {errors.message && <p className="contact-form__field-error">{errors.message.message}</p>}
       </div>
+
+      {submitError && <p className="contact-form__submit-error">{submitError}</p>}
 
       <div className="contact-form__submit-row">
         <p className="contact-form__submit-note">I&apos;ll reply within 48 hours.</p>

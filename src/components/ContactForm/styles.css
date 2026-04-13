@@ -63,7 +63,7 @@
 }
 
 .contact-form__select option {
-  background: #111111;
+  background: var(--bg-surface);
   color: var(--text-primary);
 }
 
@@ -126,6 +126,22 @@
 .contact-form__submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* ─── Validation & submit errors ────────────────────────────────── */
+
+.contact-form__field-error {
+  font-size: var(--text-label);
+  font-weight: var(--weight-light);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+.contact-form__submit-error {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-light);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
 }
 
 /* ─── Success state ──────────────────────────────────────────────── */
