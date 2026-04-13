@@ -105,3 +105,16 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+/* ─── Token overrides ───────────────────────────────────────────────
+   Tailwind also uses --border as an HSL triplet (e.g. "0, 0%, 15%").
+   Declaring ours here — after all @layer rules, outside any layer —
+   ensures source order wins and var(--border) resolves to a valid hex
+   color in every component that uses it directly.
+   ─────────────────────────────────────────────────────────────────── */
+:root,
+[data-theme='dark'],
+[data-theme='light'] {
+  --border: #444444;
+  --border-interactive: #666666;
+}
