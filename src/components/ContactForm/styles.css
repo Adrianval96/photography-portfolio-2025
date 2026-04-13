@@ -133,7 +133,7 @@
 .contact-form__field-error {
   font-size: var(--text-label);
   font-weight: var(--weight-light);
-  color: var(--text-secondary);
+  color: #c75f5f;
   margin-top: var(--space-xs);
 }
 

@@ -22,6 +22,8 @@ type Props = {
   enquiryTypes: EnquiryType[]
 }
 
+const FIELD_REQUIRED_MESSAGE = 'This field is required.'
+
 export function ContactForm({ enquiryTypes }: Props) {
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -67,7 +69,7 @@ export function ContactForm({ enquiryTypes }: Props) {
             type="text"
             autoComplete="name"
             placeholder="Your name"
-            {...register('name', { required: 'Name is required.' })}
+            {...register('name', { required: FIELD_REQUIRED_MESSAGE })}
           />
           {errors.name && <p className="contact-form__field-error">{errors.name.message}</p>}
         </div>
@@ -82,7 +84,7 @@ export function ContactForm({ enquiryTypes }: Props) {
             autoComplete="email"
             placeholder="your@email.com"
             {...register('email', {
-              required: 'Email is required.',
+              required: FIELD_REQUIRED_MESSAGE,
               pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Enter a valid email.' },
             })}
           />
