@@ -1,9 +1,13 @@
 'use server'
 
+import fs from 'fs'
+import path from 'path'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Contact } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+
+const EMAILS_DIR = path.join(process.cwd(), 'src/actions/emails')
 
 type ContactFormData = {
   name: string
@@ -42,33 +46,25 @@ export async function submitContactForm(data: ContactFormData): Promise<SubmitRe
     }
 
     const siteUrl = getServerSideURL()
-
+    const escapedMessage = escapeHtml(data.message).replace(/\n/g, '<br />')
     const typeRow = data.enquiryType ? `<p>Type: ${escapeHtml(data.enquiryType)}</p>` : ''
     const timeframeRow = data.timeframe ? `<p>Timeframe: ${escapeHtml(data.timeframe)}</p>` : ''
 
-    const notificationHtml = `
-      <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-      ${data.enquiryType ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>` : ''}
-      ${data.timeframe ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>` : ''}
-      <p><strong>Message:</strong></p>
-      <p>${escapeHtml(data.message).replace(/\n/g, '<br />')}</p>
-    `
+    const notificationHtml = fs
+      .readFileSync(path.join(EMAILS_DIR, 'contact-notification.html'), 'utf-8')
+      .replace('{{name}}', escapeHtml(data.name))
+      .replace('{{email}}', escapeHtml(data.email))
+      .replace('{{typeRow}}', data.enquiryType ? `<p><strong>Type:</strong> ${escapeHtml(data.enquiryType)}</p>` : '')
+      .replace('{{timeframeRow}}', data.timeframe ? `<p><strong>Timeframe:</strong> ${escapeHtml(data.timeframe)}</p>` : '')
+      .replace('{{message}}', escapedMessage)
 
-    const confirmationHtml = `
-      <p>I'll get back to you within 48 hours.</p>
-      <br />
-      <p>Here's a copy of what you sent:</p>
-      <br />
-      <p>Name: ${escapeHtml(data.name)}</p>
-      ${typeRow}
-      ${timeframeRow}
-      <p>Message: ${escapeHtml(data.message).replace(/\n/g, '<br />')}</p>
-      <br />
-      <p><a href="${siteUrl}/portfolio">Browse the portfolio →</a></p>
-      <br />
-      <p>— Adrián<br />Cinematic State Photography</p>
-    `
+    const confirmationHtml = fs
+      .readFileSync(path.join(EMAILS_DIR, 'contact-confirmation.html'), 'utf-8')
+      .replace('{{name}}', escapeHtml(data.name))
+      .replace('{{typeRow}}', typeRow)
+      .replace('{{timeframeRow}}', timeframeRow)
+      .replace('{{message}}', escapedMessage)
+      .replace('{{portfolioUrl}}', `${siteUrl}/portfolio`)
 
     await Promise.all([
       payload.sendEmail({
