@@ -122,9 +122,14 @@
 
   .lightbox__image-wrap {
     max-height: 60vh;
+    overflow: hidden; /* belt-and-suspenders: clip any image that still overflows the cap */
   }
 
-  /* .lightbox__image max-height omitted — parent image-wrap already clamps to 60vh */
+  /* Override desktop 80vh so the image scales down on short viewports (e.g. iPhone SE)
+     instead of overflowing .lightbox__image-wrap and putting the divider inside the photo */
+  .lightbox__image {
+    max-height: 60vh;
+  }
 
   .lightbox__info {
     width: 100%;
