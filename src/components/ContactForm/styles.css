@@ -1,0 +1,170 @@
+/* ─── Form groups ────────────────────────────────────────────────── */
+
+.contact-form__group {
+  margin-bottom: var(--space-2xl);
+}
+
+.contact-form__label {
+  display: block;
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.contact-form__label span {
+  color: var(--text-muted);
+}
+
+/* ─── Inputs ─────────────────────────────────────────────────────── */
+
+.contact-form__input,
+.contact-form__select,
+.contact-form__textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-light);
+  padding: var(--space-md) 0;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+.contact-form__input::placeholder,
+.contact-form__textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.contact-form__input:focus,
+.contact-form__select:focus,
+.contact-form__textarea:focus {
+  border-bottom-color: var(--text-secondary);
+}
+
+/* ─── Select ─────────────────────────────────────────────────────── */
+
+.contact-form__select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23444444' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: var(--space-xl);
+  color: var(--text-muted);
+}
+
+.contact-form__select option {
+  background: #111111;
+  color: var(--text-primary);
+}
+
+.contact-form__select--has-value {
+  color: var(--text-primary);
+}
+
+/* ─── Textarea ───────────────────────────────────────────────────── */
+
+.contact-form__textarea {
+  resize: none;
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+/* ─── Row layout (name + email) ──────────────────────────────────── */
+
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+/* ─── Submit row ─────────────────────────────────────────────────── */
+
+.contact-form__submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-3xl);
+}
+
+.contact-form__submit-note {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-light);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.contact-form__submit {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: var(--space-md) var(--space-2xl);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.contact-form__submit:hover:not(:disabled) {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.contact-form__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Success state ──────────────────────────────────────────────── */
+
+.contact-form__success {
+  text-align: center;
+  padding: var(--space-5xl) var(--space-2xl);
+}
+
+.contact-form__success-mark {
+  font-size: 2rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xl);
+}
+
+.contact-form__success-headline {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-light);
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.contact-form__success-sub {
+  font-size: var(--text-body);
+  font-weight: var(--weight-light);
+  color: var(--text-secondary);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .contact-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form__submit-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+  }
+}
