@@ -43,4 +43,9 @@
   /* Layout */
   --max-width:    1400px;
   --page-padding: clamp(1rem, 5vw, 4rem);
+
+  /* Breakpoints — use these in all media queries, never hardcode px values */
+  --bp-mobile:  768px;   /* max-width: 768px  → single column, stacked layout  */
+  --bp-tablet:  1024px;  /* max-width: 1024px → two-column, reduced spacing     */
+  --bp-desktop: 1280px;  /* min-width: 1280px → full layout, max spacing        */
 }
