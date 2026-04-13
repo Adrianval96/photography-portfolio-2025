@@ -56,7 +56,7 @@
   }
 
   .footer__copy {
-    flex: unset;
+    flex: none; /* idiomatic reset; prevents flex-grow consuming vertical space in column layout */
     text-align: center;
   }
 }
