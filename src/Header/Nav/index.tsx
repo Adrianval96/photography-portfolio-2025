@@ -19,7 +19,12 @@ function resolveHref(link: NavLink): string | null {
   return link.url ?? null
 }
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+type Props = {
+  data: HeaderType
+  instagramUrl?: string | null
+}
+
+export const HeaderNav: React.FC<Props> = ({ data, instagramUrl }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navItems = data?.navItems ?? []
@@ -79,6 +84,19 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               </Link>
             )
           })}
+
+          {instagramUrl && (
+            <div className={styles.mobileNavFooter}>
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.mobileNavSocial}
+              >
+                Instagram ↗
+              </a>
+            </div>
+          )}
         </div>
       )}
     </>

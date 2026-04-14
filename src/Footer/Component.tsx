@@ -1,13 +1,18 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { CMSLink } from '@/components/Link'
 import { SITE_NAME } from '@/constants'
-import type { Footer } from '@/payload-types'
+import type { Footer, SocialLink } from '@/payload-types'
 import './Component.css'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData = (await getCachedGlobal('footer', 1)()) as Footer
+  const siteSettings = await (getCachedGlobal('social-links', 0)() as Promise<SocialLink>).catch(
+    () => null,
+  )
+
   const navItems = footerData?.navItems || []
   const copyright = footerData?.copyright
+  const instagramUrl = siteSettings?.instagramUrl
 
   return (
     <footer className="footer">
@@ -21,7 +26,19 @@ export async function Footer() {
           ))}
         </ul>
       )}
-      {copyright && <span className="footer__copy">{copyright}</span>}
+      <div className="footer__right">
+        {instagramUrl && (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__social-link"
+          >
+            Instagram ↗
+          </a>
+        )}
+        {copyright && <span className="footer__copy">{copyright}</span>}
+      </div>
     </footer>
   )
 }

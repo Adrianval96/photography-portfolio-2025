@@ -13,9 +13,10 @@ import styles from './Component.module.css'
 
 interface HeaderClientProps {
   data: Header
+  instagramUrl: string | null
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, instagramUrl }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
@@ -36,7 +37,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link href="/" className={styles.logoLink}>
           <Logo />
         </Link>
-        <HeaderNav data={data} />
+        <HeaderNav data={data} instagramUrl={instagramUrl} />
       </div>
     </header>
   )
