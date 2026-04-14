@@ -64,12 +64,12 @@
   z-index: 1;
 }
 
-.featured-work__item--landscape {
-  aspect-ratio: 3 / 2;
+.featured-work__item--portrait {
+  aspect-ratio: 4 / 5;
 }
 
-.featured-work__item--portrait {
-  aspect-ratio: 2 / 3;
+.featured-work__item--landscape {
+  aspect-ratio: 5 / 4;
 }
 
 .featured-work__picture {
