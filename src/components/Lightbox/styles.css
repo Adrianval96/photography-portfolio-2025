@@ -119,6 +119,7 @@
   }
 
   .lightbox__image-wrap {
+    display: block;
     max-height: none;
   }
 
