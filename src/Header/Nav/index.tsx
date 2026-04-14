@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import type { Header as HeaderType } from '@/payload-types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SearchIcon, MenuIcon, XIcon } from 'lucide-react'
+import { MenuIcon, XIcon } from 'lucide-react'
 import clsx from 'clsx'
 import styles from './index.module.css'
 
@@ -42,10 +42,6 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             </Link>
           )
         })}
-        <Link href="/search" className={styles.iconLink}>
-          <span className="sr-only">Search</span>
-          <SearchIcon className={styles.icon} />
-        </Link>
       </nav>
 
       {/* Mobile hamburger button */}
@@ -84,9 +80,6 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             )
           })}
 
-          <Link href="/search" onClick={() => setMobileOpen(false)} className={styles.iconLink}>
-            <SearchIcon className={styles.icon} />
-          </Link>
         </div>
       )}
     </>
