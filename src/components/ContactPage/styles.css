@@ -44,7 +44,6 @@
   font-weight: var(--weight-light);
   font-style: italic;
   line-height: 1.1;
-  color: var(--text-primary);
   margin-bottom: var(--space-xl);
 }
 

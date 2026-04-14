@@ -23,7 +23,6 @@
   font-size: var(--text-h1);
   font-weight: var(--weight-light);
   font-style: italic;
-  color: var(--text-primary);
   margin: 0;
 }
 
@@ -40,7 +39,6 @@
   font-weight: var(--weight-regular);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-primary);
   text-decoration: none;
   border: 1px solid var(--border-interactive);
   padding: var(--space-md) var(--space-2xl);

@@ -42,7 +42,6 @@
 .gallery-card__title {
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
-  color: var(--text-primary);
   margin: 0 0 2px;
 }
 

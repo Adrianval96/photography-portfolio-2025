@@ -20,7 +20,6 @@
   opacity: 0.55;
   transition: opacity 0.2s ease;
   text-decoration: none;
-  color: var(--text-primary);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
