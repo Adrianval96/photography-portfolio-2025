@@ -79,7 +79,6 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               </Link>
             )
           })}
-
         </div>
       )}
     </>
