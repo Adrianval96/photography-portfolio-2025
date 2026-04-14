@@ -1,24 +1,24 @@
-import * as migration_20250404_194237_initial from './20250404_194237_initial';
-import * as migration_20260325_022748 from './20260325_022748';
-import * as migration_20260325_052824 from './20260325_052824';
-import * as migration_20260326_045825 from './20260326_045825';
-import * as migration_20260326_053904 from './20260326_053904';
-import * as migration_20260326_055411 from './20260326_055411';
-import * as migration_20260326_060452 from './20260326_060452';
-import * as migration_20260326_062713 from './20260326_062713';
-import * as migration_20260326_085611 from './20260326_085611';
-import * as migration_20260326_feature_flags from './20260326_feature_flags';
-import * as migration_20260326_homepage_cta from './20260326_homepage_cta';
-import * as migration_20260326_homepage_global from './20260326_homepage_global';
-import * as migration_20260327_025519 from './20260327_025519';
-import * as migration_20260327_121846 from './20260327_121846';
-import * as migration_20260327_footer_copyright from './20260327_footer_copyright';
-import * as migration_20260327_homepage_cta_section from './20260327_homepage_cta_section';
-import * as migration_20260328_add_contact_global from './20260328_add_contact_global';
-import * as migration_20260328_contact_background_image from './20260328_contact_background_image';
-import * as migration_20260329_service_items from './20260329_service_items';
-import * as migration_20260329_service_items_rels from './20260329_service_items_rels';
-import * as migration_20260414_add_site_settings from './20260414_add_site_settings';
+import * as migration_20250404_194237_initial from './20250404_194237_initial'
+import * as migration_20260325_022748 from './20260325_022748'
+import * as migration_20260325_052824 from './20260325_052824'
+import * as migration_20260326_045825 from './20260326_045825'
+import * as migration_20260326_053904 from './20260326_053904'
+import * as migration_20260326_055411 from './20260326_055411'
+import * as migration_20260326_060452 from './20260326_060452'
+import * as migration_20260326_062713 from './20260326_062713'
+import * as migration_20260326_085611 from './20260326_085611'
+import * as migration_20260326_feature_flags from './20260326_feature_flags'
+import * as migration_20260326_homepage_cta from './20260326_homepage_cta'
+import * as migration_20260326_homepage_global from './20260326_homepage_global'
+import * as migration_20260327_025519 from './20260327_025519'
+import * as migration_20260327_121846 from './20260327_121846'
+import * as migration_20260327_footer_copyright from './20260327_footer_copyright'
+import * as migration_20260327_homepage_cta_section from './20260327_homepage_cta_section'
+import * as migration_20260328_add_contact_global from './20260328_add_contact_global'
+import * as migration_20260328_contact_background_image from './20260328_contact_background_image'
+import * as migration_20260329_service_items from './20260329_service_items'
+import * as migration_20260329_service_items_rels from './20260329_service_items_rels'
+import * as migration_20260414_add_site_settings from './20260414_add_site_settings'
 
 export const migrations = [
   {
@@ -99,7 +99,7 @@ export const migrations = [
   {
     up: migration_20260327_homepage_cta_section.up,
     down: migration_20260327_homepage_cta_section.down,
-    name: '20260327_homepage_cta_section'
+    name: '20260327_homepage_cta_section',
   },
   {
     up: migration_20260328_add_contact_global.up,
@@ -126,4 +126,4 @@ export const migrations = [
     down: migration_20260414_add_site_settings.down,
     name: '20260414_add_site_settings',
   },
-];
+]
