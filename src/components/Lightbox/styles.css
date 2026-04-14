@@ -119,12 +119,18 @@
   }
 
   .lightbox__image-wrap {
-    max-height: 60vh;
-    overflow: hidden;
+    max-height: none;
+  }
+
+  .lightbox__image-wrap picture {
+    display: block;
+    width: 100%;
   }
 
   .lightbox__image {
-    max-height: 60vh;
+    width: 100%;
+    height: auto;
+    max-height: none;
   }
 
   .lightbox__info {
