@@ -6,10 +6,10 @@ import type { SiteSetting } from '@/payload-types'
 import './Component.css'
 
 export async function Footer() {
-  const [footerData, siteSettings] = await Promise.all([
-    getCachedGlobal('footer', 1)() as Promise<Footer>,
-    getCachedGlobal('site-settings', 0)() as Promise<SiteSetting>,
-  ])
+  const footerData = (await getCachedGlobal('footer', 1)()) as Footer
+  const siteSettings = await (getCachedGlobal('site-settings', 0)() as Promise<SiteSetting>).catch(
+    () => null,
+  )
 
   const navItems = footerData?.navItems || []
   const copyright = footerData?.copyright
