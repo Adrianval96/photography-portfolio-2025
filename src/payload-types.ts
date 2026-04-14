@@ -110,12 +110,14 @@ export interface Config {
     footer: Footer;
     homepage: Homepage;
     contact: Contact;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1645,6 +1647,21 @@ export interface Contact {
   createdAt?: string | null;
 }
 /**
+ * Site-wide settings shared across all components.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Full URL, e.g. https://www.instagram.com/cinematicstatephotography
+   */
+  instagramUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -1746,6 +1763,16 @@ export interface ContactSelect<T extends boolean = true> {
   subline?: T;
   locationNote?: T;
   notificationEmail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  instagramUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
