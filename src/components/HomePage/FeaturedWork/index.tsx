@@ -7,6 +7,11 @@ type Props = {
   items: PortfolioItem[]
 }
 
+function isLandscape(media: Media): boolean {
+  const { width, height } = media
+  return !width || !height || width >= height
+}
+
 function resolveMedia(item: PortfolioItem): Media | null {
   return typeof item.media === 'object' ? item.media : null
 }
@@ -23,8 +28,9 @@ export function FeaturedWork({ items }: Props) {
       <div className="featured-work__grid">
         {items.map((item) => {
           const media = resolveMedia(item)
+          const orientation = media && isLandscape(media) ? 'landscape' : 'portrait'
           return (
-            <div key={item.id} className="featured-work__item">
+            <div key={item.id} className={`featured-work__item featured-work__item--${orientation}`}>
               {media && (
                 <MediaComponent
                   fill
