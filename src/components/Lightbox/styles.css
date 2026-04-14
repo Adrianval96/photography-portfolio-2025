@@ -37,7 +37,9 @@
   cursor: pointer;
   font-family: var(--font-primary);
   font-size: 1.25rem;
-  transition: border-color var(--transition-base), color var(--transition-base);
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base);
 }
 
 .lightbox__nav:hover {
@@ -120,18 +122,6 @@
 
   .lightbox__image-wrap {
     display: block;
-    max-height: none;
-  }
-
-  .lightbox__image-wrap picture {
-    display: block;
-    width: 100%;
-  }
-
-  .lightbox__image {
-    width: 100%;
-    height: auto;
-    max-height: none;
   }
 
   .lightbox__info {
