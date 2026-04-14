@@ -30,7 +30,10 @@ export function FeaturedWork({ items }: Props) {
           const media = resolveMedia(item)
           const orientation = media && isLandscape(media) ? 'landscape' : 'portrait'
           return (
-            <div key={item.id} className={`featured-work__item featured-work__item--${orientation}`}>
+            <div
+              key={item.id}
+              className={`featured-work__item featured-work__item--${orientation}`}
+            >
               {media && (
                 <MediaComponent
                   fill
