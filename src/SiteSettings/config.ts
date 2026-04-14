@@ -3,7 +3,7 @@ import type { GlobalConfig } from 'payload'
 import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
 
 export const SiteSettings: GlobalConfig = {
-  slug: 'site-settings',
+  slug: 'social-links',
   access: {
     read: () => true,
   },

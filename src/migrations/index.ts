@@ -19,6 +19,7 @@ import * as migration_20260328_contact_background_image from './20260328_contact
 import * as migration_20260329_service_items from './20260329_service_items'
 import * as migration_20260329_service_items_rels from './20260329_service_items_rels'
 import * as migration_20260414_add_site_settings from './20260414_add_site_settings'
+import * as migration_20260414_add_social_links from './20260414_add_social_links'
 
 export const migrations = [
   {
@@ -125,5 +126,10 @@ export const migrations = [
     up: migration_20260414_add_site_settings.up,
     down: migration_20260414_add_site_settings.down,
     name: '20260414_add_site_settings',
+  },
+  {
+    up: migration_20260414_add_social_links.up,
+    down: migration_20260414_add_social_links.down,
+    name: '20260414_add_social_links',
   },
 ]

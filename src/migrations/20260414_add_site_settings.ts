@@ -1,16 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
+import { MigrateUpArgs, MigrateDownArgs } from '@payloadcms/db-vercel-postgres'
 
-export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
-    CREATE TABLE IF NOT EXISTS "site_settings" (
-      "id" serial PRIMARY KEY NOT NULL,
-      "instagram_url" varchar,
-      "updated_at" timestamp(3) with time zone,
-      "created_at" timestamp(3) with time zone
-    )
-  `)
-}
-
-export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`DROP TABLE IF EXISTS "site_settings"`)
-}
+// This migration was a no-op — site_settings table already existed and is
+// owned by payloadCloudPlugin. The slug collision has been resolved by
+// renaming our global to social-links (see 20260414_add_social_links).
+export async function up(_args: MigrateUpArgs): Promise<void> {}
+export async function down(_args: MigrateDownArgs): Promise<void> {}

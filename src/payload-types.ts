@@ -110,14 +110,14 @@ export interface Config {
     footer: Footer;
     homepage: Homepage;
     contact: Contact;
-    'site-settings': SiteSetting;
+    'social-links': SocialLink;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1650,9 +1650,9 @@ export interface Contact {
  * Site-wide settings shared across all components.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings".
+ * via the `definition` "social-links".
  */
-export interface SiteSetting {
+export interface SocialLink {
   id: number;
   /**
    * Full URL, e.g. https://www.instagram.com/cinematicstatephotography
@@ -1769,9 +1769,9 @@ export interface ContactSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings_select".
+ * via the `definition` "social-links_select".
  */
-export interface SiteSettingsSelect<T extends boolean = true> {
+export interface SocialLinksSelect<T extends boolean = true> {
   instagramUrl?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -7,9 +7,9 @@ export const revalidateSiteSettings: GlobalAfterChangeHook = ({
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
-    payload.logger.info(`Revalidating site-settings`)
+    payload.logger.info(`Revalidating social-links`)
 
-    revalidateTag('global_site-settings', {})
+    revalidateTag('global_social-links', {})
   }
 
   return doc
