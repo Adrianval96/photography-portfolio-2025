@@ -100,3 +100,23 @@
 .mobileNavLink:first-of-type {
   border-top: 1px solid rgba(240, 240, 240, 0.07);
 }
+
+.mobileNavFooter {
+  margin-top: var(--space-2xl);
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.mobileNavSocial {
+  font-size: var(--text-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.mobileNavSocial:hover {
+  color: var(--text-secondary);
+}
