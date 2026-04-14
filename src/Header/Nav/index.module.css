@@ -102,7 +102,9 @@
 }
 
 .mobileNavFooter {
-  margin-top: var(--space-2xl);
+  position: absolute;
+  bottom: var(--space-2xl);
+  left: var(--space-2xl);
   display: flex;
   gap: var(--space-lg);
   align-items: center;
