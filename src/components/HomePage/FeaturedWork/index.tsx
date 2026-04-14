@@ -16,7 +16,18 @@ function resolveMedia(item: PortfolioItem): Media | null {
   return typeof item.media === 'object' ? item.media : null
 }
 
+function sortPortraitFirst(items: PortfolioItem[]): PortfolioItem[] {
+  return [...items].sort((a, b) => {
+    const aLandscape = isLandscape(resolveMedia(a) ?? ({} as Media))
+    const bLandscape = isLandscape(resolveMedia(b) ?? ({} as Media))
+    if (aLandscape === bLandscape) return 0
+    return aLandscape ? 1 : -1
+  })
+}
+
 export function FeaturedWork({ items }: Props) {
+  const sorted = sortPortraitFirst(items)
+
   return (
     <section className="featured-work">
       <header className="featured-work__header">
@@ -26,7 +37,7 @@ export function FeaturedWork({ items }: Props) {
         </Link>
       </header>
       <div className="featured-work__grid">
-        {items.map((item) => {
+        {sorted.map((item) => {
           const media = resolveMedia(item)
           const orientation = media && isLandscape(media) ? 'landscape' : 'portrait'
           return (
