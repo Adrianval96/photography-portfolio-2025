@@ -100,7 +100,3 @@
 .mobileNavLink:first-of-type {
   border-top: 1px solid rgba(240, 240, 240, 0.07);
 }
-
-.mobileMenu > a:last-child {
-  margin-top: var(--space-2xl);
-}
