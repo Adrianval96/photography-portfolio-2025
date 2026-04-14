@@ -2,7 +2,7 @@ import type { GlobalAfterChangeHook } from 'payload'
 
 import { revalidateTag } from 'next/cache'
 
-export const revalidateSiteSettings: GlobalAfterChangeHook = ({
+export const revalidateSocialLinks: GlobalAfterChangeHook = ({
   doc,
   req: { payload, context },
 }) => {

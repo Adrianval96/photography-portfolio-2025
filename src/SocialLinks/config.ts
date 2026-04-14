@@ -1,15 +1,15 @@
 import type { GlobalConfig } from 'payload'
 
-import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
+import { revalidateSocialLinks } from './hooks/revalidateSocialLinks'
 
-export const SiteSettings: GlobalConfig = {
+export const SocialLinks: GlobalConfig = {
   slug: 'social-links',
   access: {
     read: () => true,
   },
   admin: {
     group: 'Settings',
-    description: 'Site-wide settings shared across all components.',
+    description: 'Site-wide social media links.',
   },
   fields: [
     {
@@ -22,6 +22,6 @@ export const SiteSettings: GlobalConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateSiteSettings],
+    afterChange: [revalidateSocialLinks],
   },
 }
