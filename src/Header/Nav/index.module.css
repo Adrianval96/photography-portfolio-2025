@@ -75,7 +75,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 0;
 }
 
 .mobileClose {
@@ -86,16 +86,21 @@
 
 .mobileNavLink {
   font-family: var(--font-primary);
-  font-size: var(--text-h3);
-  font-weight: var(--weight-regular);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  opacity: 0.5;
-  transition: opacity 0.2s ease;
+  font-size: var(--text-h1);
+  font-weight: var(--weight-light);
+  font-style: italic;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  color: currentColor;
+  padding: 18px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(240, 240, 240, 0.07);
 }
 
-.mobileNavLink:hover {
-  opacity: 1;
+.mobileNavLink:first-of-type {
+  border-top: 1px solid rgba(240, 240, 240, 0.07);
+}
+
+.mobileMenu > a:last-child {
+  margin-top: var(--space-2xl);
 }
