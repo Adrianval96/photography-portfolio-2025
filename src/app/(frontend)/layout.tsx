@@ -52,9 +52,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(getServerSideURL()),
+    title: {
+      template: `%s | ${SITE_NAME}`,
+      default: `${SITE_NAME} | Adrian Valero — Melbourne Photographer`,
+    },
+    description:
+      'Still frames from a moving world. Live performance, street, and editorial photography by Adrian Valero, Melbourne.',
     openGraph: mergeOpenGraph({
       siteName: SITE_NAME,
     }),
+    twitter: {
+      card: 'summary_large_image',
+    },
     icons: {
       icon: [
         { url: '/favicon.ico', sizes: '32x32' },
