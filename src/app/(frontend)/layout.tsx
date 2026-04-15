@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { Cormorant_Garamond } from 'next/font/google'
 import React from 'react'
+import { Analytics } from '@vercel/analytics/next'
 
 const font = Cormorant_Garamond({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
