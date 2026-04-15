@@ -78,10 +78,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <InitTheme />
         {personJsonLd && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: personJsonLd }}
-          />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: personJsonLd }} />
         )}
       </head>
       <body>
