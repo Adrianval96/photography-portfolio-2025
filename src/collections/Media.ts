@@ -26,7 +26,11 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      required: true,
+      admin: {
+        description:
+          'Describe the image for screen readers and search engines. Be specific: subject, mood, location. E.g. "Fire performer surrounded by swirling flames at outdoor night event, Melbourne".',
+      },
     },
     {
       name: 'caption',
