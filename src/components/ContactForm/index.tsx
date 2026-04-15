@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { submitContactForm } from '@/actions/submitContactForm'
 import './styles.css'
 
@@ -30,11 +30,11 @@ export function ContactForm({ enquiryTypes }: Props) {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { isSubmitting, errors },
   } = useForm<FormValues>()
 
-  const enquiryTypeValue = watch('enquiryType')
+  const enquiryTypeValue = useWatch({ control, name: 'enquiryType' })
 
   const onSubmit = async (data: FormValues) => {
     setSubmitError(null)
