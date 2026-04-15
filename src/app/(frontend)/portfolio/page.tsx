@@ -2,19 +2,12 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { GalleryGrid } from '@/components/GalleryGrid'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { generateMeta } from '@/utilities/generateMeta'
 
-const DESCRIPTION =
-  'Browse the full portfolio — live performance, street photography, and editorial work by Adrian Valero.'
-
-export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: DESCRIPTION,
-  openGraph: mergeOpenGraph({
-    title: 'Portfolio | Cinematic State Photography',
-    description: DESCRIPTION,
-    url: '/portfolio',
-  }),
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+  const doc = await payload.findGlobal({ slug: 'portfolio-page', depth: 1 })
+  return generateMeta({ doc })
 }
 
 export default async function PortfolioPage() {

@@ -1,18 +1,13 @@
-import { ContactPage } from '@/components/ContactPage'
 import type { Metadata } from 'next'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import { ContactPage } from '@/components/ContactPage'
+import { generateMeta } from '@/utilities/generateMeta'
 
-const DESCRIPTION =
-  'Book a session or get in touch with Adrian Valero — Cinematic State Photography. Response within 48 hours.'
-
-export const metadata: Metadata = {
-  title: 'Get in Touch',
-  description: DESCRIPTION,
-  openGraph: mergeOpenGraph({
-    title: 'Get in Touch | Cinematic State Photography',
-    description: DESCRIPTION,
-    url: '/contact',
-  }),
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+  const doc = await payload.findGlobal({ slug: 'contact', depth: 1 })
+  return generateMeta({ doc })
 }
 
 export default async function Page() {

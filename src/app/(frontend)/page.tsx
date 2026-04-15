@@ -1,19 +1,13 @@
 import type { Metadata } from 'next'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 import { HomePage } from '@/components/HomePage'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { SITE_NAME } from '@/constants'
+import { generateMeta } from '@/utilities/generateMeta'
 
-const DESCRIPTION =
-  'Still frames from a moving world. Live performance, street, and editorial photography by Adrian Valero, Melbourne.'
-
-export const metadata: Metadata = {
-  title: `${SITE_NAME} | Adrian Valero — Melbourne Photographer`,
-  description: DESCRIPTION,
-  openGraph: mergeOpenGraph({
-    title: `${SITE_NAME} | Adrian Valero — Melbourne Photographer`,
-    description: DESCRIPTION,
-    url: '/',
-  }),
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+  const doc = await payload.findGlobal({ slug: 'homepage', depth: 1 })
+  return generateMeta({ doc })
 }
 
 export default function Page() {
