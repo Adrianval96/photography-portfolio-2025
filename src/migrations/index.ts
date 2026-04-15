@@ -21,6 +21,7 @@ import * as migration_20260329_service_items_rels from './20260329_service_items
 import * as migration_20260414_add_site_settings from './20260414_add_site_settings'
 import * as migration_20260414_add_social_links from './20260414_add_social_links'
 import * as migration_20260415_seo_globals from './20260415_seo_globals'
+import * as migration_20260415_site_identity from './20260415_site_identity'
 
 export const migrations = [
   {
@@ -137,5 +138,10 @@ export const migrations = [
     up: migration_20260415_seo_globals.up,
     down: migration_20260415_seo_globals.down,
     name: '20260415_seo_globals',
+  },
+  {
+    up: migration_20260415_site_identity.up,
+    down: migration_20260415_site_identity.down,
+    name: '20260415_site_identity',
   },
 ]

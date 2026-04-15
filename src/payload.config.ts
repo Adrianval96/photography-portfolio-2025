@@ -25,6 +25,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { Homepage } from './Homepage/config'
 import { PortfolioPage } from './PortfolioPage/config'
+import { SiteIdentity } from './SiteIdentity/config'
 import { SocialLinks } from './SocialLinks/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
@@ -77,7 +78,7 @@ export default buildConfig({
   }),
   collections: [Pages, Media, Users, Categories, PortfolioItems, FeatureFlags, ServiceItems],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, Homepage, Contact, PortfolioPage, SocialLinks],
+  globals: [Header, Footer, Homepage, Contact, PortfolioPage, SiteIdentity, SocialLinks],
   plugins: [
     ...plugins,
     vercelBlobStorage({
