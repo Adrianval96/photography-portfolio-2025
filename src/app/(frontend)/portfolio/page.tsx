@@ -2,9 +2,12 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { GalleryGrid } from '@/components/GalleryGrid'
+import { generateMeta } from '@/utilities/generateMeta'
 
-export const metadata: Metadata = {
-  title: 'Portfolio',
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+  const doc = await payload.findGlobal({ slug: 'portfolio-page', depth: 1 })
+  return generateMeta({ doc })
 }
 
 export default async function PortfolioPage() {

@@ -110,6 +110,7 @@ export interface Config {
     footer: Footer;
     homepage: Homepage;
     contact: Contact;
+    'portfolio-page': PortfolioPage;
     'social-links': SocialLink;
   };
   globalsSelect: {
@@ -117,6 +118,7 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
+    'portfolio-page': PortfolioPageSelect<false> | PortfolioPageSelect<true>;
     'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
   };
   locale: null;
@@ -1619,6 +1621,10 @@ export interface Homepage {
       label?: string | null;
     };
   };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1643,11 +1649,28 @@ export interface Contact {
    * Inquiry submissions are forwarded to this address.
    */
   notificationEmail?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * Site-wide settings shared across all components.
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-page".
+ */
+export interface PortfolioPage {
+  id: number;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Site-wide social media links.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "social-links".
@@ -1748,6 +1771,12 @@ export interface HomepageSelect<T extends boolean = true> {
               label?: T;
             };
       };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1763,6 +1792,27 @@ export interface ContactSelect<T extends boolean = true> {
   subline?: T;
   locationNote?: T;
   notificationEmail?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio-page_select".
+ */
+export interface PortfolioPageSelect<T extends boolean = true> {
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

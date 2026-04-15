@@ -47,6 +47,7 @@ export const plugins: Plugin[] = [
   seoPlugin({
     generateTitle,
     generateURL,
+    globals: ['contact', 'homepage', 'portfolio-page'],
   }),
   formBuilderPlugin({
     fields: {
