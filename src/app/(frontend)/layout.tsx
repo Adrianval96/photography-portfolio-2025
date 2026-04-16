@@ -21,17 +21,65 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
 import { draftMode } from 'next/headers'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import type { SiteIdentity, SocialLink } from '@/payload-types'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
+async function getPersonJsonLd(): Promise<string | null> {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const [identity, socialLinks] = await Promise.all([
+      payload.findGlobal({ slug: 'site-identity' }) as Promise<SiteIdentity>,
+      payload.findGlobal({ slug: 'social-links' }) as Promise<SocialLink>,
+    ])
+
+    const { personName, jobTitle, schemaDescription, addressLocality, addressCountry } = identity
+
+    if (!personName) return null
+
+    const { instagramUrl } = socialLinks
+
+    const schema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: personName,
+      url: getServerSideURL(),
+    }
+
+    if (jobTitle) schema.jobTitle = jobTitle
+    if (schemaDescription) schema.description = schemaDescription
+
+    if (addressLocality || addressCountry) {
+      schema.address = {
+        '@type': 'PostalAddress',
+        ...(addressLocality && { addressLocality }),
+        ...(addressCountry && { addressCountry }),
+      }
+    }
+
+    const sameAs = [instagramUrl].filter(Boolean)
+    if (sameAs.length) schema.sameAs = sameAs
+
+    return JSON.stringify(schema)
+  } catch {
+    return null
+  }
+}
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const personJsonLd = await getPersonJsonLd()
 
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
+        {personJsonLd && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: personJsonLd }} />
+        )}
       </head>
       <body>
         <Providers>

@@ -112,6 +112,7 @@ export interface Config {
     contact: Contact;
     'portfolio-page': PortfolioPage;
     'social-links': SocialLink;
+    'site-identity': SiteIdentity;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -120,6 +121,7 @@ export interface Config {
     contact: ContactSelect<false> | ContactSelect<true>;
     'portfolio-page': PortfolioPageSelect<false> | PortfolioPageSelect<true>;
     'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
+    'site-identity': SiteIdentitySelect<false> | SiteIdentitySelect<true>;
   };
   locale: null;
   widgets: {
@@ -1860,6 +1862,44 @@ export interface TaskSchedulePublish {
  */
 export interface Auth {
   [k: string]: unknown;
+}
+
+export interface SiteIdentity {
+  id: number;
+  /**
+   * The person or entity behind this site. E.g. "Adrian Valero".
+   */
+  personName: string;
+  /**
+   * E.g. "Photographer", "Visual Artist".
+   */
+  jobTitle?: string | null;
+  /**
+   * One or two sentences describing the person and their work. Used in structured data.
+   */
+  schemaDescription?: string | null;
+  /**
+   * E.g. "Melbourne".
+   */
+  addressLocality?: string | null;
+  /**
+   * ISO 3166-1 alpha-2 country code. E.g. "AU" for Australia.
+   */
+  addressCountry?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+export interface SiteIdentitySelect<T extends boolean = true> {
+  personName?: T;
+  jobTitle?: T;
+  schemaDescription?: T;
+  addressLocality?: T;
+  addressCountry?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+  id?: T;
 }
 
 
