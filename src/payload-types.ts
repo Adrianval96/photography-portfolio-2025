@@ -111,8 +111,8 @@ export interface Config {
     homepage: Homepage;
     contact: Contact;
     'portfolio-page': PortfolioPage;
-    'social-links': SocialLink;
     'site-identity': SiteIdentity;
+    'social-links': SocialLink;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -120,8 +120,8 @@ export interface Config {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
     'portfolio-page': PortfolioPageSelect<false> | PortfolioPageSelect<true>;
-    'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
     'site-identity': SiteIdentitySelect<false> | SiteIdentitySelect<true>;
+    'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1675,6 +1675,37 @@ export interface PortfolioPage {
   createdAt?: string | null;
 }
 /**
+ * Site-wide identity used for structured data (JSON-LD) and search engine context. Helps Google understand who owns this site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-identity".
+ */
+export interface SiteIdentity {
+  id: number;
+  /**
+   * The person or entity behind this site. E.g. "Adrian Valero".
+   */
+  personName: string;
+  /**
+   * E.g. "Photographer", "Visual Artist".
+   */
+  jobTitle?: string | null;
+  /**
+   * One or two sentences describing the person and their work. Used in structured data.
+   */
+  schemaDescription?: string | null;
+  /**
+   * E.g. "Melbourne".
+   */
+  addressLocality?: string | null;
+  /**
+   * ISO 3166-1 alpha-2 country code. E.g. "AU" for Australia.
+   */
+  addressCountry?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Site-wide social media links.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1824,6 +1855,20 @@ export interface PortfolioPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-identity_select".
+ */
+export interface SiteIdentitySelect<T extends boolean = true> {
+  personName?: T;
+  jobTitle?: T;
+  schemaDescription?: T;
+  addressLocality?: T;
+  addressCountry?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "social-links_select".
  */
 export interface SocialLinksSelect<T extends boolean = true> {
@@ -1865,44 +1910,6 @@ export interface TaskSchedulePublish {
  */
 export interface Auth {
   [k: string]: unknown;
-}
-
-export interface SiteIdentity {
-  id: number;
-  /**
-   * The person or entity behind this site. E.g. "Adrian Valero".
-   */
-  personName: string;
-  /**
-   * E.g. "Photographer", "Visual Artist".
-   */
-  jobTitle?: string | null;
-  /**
-   * One or two sentences describing the person and their work. Used in structured data.
-   */
-  schemaDescription?: string | null;
-  /**
-   * E.g. "Melbourne".
-   */
-  addressLocality?: string | null;
-  /**
-   * ISO 3166-1 alpha-2 country code. E.g. "AU" for Australia.
-   */
-  addressCountry?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-
-export interface SiteIdentitySelect<T extends boolean = true> {
-  personName?: T;
-  jobTitle?: T;
-  schemaDescription?: T;
-  addressLocality?: T;
-  addressCountry?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-  id?: T;
 }
 
 
