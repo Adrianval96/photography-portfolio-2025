@@ -224,7 +224,10 @@ export interface Page {
  */
 export interface Media {
   id: number;
-  alt?: string | null;
+  /**
+   * Describe the image for screen readers and search engines. Be specific: subject, mood, location. E.g. "Fire performer surrounded by swirling flames at outdoor night event, Melbourne".
+   */
+  alt: string;
   caption?: {
     root: {
       type: string;
