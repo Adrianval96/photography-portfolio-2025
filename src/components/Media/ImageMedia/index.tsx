@@ -51,8 +51,8 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         ? `${url}?${cacheTag}`
         : `${getClientSideURL()}${url}?${cacheTag}`
 
-    if (resource.blurDataURL) {
-      blurDataURL = resource.blurDataURL
+    if (resource.blurDataUrl) {
+      blurDataURL = resource.blurDataUrl
     }
   }
 

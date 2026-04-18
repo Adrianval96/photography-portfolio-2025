@@ -45,7 +45,7 @@ export const Media: CollectionConfig = {
         const blurDataURL = await generateBlurDataURL(file.data)
         if (!blurDataURL) return data
 
-        return { ...data, blurDataURL }
+        return { ...data, blurDataUrl: blurDataURL }
       },
     ],
   },
@@ -69,7 +69,7 @@ export const Media: CollectionConfig = {
       }),
     },
     {
-      name: 'blurDataURL',
+      name: 'blurDataUrl',
       type: 'text',
       admin: {
         readOnly: true,
