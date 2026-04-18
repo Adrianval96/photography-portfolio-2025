@@ -14,6 +14,19 @@ import { authenticated } from '../access/authenticated'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+async function generateBlurDataURL(buffer: Buffer): Promise<string | null> {
+  try {
+    const { default: sharp } = await import('sharp')
+    const resized = await sharp(buffer)
+      .resize(16, 16, { fit: 'inside' })
+      .webp({ quality: 20 })
+      .toBuffer()
+    return `data:image/webp;base64,${resized.toString('base64')}`
+  } catch {
+    return null
+  }
+}
+
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
@@ -21,6 +34,20 @@ export const Media: CollectionConfig = {
     delete: authenticated,
     read: anyone,
     update: authenticated,
+  },
+  hooks: {
+    beforeChange: [
+      async ({ data, req }) => {
+        // req.file is populated during upload operations
+        const file = (req as any).file as { data?: Buffer } | undefined
+        if (!file?.data) return data
+
+        const blurDataURL = await generateBlurDataURL(file.data)
+        if (!blurDataURL) return data
+
+        return { ...data, blurDataURL }
+      },
+    ],
   },
   fields: [
     {
@@ -40,6 +67,16 @@ export const Media: CollectionConfig = {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
+    },
+    {
+      name: 'blurDataURL',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        description:
+          'Auto-generated blur placeholder for progressive image loading. Set automatically on upload.',
+        position: 'sidebar',
+      },
     },
   ],
   upload: {

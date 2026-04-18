@@ -243,6 +243,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  blurDataURL?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
