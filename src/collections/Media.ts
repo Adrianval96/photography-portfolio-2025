@@ -17,7 +17,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 function revalidateMedia() {
-  revalidateTag(CACHE_TAG_MEDIA)
+  revalidateTag(CACHE_TAG_MEDIA, {})
   revalidatePath('/', 'page')
   revalidatePath('/portfolio', 'page')
 }

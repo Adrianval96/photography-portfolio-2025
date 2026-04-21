@@ -13,7 +13,7 @@ import { slugField } from '@/fields/slug'
 import { CACHE_TAG_PORTFOLIO_ITEMS } from '@/constants'
 
 function revalidatePortfolioItems() {
-  revalidateTag(CACHE_TAG_PORTFOLIO_ITEMS)
+  revalidateTag(CACHE_TAG_PORTFOLIO_ITEMS, {})
   revalidatePath('/', 'page')
   revalidatePath('/portfolio', 'page')
 }
