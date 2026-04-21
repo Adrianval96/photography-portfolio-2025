@@ -18,8 +18,8 @@ const dirname = path.dirname(filename)
 
 function revalidateMedia() {
   revalidateTag(CACHE_TAG_MEDIA)
-  revalidatePath('/')
-  revalidatePath('/portfolio')
+  revalidatePath('/', 'page')
+  revalidatePath('/portfolio', 'page')
 }
 
 export const Media: CollectionConfig = {

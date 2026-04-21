@@ -14,8 +14,8 @@ import { CACHE_TAG_PORTFOLIO_ITEMS } from '@/constants'
 
 function revalidatePortfolioItems() {
   revalidateTag(CACHE_TAG_PORTFOLIO_ITEMS)
-  revalidatePath('/')
-  revalidatePath('/portfolio')
+  revalidatePath('/', 'page')
+  revalidatePath('/portfolio', 'page')
 }
 
 export const PortfolioItems: CollectionConfig = {
