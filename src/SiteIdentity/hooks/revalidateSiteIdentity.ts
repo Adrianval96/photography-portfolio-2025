@@ -9,7 +9,7 @@ export const revalidateSiteIdentity: GlobalAfterChangeHook = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating site-identity`)
 
-    revalidateTag('global_site-identity')
+    revalidateTag('global_site-identity', {})
   }
 
   return doc
