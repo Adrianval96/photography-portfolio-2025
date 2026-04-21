@@ -170,6 +170,29 @@ Always run `npx payload migrate` against the production database before deployin
 
 Always use Next.js `<Image>` — never plain `<img>`.
 
+## Branch Naming (MANDATORY)
+
+**Rename the branch before writing any code.** Worktrees start with auto-generated names like `claude/hopeful-bhabha` — these are never acceptable in the repo.
+
+As the very first action in any session, run:
+
+```bash
+git branch -m <prefix>/<short-description>
+```
+
+Prefixes:
+- `fix/` — bug fixes
+- `add/` — new features or content
+- `change/` — modifications to existing behaviour
+- `refactor/` — code restructuring with no behaviour change
+- `chore/` — dependency updates, config, tooling
+
+Examples: `fix/uncached-layout-globals`, `add/portfolio-filtering`, `chore/bump-payload`
+
+This rule has been violated multiple times. There are no exceptions.
+
+---
+
 ## Working Style
 
 - **Baby steps** — small, focused commits. Do not refactor unrelated things in the same PR.
