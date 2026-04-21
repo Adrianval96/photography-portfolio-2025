@@ -5,17 +5,29 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import { CACHE_TAG_MEDIA } from '@/constants'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+function revalidateMedia() {
+  revalidateTag(CACHE_TAG_MEDIA)
+  revalidatePath('/')
+  revalidatePath('/portfolio')
+}
+
 export const Media: CollectionConfig = {
   slug: 'media',
+  hooks: {
+    afterChange: [() => revalidateMedia()],
+    afterDelete: [() => revalidateMedia()],
+  },
   access: {
     create: authenticated,
     delete: authenticated,
