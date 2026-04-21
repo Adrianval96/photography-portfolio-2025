@@ -10,5 +10,3 @@ export const FEATURED_WORK_LIMIT = 6
 
 export const CACHE_TAG_PAGES_SITEMAP = 'pages-sitemap'
 export const CACHE_TAG_REDIRECTS = 'redirects'
-export const CACHE_TAG_MEDIA = 'media'
-export const CACHE_TAG_PORTFOLIO_ITEMS = 'portfolio-items'

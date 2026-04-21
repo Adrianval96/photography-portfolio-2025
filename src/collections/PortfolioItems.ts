@@ -5,25 +5,12 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 import { slugField } from '@/fields/slug'
-import { CACHE_TAG_PORTFOLIO_ITEMS } from '@/constants'
-
-function revalidatePortfolioItems() {
-  revalidateTag(CACHE_TAG_PORTFOLIO_ITEMS, {})
-  revalidatePath('/', 'page')
-  revalidatePath('/portfolio', 'page')
-}
 
 export const PortfolioItems: CollectionConfig = {
   slug: 'portfolio-items',
-  hooks: {
-    afterChange: [() => revalidatePortfolioItems()],
-    afterDelete: [() => revalidatePortfolioItems()],
-  },
   access: {
     create: authenticated,
     delete: authenticated,
