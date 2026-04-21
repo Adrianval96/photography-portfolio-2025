@@ -4,6 +4,8 @@ import { getPayload } from 'payload'
 import { GalleryGrid } from '@/components/GalleryGrid'
 import { generateMeta } from '@/utilities/generateMeta'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
   const doc = await payload.findGlobal({ slug: 'portfolio-page', depth: 1 })
