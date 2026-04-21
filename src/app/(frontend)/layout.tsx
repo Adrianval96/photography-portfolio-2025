@@ -21,6 +21,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
 import { draftMode } from 'next/headers'
+import { unstable_cache } from 'next/cache'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import type { SiteIdentity, SocialLink } from '@/payload-types'
@@ -28,13 +29,21 @@ import type { SiteIdentity, SocialLink } from '@/payload-types'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-async function getPersonJsonLd(): Promise<string | null> {
-  try {
+const getCachedGlobals = unstable_cache(
+  async () => {
     const payload = await getPayload({ config: configPromise })
-    const [identity, socialLinks] = await Promise.all([
+    return Promise.all([
       payload.findGlobal({ slug: 'site-identity' }) as Promise<SiteIdentity>,
       payload.findGlobal({ slug: 'social-links' }) as Promise<SocialLink>,
     ])
+  },
+  ['person-json-ld-globals'],
+  { tags: ['global_site-identity', 'global_social-links'] },
+)
+
+async function getPersonJsonLd(): Promise<string | null> {
+  try {
+    const [identity, socialLinks] = await getCachedGlobals()
 
     const { personName, jobTitle, schemaDescription, addressLocality, addressCountry } = identity
 

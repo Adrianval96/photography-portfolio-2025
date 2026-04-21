@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import { revalidateSiteIdentity } from './hooks/revalidateSiteIdentity'
 
 export const SiteIdentity: GlobalConfig = {
   slug: 'site-identity',
@@ -13,6 +14,9 @@ export const SiteIdentity: GlobalConfig = {
   admin: {
     description:
       'Site-wide identity used for structured data (JSON-LD) and search engine context. Helps Google understand who owns this site.',
+  },
+  hooks: {
+    afterChange: [revalidateSiteIdentity],
   },
   fields: [
     {
