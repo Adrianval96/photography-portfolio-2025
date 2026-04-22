@@ -6,6 +6,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
+import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
@@ -16,13 +17,13 @@ const dirname = path.dirname(filename)
 
 async function generateBlurDataURL(buffer: Buffer): Promise<string | null> {
   try {
-    const { default: sharp } = await import('sharp')
     const resized = await sharp(buffer)
       .resize(16, 16, { fit: 'inside' })
       .webp({ quality: 20 })
       .toBuffer()
     return `data:image/webp;base64,${resized.toString('base64')}`
-  } catch {
+  } catch (err) {
+    console.warn('[Media] Failed to generate blur placeholder:', err)
     return null
   }
 }
@@ -38,11 +39,10 @@ export const Media: CollectionConfig = {
   hooks: {
     beforeChange: [
       async ({ data, req }) => {
-        // req.file is populated during upload operations
-        const file = (req as any).file as { data?: Buffer } | undefined
-        if (!file?.data) return data
+        const fileData = (req as any)?.file?.data
+        if (!Buffer.isBuffer(fileData)) return data
 
-        const blurDataURL = await generateBlurDataURL(file.data)
+        const blurDataURL = await generateBlurDataURL(fileData)
         if (!blurDataURL) return data
 
         return { ...data, blurDataUrl: blurDataURL }

@@ -3,7 +3,7 @@
 // Run with:  node --env-file=.env.preview.local backfill-blur.mjs
 import { neon } from '@neondatabase/serverless'
 import sharp from 'sharp'
-import { list } from '/Users/adrivg96/Documents/projects/photography-portfolio-2025/node_modules/.pnpm/@vercel+blob@0.22.3/node_modules/@vercel/blob/dist/index.js'
+import { list } from '@vercel/blob'
 
 const dbUrl = process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL
 if (!dbUrl) throw new Error('DATABASE_URL / DATABASE_URL_UNPOOLED not set')
@@ -54,7 +54,10 @@ for (const row of rows) {
     continue
   }
   try {
-    const res = await fetch(blobUrl)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 30_000)
+    const res = await fetch(blobUrl, { signal: controller.signal })
+    clearTimeout(timer)
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const buf = Buffer.from(await res.arrayBuffer())
     const resized = await sharp(buf)
@@ -72,3 +75,7 @@ for (const row of rows) {
 }
 
 console.log(`\nDone. ${ok} updated, ${skipped} skipped (no blob), ${fail} failed.`)
+if (fail > 0) {
+  console.error(`${fail} record(s) failed. Re-run to retry.`)
+  process.exit(1)
+}
