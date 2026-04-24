@@ -4,6 +4,7 @@ import { cn } from '@/utilities/ui'
 import { Cormorant_Garamond } from 'next/font/google'
 import React from 'react'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const font = Cormorant_Garamond({
   subsets: ['latin'],
@@ -103,6 +104,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
