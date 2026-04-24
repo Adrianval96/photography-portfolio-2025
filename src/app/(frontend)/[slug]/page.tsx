@@ -5,14 +5,12 @@ import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import { homeStatic } from '@/endpoints/seed/home-static'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { HOME_PAGE_SLUG } from '@/constants'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -27,15 +25,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== HOME_PAGE_SLUG && doc.slug !== 'contact'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
-
-  return params
+  return pages.docs?.map(({ slug }) => ({ slug }))
 }
 
 type Args = {
@@ -46,19 +36,10 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = HOME_PAGE_SLUG } = await paramsPromise
+  const { slug = '' } = await paramsPromise
   const url = '/' + slug
 
-  let page: RequiredDataFromCollectionSlug<'pages'> | null
-
-  page = await queryPageBySlug({
-    slug,
-  })
-
-  // Remove this code once your website is seeded
-  if (!page && slug === HOME_PAGE_SLUG) {
-    page = homeStatic
-  }
+  const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({ slug })
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -81,10 +62,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = HOME_PAGE_SLUG } = await paramsPromise
-  const page = await queryPageBySlug({
-    slug,
-  })
+  const { slug = '' } = await paramsPromise
+  const page = await queryPageBySlug({ slug })
 
   return generateMeta({ doc: page })
 }

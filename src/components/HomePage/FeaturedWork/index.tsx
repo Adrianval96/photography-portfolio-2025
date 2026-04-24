@@ -1,6 +1,7 @@
 import type { PortfolioItem, Media } from '@/payload-types'
 import { Media as MediaComponent } from '@/components/Media'
 import Link from 'next/link'
+import { ROUTES } from '@/constants'
 import './styles.css'
 
 type Props = {
@@ -32,7 +33,7 @@ export function FeaturedWork({ items }: Props) {
     <section className="featured-work">
       <header className="featured-work__header">
         <span className="featured-work__label">Featured Work</span>
-        <Link href="/portfolio" className="featured-work__link">
+        <Link href={ROUTES.portfolio} className="featured-work__link">
           See the full portfolio →
         </Link>
       </header>
