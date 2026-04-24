@@ -16,6 +16,3 @@ export const ROUTES = {
   portfolio: '/portfolio',
   contact: '/contact',
 } as const
-
-// Slugs that have dedicated Next.js route folders and must be excluded from the [slug] catch-all
-export const HARDCODED_SLUGS = ['contact'] as const
