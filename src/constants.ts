@@ -10,3 +10,12 @@ export const FEATURED_WORK_LIMIT = 6
 
 export const CACHE_TAG_PAGES_SITEMAP = 'pages-sitemap'
 export const CACHE_TAG_REDIRECTS = 'redirects'
+
+export const ROUTES = {
+  home: '/',
+  portfolio: '/portfolio',
+  contact: '/contact',
+} as const
+
+// Slugs that have dedicated Next.js route folders and must be excluded from the [slug] catch-all
+export const HARDCODED_SLUGS = ['contact'] as const

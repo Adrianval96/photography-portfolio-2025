@@ -12,7 +12,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { HOME_PAGE_SLUG } from '@/constants'
+import { HOME_PAGE_SLUG, HARDCODED_SLUGS } from '@/constants'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== HOME_PAGE_SLUG && doc.slug !== 'contact'
+      return doc.slug !== HOME_PAGE_SLUG && !HARDCODED_SLUGS.includes(doc.slug as (typeof HARDCODED_SLUGS)[number])
     })
     .map(({ slug }) => {
       return { slug }
