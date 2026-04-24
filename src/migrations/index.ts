@@ -22,6 +22,7 @@ import * as migration_20260414_add_site_settings from './20260414_add_site_setti
 import * as migration_20260414_add_social_links from './20260414_add_social_links'
 import * as migration_20260415_seo_globals from './20260415_seo_globals'
 import * as migration_20260415_site_identity from './20260415_site_identity'
+import * as migration_20260418_media_blur_data_url from './20260418_media_blur_data_url'
 
 export const migrations = [
   {
@@ -143,5 +144,10 @@ export const migrations = [
     up: migration_20260415_site_identity.up,
     down: migration_20260415_site_identity.down,
     name: '20260415_site_identity',
+  },
+  {
+    up: migration_20260418_media_blur_data_url.up,
+    down: migration_20260418_media_blur_data_url.down,
+    name: '20260418_media_blur_data_url',
   },
 ]

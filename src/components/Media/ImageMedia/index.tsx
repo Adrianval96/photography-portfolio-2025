@@ -35,6 +35,8 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
 
+  let blurDataURL: string = placeholderBlur
+
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
 
@@ -48,6 +50,10 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       url?.startsWith('/') || url?.startsWith('http')
         ? `${url}?${cacheTag}`
         : `${getClientSideURL()}${url}?${cacheTag}`
+
+    if (resource.blurDataUrl) {
+      blurDataURL = resource.blurDataUrl
+    }
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
@@ -67,7 +73,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         fill={fill}
         height={!fill ? height : undefined}
         placeholder="blur"
-        blurDataURL={placeholderBlur}
+        blurDataURL={blurDataURL}
         priority={priority}
         quality={100}
         loading={loading}
