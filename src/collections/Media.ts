@@ -73,6 +73,7 @@ export const Media: CollectionConfig = {
       type: 'text',
       admin: {
         readOnly: true,
+        disableListColumn: true,
         description:
           'Auto-generated blur placeholder for progressive image loading. Set automatically on upload.',
         position: 'sidebar',
