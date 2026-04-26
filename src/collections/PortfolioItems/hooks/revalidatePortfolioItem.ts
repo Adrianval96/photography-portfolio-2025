@@ -3,7 +3,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { PortfolioItem } from '@/payload-types'
-import { CACHE_TAG_PORTFOLIO } from '@/constants'
+import { CACHE_TAG_PORTFOLIO, ROUTES } from '@/constants'
 
 export const revalidatePortfolioItem: CollectionAfterChangeHook<PortfolioItem> = ({
   doc,
@@ -11,8 +11,8 @@ export const revalidatePortfolioItem: CollectionAfterChangeHook<PortfolioItem> =
 }) => {
   if (!context.disableRevalidate) {
     payload.logger.info('Revalidating portfolio cache')
-    revalidatePath('/portfolio')
-    revalidatePath('/')
+    revalidatePath(ROUTES.portfolio)
+    revalidatePath(ROUTES.home)
     revalidateTag(CACHE_TAG_PORTFOLIO, {})
   }
   return doc
@@ -23,8 +23,8 @@ export const revalidateDeletePortfolioItem: CollectionAfterDeleteHook<PortfolioI
   req: { context },
 }) => {
   if (!context.disableRevalidate) {
-    revalidatePath('/portfolio')
-    revalidatePath('/')
+    revalidatePath(ROUTES.portfolio)
+    revalidatePath(ROUTES.home)
     revalidateTag(CACHE_TAG_PORTFOLIO, {})
   }
   return doc
