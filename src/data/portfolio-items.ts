@@ -1,13 +1,11 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
-import {
-  CACHE_KEY_ALL_PORTFOLIO_ITEMS,
-  CACHE_KEY_FEATURED_PORTFOLIO_ITEMS,
-  CACHE_TAG_PORTFOLIO,
-  FEATURED_WORK_LIMIT,
-  REVALIDATE_SECONDS,
-} from '@/constants'
+import { CACHE_TAG_PORTFOLIO, REVALIDATE_SECONDS } from '@/constants'
+
+const FEATURED_WORK_LIMIT = 6
+const CACHE_KEY_FEATURED_PORTFOLIO_ITEMS = 'portfolio-items-featured'
+const CACHE_KEY_ALL_PORTFOLIO_ITEMS = 'portfolio-items-all'
 
 export const fetchFeaturedPortfolioItems = unstable_cache(
   async () => {

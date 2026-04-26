@@ -1,7 +1,9 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
-import { CACHE_KEY_CATEGORIES, REVALIDATE_SECONDS } from '@/constants'
+import { REVALIDATE_SECONDS } from '@/constants'
+
+const CACHE_KEY_CATEGORIES = 'categories-all'
 
 export const fetchCategories = unstable_cache(
   async () => {

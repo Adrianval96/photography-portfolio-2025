@@ -1,16 +1,15 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
-import {
-  CACHE_KEY_GLOBAL_CONTACT,
-  CACHE_KEY_GLOBAL_FOOTER,
-  CACHE_KEY_GLOBAL_HEADER,
-  CACHE_KEY_GLOBAL_HOMEPAGE,
-  CACHE_KEY_GLOBAL_PORTFOLIO_PAGE,
-  CACHE_KEY_GLOBAL_SITE_IDENTITY,
-  CACHE_KEY_GLOBAL_SOCIAL_LINKS,
-  REVALIDATE_SECONDS,
-} from '@/constants'
+import { REVALIDATE_SECONDS } from '@/constants'
+
+const CACHE_KEY_GLOBAL_HOMEPAGE = 'global-homepage'
+const CACHE_KEY_GLOBAL_CONTACT = 'global-contact'
+const CACHE_KEY_GLOBAL_PORTFOLIO_PAGE = 'global-portfolio-page'
+const CACHE_KEY_GLOBAL_HEADER = 'global-header'
+const CACHE_KEY_GLOBAL_FOOTER = 'global-footer'
+const CACHE_KEY_GLOBAL_SITE_IDENTITY = 'global-site-identity'
+const CACHE_KEY_GLOBAL_SOCIAL_LINKS = 'global-social-links'
 
 export const fetchHomepageGlobal = unstable_cache(
   async () => {
