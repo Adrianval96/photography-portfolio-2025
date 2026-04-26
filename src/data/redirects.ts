@@ -1,21 +1,11 @@
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { unstable_cache } from 'next/cache'
-import { CACHE_TAG_REDIRECTS, REVALIDATE_SECONDS } from '@/constants'
+import { CACHE_TAG_REDIRECTS } from '@/constants'
+import { fetchCollectionDocs } from '@/data/helpers'
 
 const COLLECTION = CACHE_TAG_REDIRECTS
 
-export const fetchRedirects = unstable_cache(
-  async () => {
-    const payload = await getPayload({ config: configPromise })
-    const { docs } = await payload.find({
-      collection: COLLECTION,
-      depth: 1,
-      limit: 0,
-      pagination: false,
-    })
-    return docs
-  },
+export const fetchRedirects = fetchCollectionDocs(
+  COLLECTION,
+  CACHE_TAG_REDIRECTS,
+  { depth: 1, limit: 0, pagination: false },
   [CACHE_TAG_REDIRECTS],
-  { tags: [CACHE_TAG_REDIRECTS], revalidate: REVALIDATE_SECONDS },
 )

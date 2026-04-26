@@ -1,10 +1,4 @@
-import type { Config } from '@/payload-types'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { unstable_cache } from 'next/cache'
-import { REVALIDATE_SECONDS } from '@/constants'
-
-type GlobalSlug = keyof Config['globals']
+import { fetchFromCMS } from '@/data/helpers'
 
 const GLOBAL_SLUGS = {
   homepage: 'homepage',
@@ -25,17 +19,6 @@ const CACHE_KEYS = {
   siteIdentity: 'global-site-identity',
   socialLinks: 'global-social-links',
 } as const
-
-function fetchFromCMS<S extends GlobalSlug>(slug: S, cacheKey: string, depth = 1) {
-  return unstable_cache(
-    async () => {
-      const payload = await getPayload({ config: configPromise })
-      return payload.findGlobal({ slug, depth })
-    },
-    [cacheKey],
-    { tags: [`global_${slug}`], revalidate: REVALIDATE_SECONDS },
-  )
-}
 
 export const fetchHomepageGlobal = fetchFromCMS(GLOBAL_SLUGS.homepage, CACHE_KEYS.homepage)
 export const fetchContactGlobal = fetchFromCMS(GLOBAL_SLUGS.contact, CACHE_KEYS.contact)
