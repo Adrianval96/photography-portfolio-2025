@@ -1,18 +1,15 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { unstable_cache } from 'next/cache'
-import {
-  CACHE_KEY_HOMEPAGE_FEATURED_ITEMS,
-  CACHE_KEY_HOMEPAGE_GLOBAL,
-  CACHE_TAG_PORTFOLIO,
-  FEATURED_WORK_LIMIT,
-  REVALIDATE_SECONDS,
-} from '@/constants'
+import { CACHE_TAG_PORTFOLIO, FEATURED_WORK_LIMIT, REVALIDATE_SECONDS } from '@/constants'
 import { HeroSection } from './HeroSection'
 import { PositioningStrip } from './PositioningStrip'
 import { FeaturedWork } from './FeaturedWork'
 import { CTASection } from './CTASection'
 import { About } from '@/components/About'
+
+const CACHE_KEY_HOMEPAGE_GLOBAL = 'homepage-global'
+const CACHE_KEY_HOMEPAGE_FEATURED_ITEMS = 'homepage-featured-items'
 
 const getHomepageGlobal = unstable_cache(
   async () => {

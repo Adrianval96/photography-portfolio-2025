@@ -10,9 +10,6 @@ export const CACHE_TAG_PAGES_SITEMAP = 'pages-sitemap'
 export const CACHE_TAG_REDIRECTS = 'redirects'
 export const CACHE_TAG_PORTFOLIO = 'portfolio'
 
-export const CACHE_KEY_HOMEPAGE_GLOBAL = 'homepage-global'
-export const CACHE_KEY_HOMEPAGE_FEATURED_ITEMS = 'homepage-featured-items'
-
 export const ROUTES = {
   home: '/',
   portfolio: '/portfolio',
