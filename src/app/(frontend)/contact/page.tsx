@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { ContactPage } from '@/components/ContactPage'
 import { generateMeta } from '@/utilities/generateMeta'
+import { fetchContactGlobal } from '@/data/globals'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const payload = await getPayload({ config: configPromise })
-  const doc = await payload.findGlobal({ slug: 'contact', depth: 1 })
+  const doc = await fetchContactGlobal()
   return generateMeta({ doc })
 }
 

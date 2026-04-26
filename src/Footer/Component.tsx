@@ -1,14 +1,13 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
 import { CMSLink } from '@/components/Link'
 import { SITE_NAME } from '@/constants'
-import type { Footer, SocialLink } from '@/payload-types'
+import { fetchFooter, fetchSocialLinks } from '@/data/globals'
 import './Component.css'
 
 export async function Footer() {
-  const footerData = (await getCachedGlobal('footer', 1)()) as Footer
-  const siteSettings = await (getCachedGlobal('social-links', 0)() as Promise<SocialLink>).catch(
-    () => null,
-  )
+  const [footerData, siteSettings] = await Promise.all([
+    fetchFooter(),
+    fetchSocialLinks().catch(() => null),
+  ])
 
   const navItems = footerData?.navItems || []
   const copyright = footerData?.copyright

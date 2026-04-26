@@ -1,25 +1,19 @@
 import Image from 'next/image'
-import type { Contact, Media } from '@/payload-types'
-import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { Media } from '@/payload-types'
+import { fetchContactGlobal } from '@/data/globals'
+import { fetchServiceItems } from '@/data/service-items'
 import { ItemsList } from '@/components/ItemsList'
 import { ContactForm } from '@/components/ContactForm'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
 
 import './styles.css'
 
 export async function ContactPage() {
-  const contact = (await getCachedGlobal('contact', 1)()) as Contact
+  const [contact, serviceItems] = await Promise.all([fetchContactGlobal(), fetchServiceItems()])
+
   const backgroundImage =
     contact.backgroundImage && typeof contact.backgroundImage === 'object'
       ? (contact.backgroundImage as Media)
       : null
-
-  const payload = await getPayload({ config: configPromise })
-  const { docs: serviceItems } = await payload.find({
-    collection: 'service-items',
-    sort: 'order',
-  })
 
   return (
     <div className="contact-page">

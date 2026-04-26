@@ -2,7 +2,7 @@ import type React from 'react'
 import type { Page } from '@/payload-types'
 
 import { getCachedDocument } from '@/utilities/getDocument'
-import { getCachedRedirects } from '@/utilities/getRedirects'
+import { fetchRedirects } from '@/data/redirects'
 import { notFound, redirect } from 'next/navigation'
 
 interface Props {
@@ -10,9 +10,8 @@ interface Props {
   url: string
 }
 
-/* This component helps us with SSR based dynamic redirects */
 export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }) => {
-  const redirects = await getCachedRedirects()()
+  const redirects = await fetchRedirects()
 
   const redirectItem = redirects.find((redirect) => redirect.from === url)
 
