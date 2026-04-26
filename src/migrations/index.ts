@@ -24,6 +24,7 @@ import * as migration_20260415_seo_globals from './20260415_seo_globals'
 import * as migration_20260415_site_identity from './20260415_site_identity'
 import * as migration_20260418_media_blur_data_url from './20260418_media_blur_data_url'
 import * as migration_20260426_footer_static_nav from './20260426_footer_static_nav'
+import * as migration_20260426_remove_header_global from './20260426_remove_header_global'
 
 export const migrations = [
   {
@@ -155,5 +156,10 @@ export const migrations = [
     up: migration_20260426_footer_static_nav.up,
     down: migration_20260426_footer_static_nav.down,
     name: '20260426_footer_static_nav',
+  },
+  {
+    up: migration_20260426_remove_header_global.up,
+    down: migration_20260426_remove_header_global.down,
+    name: '20260426_remove_header_global',
   },
 ]

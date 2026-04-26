@@ -5,18 +5,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo'
 import { HeaderNav } from './Nav'
 import styles from './Component.module.css'
 
 interface HeaderClientProps {
-  data: Header
   instagramUrl: string | null
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, instagramUrl }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ instagramUrl }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
@@ -37,7 +34,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, instagramUrl }
         <Link href="/" className={styles.logoLink}>
           <Logo />
         </Link>
-        <HeaderNav data={data} instagramUrl={instagramUrl} />
+        <HeaderNav instagramUrl={instagramUrl} />
       </div>
     </header>
   )
