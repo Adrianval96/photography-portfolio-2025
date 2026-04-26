@@ -15,3 +15,8 @@ export const ROUTES = {
   portfolio: '/portfolio',
   contact: '/contact',
 } as const
+
+export const NAV_LINKS = [
+  { label: 'Portfolio', href: ROUTES.portfolio },
+  { label: 'Contact', href: ROUTES.contact },
+] as const

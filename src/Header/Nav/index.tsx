@@ -6,12 +6,7 @@ import { usePathname } from 'next/navigation'
 import { MenuIcon, XIcon } from 'lucide-react'
 import clsx from 'clsx'
 import styles from './index.module.css'
-import { ROUTES } from '@/constants'
-
-const NAV_LINKS = [
-  { label: 'Portfolio', href: ROUTES.portfolio },
-  { label: 'Contact', href: ROUTES.contact },
-] as const
+import { NAV_LINKS } from '@/constants'
 
 type Props = {
   instagramUrl?: string | null

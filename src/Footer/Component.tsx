@@ -1,12 +1,7 @@
 import Link from 'next/link'
-import { ROUTES, SITE_NAME } from '@/constants'
+import { NAV_LINKS, SITE_NAME } from '@/constants'
 import { fetchFooter, fetchSocialLinks } from '@/data/globals'
 import './Component.css'
-
-const FOOTER_NAV_LINKS = [
-  { label: 'Portfolio', href: ROUTES.portfolio },
-  { label: 'Contact', href: ROUTES.contact },
-] as const
 
 export async function Footer() {
   const [footerData, siteSettings] = await Promise.all([
@@ -21,7 +16,7 @@ export async function Footer() {
     <footer className="footer">
       <span className="footer__logo">{SITE_NAME}</span>
       <ul className="footer__nav">
-        {FOOTER_NAV_LINKS.map(({ label, href }) => (
+        {NAV_LINKS.map(({ label, href }) => (
           <li key={href}>
             <Link href={href} className="footer__nav-link">
               {label}
