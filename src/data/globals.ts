@@ -4,7 +4,6 @@ const GLOBAL_SLUGS = {
   homepage: 'homepage',
   contact: 'contact',
   portfolioPage: 'portfolio-page',
-  header: 'header',
   footer: 'footer',
   siteIdentity: 'site-identity',
   socialLinks: 'social-links',
@@ -14,7 +13,6 @@ const CACHE_KEYS = {
   homepage: 'global-homepage',
   contact: 'global-contact',
   portfolioPage: 'global-portfolio-page',
-  header: 'global-header',
   footer: 'global-footer',
   siteIdentity: 'global-site-identity',
   socialLinks: 'global-social-links',
@@ -26,7 +24,6 @@ export const fetchPortfolioPageGlobal = fetchFromCMS(
   GLOBAL_SLUGS.portfolioPage,
   CACHE_KEYS.portfolioPage,
 )
-export const fetchHeader = fetchFromCMS(GLOBAL_SLUGS.header, CACHE_KEYS.header)
 export const fetchFooter = fetchFromCMS(GLOBAL_SLUGS.footer, CACHE_KEYS.footer)
 export const fetchSiteIdentity = fetchFromCMS(GLOBAL_SLUGS.siteIdentity, CACHE_KEYS.siteIdentity, 0)
 export const fetchSocialLinks = fetchFromCMS(GLOBAL_SLUGS.socialLinks, CACHE_KEYS.socialLinks, 0)
