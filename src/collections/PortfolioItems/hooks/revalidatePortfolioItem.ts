@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { PortfolioItem } from '../../../payload-types'
+import type { PortfolioItem } from '@/payload-types'
 import { CACHE_TAG_PORTFOLIO } from '@/constants'
 
 export const revalidatePortfolioItem: CollectionAfterChangeHook<PortfolioItem> = ({
