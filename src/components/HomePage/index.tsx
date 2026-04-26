@@ -1,7 +1,13 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { unstable_cache } from 'next/cache'
-import { CACHE_TAG_PORTFOLIO, FEATURED_WORK_LIMIT, REVALIDATE_SECONDS } from '@/constants'
+import {
+  CACHE_KEY_HOMEPAGE_FEATURED_ITEMS,
+  CACHE_KEY_HOMEPAGE_GLOBAL,
+  CACHE_TAG_PORTFOLIO,
+  FEATURED_WORK_LIMIT,
+  REVALIDATE_SECONDS,
+} from '@/constants'
 import { HeroSection } from './HeroSection'
 import { PositioningStrip } from './PositioningStrip'
 import { FeaturedWork } from './FeaturedWork'
@@ -13,7 +19,7 @@ const getHomepageGlobal = unstable_cache(
     const payload = await getPayload({ config: configPromise })
     return payload.findGlobal({ slug: 'homepage', depth: 1 })
   },
-  ['homepage-global'],
+  [CACHE_KEY_HOMEPAGE_GLOBAL],
   { revalidate: REVALIDATE_SECONDS },
 )
 
@@ -28,7 +34,7 @@ const getFeaturedItems = unstable_cache(
     })
     return docs
   },
-  ['homepage-featured-items'],
+  [CACHE_KEY_HOMEPAGE_FEATURED_ITEMS],
   { tags: [CACHE_TAG_PORTFOLIO], revalidate: REVALIDATE_SECONDS },
 )
 
