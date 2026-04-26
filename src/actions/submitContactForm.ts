@@ -4,8 +4,9 @@ import fs from 'fs'
 import path from 'path'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import type { Contact } from '@/payload-types'
+import { fetchContactGlobal } from '@/data/globals'
 import { getServerSideURL } from '@/utilities/getURL'
+import { ROUTES } from '@/constants'
 
 const EMAILS_DIR = path.join(process.cwd(), 'src/actions/emails')
 
@@ -44,8 +45,7 @@ export async function submitContactForm(data: ContactFormData): Promise<SubmitRe
   if (!data.message?.trim()) return { success: false, error: 'Message is required.' }
 
   try {
-    const payload = await getPayload({ config: configPromise })
-    const contact = (await payload.findGlobal({ slug: 'contact' })) as Contact
+    const contact = await fetchContactGlobal()
     const { notificationEmail } = contact
 
     if (!notificationEmail) {
@@ -74,9 +74,11 @@ export async function submitContactForm(data: ContactFormData): Promise<SubmitRe
         typeRow,
         timeframeRow,
         message: escapedMessage,
-        portfolioUrl: `${getServerSideURL()}/portfolio`,
+        portfolioUrl: `${getServerSideURL()}${ROUTES.portfolio}`,
       }),
     ]
+
+    const payload = await getPayload({ config: configPromise })
 
     await Promise.all([
       payload.sendEmail({
