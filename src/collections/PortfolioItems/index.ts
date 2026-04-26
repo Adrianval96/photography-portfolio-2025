@@ -11,7 +11,7 @@ import { slugField } from '@/fields/slug'
 import {
   revalidatePortfolioItem,
   revalidateDeletePortfolioItem,
-} from './hooks/revalidatePortfolioItem'
+} from '@/collections/PortfolioItems/hooks/revalidatePortfolioItem'
 
 export const PortfolioItems: CollectionConfig = {
   slug: 'portfolio-items',
