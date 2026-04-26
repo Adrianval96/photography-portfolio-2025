@@ -7,7 +7,7 @@ import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
 
 const collections: CollectionSlug[] = ['media', 'pages', 'forms', 'form-submissions']
-const globals: GlobalSlug[] = ['header', 'footer']
+const globals: GlobalSlug[] = ['header']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -115,20 +115,6 @@ export const seed = async ({
                 relationTo: 'pages',
                 value: contactPage.id,
               },
-            },
-          },
-        ],
-      },
-    }),
-    payload.updateGlobal({
-      slug: 'footer',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
             },
           },
         ],

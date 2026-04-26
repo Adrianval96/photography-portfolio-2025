@@ -1,7 +1,12 @@
-import { CMSLink } from '@/components/Link'
-import { SITE_NAME } from '@/constants'
+import Link from 'next/link'
+import { ROUTES, SITE_NAME } from '@/constants'
 import { fetchFooter, fetchSocialLinks } from '@/data/globals'
 import './Component.css'
+
+const FOOTER_NAV_LINKS = [
+  { label: 'Portfolio', href: ROUTES.portfolio },
+  { label: 'Contact', href: ROUTES.contact },
+] as const
 
 export async function Footer() {
   const [footerData, siteSettings] = await Promise.all([
@@ -9,22 +14,21 @@ export async function Footer() {
     fetchSocialLinks().catch(() => null),
   ])
 
-  const navItems = footerData?.navItems || []
   const copyright = footerData?.copyright
   const instagramUrl = siteSettings?.instagramUrl
 
   return (
     <footer className="footer">
       <span className="footer__logo">{SITE_NAME}</span>
-      {navItems.length > 0 && (
-        <ul className="footer__nav">
-          {navItems.map(({ link }, i) => (
-            <li key={i}>
-              <CMSLink {...link} className="footer__nav-link" />
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="footer__nav">
+        {FOOTER_NAV_LINKS.map(({ label, href }) => (
+          <li key={href}>
+            <Link href={href} className="footer__nav-link">
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
       <div className="footer__right">
         {instagramUrl && (
           <a
