@@ -3,73 +3,85 @@ import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
 import { REVALIDATE_SECONDS } from '@/constants'
 
-const CACHE_KEY_GLOBAL_HOMEPAGE = 'global-homepage'
-const CACHE_KEY_GLOBAL_CONTACT = 'global-contact'
-const CACHE_KEY_GLOBAL_PORTFOLIO_PAGE = 'global-portfolio-page'
-const CACHE_KEY_GLOBAL_HEADER = 'global-header'
-const CACHE_KEY_GLOBAL_FOOTER = 'global-footer'
-const CACHE_KEY_GLOBAL_SITE_IDENTITY = 'global-site-identity'
-const CACHE_KEY_GLOBAL_SOCIAL_LINKS = 'global-social-links'
+const GLOBAL_SLUGS = {
+  homepage: 'homepage',
+  contact: 'contact',
+  portfolioPage: 'portfolio-page',
+  header: 'header',
+  footer: 'footer',
+  siteIdentity: 'site-identity',
+  socialLinks: 'social-links',
+} as const
+
+const CACHE_KEYS = {
+  homepage: 'global-homepage',
+  contact: 'global-contact',
+  portfolioPage: 'global-portfolio-page',
+  header: 'global-header',
+  footer: 'global-footer',
+  siteIdentity: 'global-site-identity',
+  socialLinks: 'global-social-links',
+} as const
 
 export const fetchHomepageGlobal = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'homepage', depth: 1 })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.homepage, depth: 1 })
   },
-  [CACHE_KEY_GLOBAL_HOMEPAGE],
+  [CACHE_KEYS.homepage],
   { tags: ['global_homepage'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchContactGlobal = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'contact', depth: 1 })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.contact, depth: 1 })
   },
-  [CACHE_KEY_GLOBAL_CONTACT],
+  [CACHE_KEYS.contact],
   { tags: ['global_contact'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchPortfolioPageGlobal = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'portfolio-page', depth: 1 })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.portfolioPage, depth: 1 })
   },
-  [CACHE_KEY_GLOBAL_PORTFOLIO_PAGE],
+  [CACHE_KEYS.portfolioPage],
   { tags: ['global_portfolio-page'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchHeader = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'header', depth: 1 })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.header, depth: 1 })
   },
-  [CACHE_KEY_GLOBAL_HEADER],
+  [CACHE_KEYS.header],
   { tags: ['global_header'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchFooter = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'footer', depth: 1 })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.footer, depth: 1 })
   },
-  [CACHE_KEY_GLOBAL_FOOTER],
+  [CACHE_KEYS.footer],
   { tags: ['global_footer'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchSiteIdentity = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'site-identity' })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.siteIdentity })
   },
-  [CACHE_KEY_GLOBAL_SITE_IDENTITY],
+  [CACHE_KEYS.siteIdentity],
   { tags: ['global_site-identity'], revalidate: REVALIDATE_SECONDS },
 )
 
 export const fetchSocialLinks = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise })
-    return payload.findGlobal({ slug: 'social-links' })
+    return payload.findGlobal({ slug: GLOBAL_SLUGS.socialLinks })
   },
-  [CACHE_KEY_GLOBAL_SOCIAL_LINKS],
+  [CACHE_KEYS.socialLinks],
   { tags: ['global_social-links'], revalidate: REVALIDATE_SECONDS },
 )
