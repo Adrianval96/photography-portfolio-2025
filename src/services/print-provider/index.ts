@@ -1,5 +1,5 @@
-import { PrintfulProvider } from './printful'
-import type { PrintProvider } from './types'
+import { PrintfulProvider } from '@/services/print-provider/printful'
+import type { PrintProvider } from '@/services/print-provider/types'
 
 export function getPrintProvider(): PrintProvider {
   const provider = process.env.PRINT_PROVIDER ?? 'printful'
@@ -16,4 +16,4 @@ export type {
   OrderPayload,
   FulfillmentOrder,
   FulfillmentStatus,
-} from './types'
+} from '@/services/print-provider/types'

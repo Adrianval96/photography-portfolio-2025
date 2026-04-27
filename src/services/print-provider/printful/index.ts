@@ -5,7 +5,7 @@ import type {
   OrderPayload,
   FulfillmentOrder,
   FulfillmentStatus,
-} from '../types'
+} from '@/services/print-provider/types'
 import {
   fetchPrintfulProducts,
   fetchPrintfulProduct,
@@ -13,7 +13,7 @@ import {
   fetchPrintfulOrderStatus,
   type PrintfulSyncVariant,
   type PrintfulSyncProductDetail,
-} from './api'
+} from '@/services/print-provider/printful/api'
 
 function toSlug(name: string): string {
   return name

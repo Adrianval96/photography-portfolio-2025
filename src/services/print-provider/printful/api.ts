@@ -1,4 +1,4 @@
-import type { OrderPayload } from '../types'
+import type { OrderPayload } from '@/services/print-provider/types'
 
 const BASE_URL = 'https://api.printful.com'
 
