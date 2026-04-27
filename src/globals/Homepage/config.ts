@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '@/access/anyone'
+import { authenticated } from '@/access/authenticated'
 import { link } from '@/fields/link'
 
 export const Homepage: GlobalConfig = {

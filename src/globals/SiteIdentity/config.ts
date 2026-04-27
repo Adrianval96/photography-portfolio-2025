@@ -1,8 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
-import { revalidateSiteIdentity } from './hooks/revalidateSiteIdentity'
+import { anyone } from '@/access/anyone'
+import { authenticated } from '@/access/authenticated'
+import { revalidateSiteIdentity } from '@/globals/SiteIdentity/hooks/revalidateSiteIdentity'
 
 export const SiteIdentity: GlobalConfig = {
   slug: 'site-identity',
