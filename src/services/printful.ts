@@ -62,8 +62,10 @@ interface PrintfulDetailResponse {
 }
 
 // ---- Dimension classification ----
+const DIMENSION_PATTERN = /(\d+)\s*[×xX]\s*(\d+)/
+
 function parseDimensions(text: string): { width: number; height: number } | null {
-  const match = text.match(/(\d+)\s*[×xX]\s*(\d+)/)
+  const match = text.match(DIMENSION_PATTERN)
   if (!match) return null
   return { width: Number(match[1]), height: Number(match[2]) }
 }
