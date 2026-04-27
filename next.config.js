@@ -32,6 +32,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: VERCEL_BLOB_HOSTNAME,
       },
+      {
+        protocol: 'https',
+        hostname: 'files.cdn.printful.com',
+      },
     ],
   },
   reactStrictMode: true,
