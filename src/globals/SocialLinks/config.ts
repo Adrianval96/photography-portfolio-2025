@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { revalidateSocialLinks } from './hooks/revalidateSocialLinks'
+import { revalidateSocialLinks } from '@/globals/SocialLinks/hooks/revalidateSocialLinks'
 
 export const SocialLinks: GlobalConfig = {
   slug: 'social-links',
