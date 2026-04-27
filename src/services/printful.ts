@@ -63,14 +63,9 @@ interface PrintfulDetailResponse {
 
 // ---- Dimension classification ----
 function parseDimensions(text: string): { width: number; height: number } | null {
-  for (const sep of ['×', 'x', 'X']) {
-    const idx = text.indexOf(sep)
-    if (idx === -1) continue
-    const width = parseInt(text.slice(0, idx).trim(), 10)
-    const height = parseInt(text.slice(idx + 1).trim(), 10)
-    if (!isNaN(width) && !isNaN(height)) return { width, height }
-  }
-  return null
+  const match = text.match(/(\d+)\s*[×xX]\s*(\d+)/)
+  if (!match) return null
+  return { width: Number(match[1]), height: Number(match[2]) }
 }
 
 function classifyFormat(width: number, height: number): PrintFormat {
