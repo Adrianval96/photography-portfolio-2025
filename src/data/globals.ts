@@ -1,4 +1,7 @@
 import { fetchFromCMS } from '@/data/helpers'
+import { isFlagEnabled } from '@/utilities/flags'
+
+export const fetchShopEnabled = () => isFlagEnabled('enable-shop-page')
 
 const GLOBAL_SLUGS = {
   homepage: 'homepage',
