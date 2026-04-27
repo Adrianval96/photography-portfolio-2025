@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ShopGrid } from '@/components/ShopGrid'
 
 export const metadata: Metadata = {
   title: 'Shop',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   return (
     <main className="pt-16">
-      <h1>Shop</h1>
+      <ShopGrid />
     </main>
   )
 }
