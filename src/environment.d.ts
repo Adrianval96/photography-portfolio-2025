@@ -6,7 +6,6 @@ declare global {
       NEXT_PUBLIC_SERVER_URL: string
       VERCEL_PROJECT_PRODUCTION_URL: string
       PRINTFUL_API_KEY: string | undefined
-      PRINT_PROVIDER: string | undefined
     }
   }
 }
