@@ -23,10 +23,28 @@ const SECTIONS: PrintSection[] = [
     label: 'Native Print — Portrait',
     dims: '18 × 24 in',
     products: [
-      { id: '1', title: 'Birds Nest', location: 'Dandenong Ranges, VIC', price: 95, format: 'portrait' },
-      { id: '2', title: 'Platform 12', location: 'Flinders Street, VIC', price: 95, format: 'portrait' },
+      {
+        id: '1',
+        title: 'Birds Nest',
+        location: 'Dandenong Ranges, VIC',
+        price: 95,
+        format: 'portrait',
+      },
+      {
+        id: '2',
+        title: 'Platform 12',
+        location: 'Flinders Street, VIC',
+        price: 95,
+        format: 'portrait',
+      },
       { id: '3', title: 'Quiet Hours', location: 'St Kilda, VIC', price: 95, format: 'portrait' },
-      { id: '4', title: 'Southbound', location: 'Great Ocean Road, VIC', price: 95, format: 'portrait' },
+      {
+        id: '4',
+        title: 'Southbound',
+        location: 'Great Ocean Road, VIC',
+        price: 95,
+        format: 'portrait',
+      },
     ],
   },
   {
@@ -34,7 +52,13 @@ const SECTIONS: PrintSection[] = [
     label: 'Native Print — Landscape',
     dims: '24 × 18 in',
     products: [
-      { id: '5', title: 'Down Under', location: 'Great Barrier Reef, QLD', price: 95, format: 'landscape' },
+      {
+        id: '5',
+        title: 'Down Under',
+        location: 'Great Barrier Reef, QLD',
+        price: 95,
+        format: 'landscape',
+      },
     ],
   },
   {
@@ -42,7 +66,13 @@ const SECTIONS: PrintSection[] = [
     label: 'Cinema Poster',
     dims: '36 × 24 in',
     products: [
-      { id: '6', title: 'Refractions', location: 'Melbourne CBD, VIC', price: 135, format: 'cinema' },
+      {
+        id: '6',
+        title: 'Refractions',
+        location: 'Melbourne CBD, VIC',
+        price: 135,
+        format: 'cinema',
+      },
     ],
   },
 ]
@@ -66,7 +96,9 @@ export function ShopGrid() {
       <header className="shop-hero">
         <span className="shop-hero__label">Prints</span>
         <h1 className="shop-hero__title">Take a piece home.</h1>
-        <p className="shop-hero__subtitle">Edition prints on fine-art paper — every piece made to order.</p>
+        <p className="shop-hero__subtitle">
+          Edition prints on fine-art paper — every piece made to order.
+        </p>
       </header>
 
       <div className="shop-sections">
@@ -74,7 +106,6 @@ export function ShopGrid() {
           <section key={section.format} className="shop-section">
             <div className="shop-section__header">
               <span className="shop-section__format">{section.label}</span>
-              <span className="shop-section__dims">{section.dims}</span>
             </div>
             <div className="shop-grid">
               {section.products.map((product) => (

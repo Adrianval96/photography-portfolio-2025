@@ -6,7 +6,6 @@
 
 .shop-hero {
   padding: var(--space-5xl) 0 var(--space-4xl);
-  border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-4xl);
 }
 
@@ -147,10 +146,6 @@
   .shop-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
-  }
-
-  .shop-sections {
-    gap: var(--space-3xl);
   }
 }
 
