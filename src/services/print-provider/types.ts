@@ -2,7 +2,7 @@ export interface PrintVariant {
   id: string
   name: string
   priceAud: number
-  printfulVariantId: string
+  providerVariantId: string
 }
 
 export interface PrintProduct {
@@ -30,7 +30,7 @@ export interface OrderPayload {
     zip: string
   }
   items: Array<{
-    printfulVariantId: string
+    providerVariantId: string
     quantity: number
   }>
 }

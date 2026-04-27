@@ -79,7 +79,7 @@ export async function createPrintfulOrder(payload: OrderPayload): Promise<Printf
         zip: payload.shippingAddress.zip,
       },
       items: payload.items.map((item) => ({
-        variant_id: Number(item.printfulVariantId),
+        variant_id: Number(item.providerVariantId),
         quantity: item.quantity,
       })),
     }),

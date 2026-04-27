@@ -33,7 +33,7 @@ function mapVariant(v: PrintfulSyncVariant): PrintVariant {
     id: String(v.id),
     name: v.name,
     priceAud: toCents(v.retail_price),
-    printfulVariantId: String(v.variant_id),
+    providerVariantId: String(v.variant_id),
   }
 }
 
