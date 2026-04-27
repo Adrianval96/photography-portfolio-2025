@@ -10,9 +10,10 @@ import { NAV_LINKS } from '@/constants'
 
 type Props = {
   instagramUrl?: string | null
+  extraLinks?: React.ReactNode
 }
 
-export const HeaderNav: React.FC<Props> = ({ instagramUrl }) => {
+export const HeaderNav: React.FC<Props> = ({ instagramUrl, extraLinks }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -28,6 +29,7 @@ export const HeaderNav: React.FC<Props> = ({ instagramUrl }) => {
             {label}
           </Link>
         ))}
+        {extraLinks}
       </nav>
 
       <button
@@ -58,6 +60,8 @@ export const HeaderNav: React.FC<Props> = ({ instagramUrl }) => {
               {label}
             </Link>
           ))}
+
+          {extraLinks}
 
           {instagramUrl && (
             <div className={styles.mobileNavFooter}>

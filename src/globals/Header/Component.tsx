@@ -1,9 +1,22 @@
-import { HeaderClient } from './Component.client'
-import { fetchSocialLinks } from '@/data/globals'
-import React from 'react'
+import Link from 'next/link'
+import { HeaderClient } from '@/globals/Header/Component.client'
+import { fetchSocialLinks, fetchShopEnabled } from '@/data/globals'
+import { ROUTES } from '@/constants'
+import navStyles from '@/globals/Header/Nav/index.module.css'
 
 export async function Header() {
-  const siteSettings = await fetchSocialLinks().catch(() => null)
+  const [siteSettings, showShop] = await Promise.all([
+    fetchSocialLinks().catch(() => null),
+    fetchShopEnabled().catch(() => false),
+  ])
 
-  return <HeaderClient instagramUrl={siteSettings?.instagramUrl ?? null} />
+  return (
+    <HeaderClient instagramUrl={siteSettings?.instagramUrl ?? null}>
+      {showShop && (
+        <Link href={ROUTES.shop} className={navStyles.navLink}>
+          Shop
+        </Link>
+      )}
+    </HeaderClient>
+  )
 }

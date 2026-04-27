@@ -13,6 +13,7 @@ export const CACHE_TAG_PORTFOLIO = 'portfolio'
 export const ROUTES = {
   home: '/',
   portfolio: '/portfolio',
+  shop: '/shop',
   contact: '/contact',
 } as const
 

@@ -21,3 +21,5 @@ tsconfig.tsbuildinfo
 docs/
 
 .claude/
+.agents/
+skills-lock.json

@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import { NAV_LINKS, SITE_NAME } from '@/constants'
-import { fetchFooter, fetchSocialLinks } from '@/data/globals'
+import { NAV_LINKS, ROUTES, SITE_NAME } from '@/constants'
+import { fetchFooter, fetchSocialLinks, fetchShopEnabled } from '@/data/globals'
 import './Component.css'
 
 export async function Footer() {
-  const [footerData, siteSettings] = await Promise.all([
+  const [footerData, siteSettings, showShop] = await Promise.all([
     fetchFooter(),
     fetchSocialLinks().catch(() => null),
+    fetchShopEnabled().catch(() => false),
   ])
 
   const copyright = footerData?.copyright
@@ -23,6 +24,13 @@ export async function Footer() {
             </Link>
           </li>
         ))}
+        {showShop && (
+          <li>
+            <Link href={ROUTES.shop} className="footer__nav-link">
+              Shop
+            </Link>
+          </li>
+        )}
       </ul>
       <div className="footer__right">
         {instagramUrl && (
