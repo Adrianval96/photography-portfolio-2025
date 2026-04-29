@@ -49,13 +49,7 @@ function isLandscape(catalogName: string): boolean {
   const sep = catalogName.indexOf('×')
   if (sep === -1) return false
   const w = Number(catalogName.slice(0, sep).trim().split(' ').at(-1))
-  const h = Number(
-    catalogName
-      .slice(sep + 1)
-      .trim()
-      .split(' ')
-      .at(0),
-  )
+  const h = Number(catalogName.slice(sep + 1).trim().split(' ').at(0))
   return !isNaN(w) && !isNaN(h) && w > h
 }
 
@@ -93,42 +87,13 @@ async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   return data.result
 }
 
-// ---- Concurrency limiter (max 5 parallel detail requests) ----
-function withConcurrency<T>(tasks: Array<() => Promise<T>>, limit: number): Promise<T[]> {
-  return new Promise((resolve, reject) => {
-    const results: T[] = new Array(tasks.length)
-    let started = 0
-    let finished = 0
-
-    function next() {
-      if (started === tasks.length) return
-      const index = started++
-      tasks[index]()
-        .then((value) => {
-          results[index] = value
-          finished++
-          if (finished === tasks.length) resolve(results)
-          else next()
-        })
-        .catch(reject)
-    }
-
-    for (let i = 0; i < Math.min(limit, tasks.length); i++) next()
-    if (tasks.length === 0) resolve([])
-  })
-}
-
 // ---- Main export ----
 export async function fetchPrintProducts(): Promise<PrintProduct[]> {
   const summaries = await listSyncProducts()
 
-  const settled = await withConcurrency(
-    summaries.map((summary) => () => getSyncProduct(summary.id)),
-    5,
-  )
-
-  return settled
-    .map((detail, i) => {
+  const products = await Promise.all(
+    summaries.map(async (summary) => {
+      const detail = await getSyncProduct(summary.id)
       const { title, location } = parseProductName(detail.sync_product.name)
 
       const cheapest = detail.sync_variants.reduce<PrintfulSyncVariant | null>((best, v) => {
@@ -146,9 +111,11 @@ export async function fetchPrintProducts(): Promise<PrintProduct[]> {
         location,
         price: parseFloat(cheapest.retail_price),
         currency: cheapest.currency,
-        thumbnailUrl: summaries[i].thumbnail_url,
+        thumbnailUrl: summary.thumbnail_url,
         isLandscape: isLandscape(cheapest.product?.name ?? ''),
       }
-    })
-    .filter((p): p is PrintProduct => p !== null)
+    }),
+  )
+
+  return products.filter((p): p is PrintProduct => p !== null)
 }
