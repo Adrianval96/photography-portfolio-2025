@@ -3,15 +3,16 @@ import type { PrintProduct } from '@/services/printful'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: PrintProduct }) {
+  const imageClass = `print-card__image${product.isLandscape ? ' print-card__image--landscape' : ' print-card__image--portrait'}`
   return (
     <article className="print-card">
-      <div className="print-card__image">
+      <div className={imageClass}>
         {product.thumbnailUrl && (
           <Image
             src={product.thumbnailUrl}
             alt={product.title}
-            width={600}
-            height={800}
+            fill
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="print-card__img"
           />
         )}
@@ -44,13 +45,6 @@ export function ShopGrid({ products }: ShopGridProps) {
           Edition prints on fine-art paper — every piece made to order.
         </p>
       </header>
-
-      <nav className="shop-filter" aria-label="Browse by format">
-        <button className="shop-filter__pill shop-filter__pill--active">All</button>
-        <button className="shop-filter__pill">Portrait</button>
-        <button className="shop-filter__pill">Landscape</button>
-        <button className="shop-filter__pill">Cinema</button>
-      </nav>
 
       {products.length > 0 ? (
         <div className="shop-grid">
