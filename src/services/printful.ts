@@ -54,7 +54,7 @@ interface PrintfulDetailResponse {
 function parseDimensions(catalogName: string): { width: number; height: number } | null {
   const match = catalogName.match(/(\d+)\s*[×x]\s*(\d+)/i)
   if (!match) return null
-  return { width: parseInt(match[1], 10), height: parseInt(match[2], 10) }
+  return { width: parseInt(match[1]!, 10), height: parseInt(match[2]!, 10) }
 }
 
 // ---- Product name parsing ----
