@@ -1,5 +1,3 @@
-import { REVALIDATE_SECONDS } from '@/constants'
-
 const PRINTFUL_BASE = 'https://api.printful.com'
 
 export interface PrintProduct {
