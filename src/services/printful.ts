@@ -94,10 +94,7 @@ async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
 }
 
 // ---- Concurrency limiter (max 5 parallel detail requests) ----
-function withConcurrency<T>(
-  tasks: Array<() => Promise<T>>,
-  limit: number,
-): Promise<T[]> {
+function withConcurrency<T>(tasks: Array<() => Promise<T>>, limit: number): Promise<T[]> {
   return new Promise((resolve, reject) => {
     const results: T[] = new Array(tasks.length)
     let started = 0
