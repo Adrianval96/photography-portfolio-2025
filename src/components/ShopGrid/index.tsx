@@ -13,6 +13,7 @@ function PrintCard({ product }: { product: PrintProduct }) {
             alt={product.title}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            loading="lazy"
             className="print-card__img"
           />
         )}

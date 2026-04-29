@@ -5,7 +5,7 @@ declare global {
       DATABASE_URI: string
       NEXT_PUBLIC_SERVER_URL: string
       VERCEL_PROJECT_PRODUCTION_URL: string
-      PRINTFUL_API_KEY: string
+      PRINTFUL_API_KEY?: string
     }
   }
 }

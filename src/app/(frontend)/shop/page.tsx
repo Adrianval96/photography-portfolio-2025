@@ -7,7 +7,12 @@ export const metadata: Metadata = {
 }
 
 export default async function ShopPage() {
-  const products = await fetchShopProducts()
+  let products: Awaited<ReturnType<typeof fetchShopProducts>> = []
+  try {
+    products = await fetchShopProducts()
+  } catch (err) {
+    console.error('[ShopPage] Failed to fetch Printful products:', err)
+  }
 
   return (
     <main className="pt-16">

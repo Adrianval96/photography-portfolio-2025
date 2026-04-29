@@ -1,5 +1,6 @@
+import { REVALIDATE_SECONDS } from '@/constants'
+
 const PRINTFUL_BASE = 'https://api.printful.com'
-const REVALIDATE = 3600
 
 export interface PrintProduct {
   id: string
@@ -77,7 +78,7 @@ function authHeader(): HeadersInit {
 async function listSyncProducts(): Promise<PrintfulSyncProductSummary[]> {
   const res = await fetch(`${PRINTFUL_BASE}/sync/products`, {
     headers: authHeader(),
-    next: { revalidate: REVALIDATE },
+    cache: 'no-store',
   })
   if (!res.ok) throw new Error(`Printful /sync/products failed: ${res.status}`)
   const data: PrintfulListResponse = await res.json()
@@ -87,21 +88,52 @@ async function listSyncProducts(): Promise<PrintfulSyncProductSummary[]> {
 async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   const res = await fetch(`${PRINTFUL_BASE}/sync/products/${id}`, {
     headers: authHeader(),
-    next: { revalidate: REVALIDATE },
+    cache: 'no-store',
   })
   if (!res.ok) throw new Error(`Printful /sync/products/${id} failed: ${res.status}`)
   const data: PrintfulDetailResponse = await res.json()
   return data.result
 }
 
+// ---- Concurrency limiter (max 5 parallel detail requests) ----
+function withConcurrency<T>(
+  tasks: Array<() => Promise<T>>,
+  limit: number,
+): Promise<T[]> {
+  return new Promise((resolve, reject) => {
+    const results: T[] = new Array(tasks.length)
+    let started = 0
+    let finished = 0
+
+    function next() {
+      if (started === tasks.length) return
+      const index = started++
+      tasks[index]()
+        .then((value) => {
+          results[index] = value
+          finished++
+          if (finished === tasks.length) resolve(results)
+          else next()
+        })
+        .catch(reject)
+    }
+
+    for (let i = 0; i < Math.min(limit, tasks.length); i++) next()
+    if (tasks.length === 0) resolve([])
+  })
+}
+
 // ---- Main export ----
 export async function fetchPrintProducts(): Promise<PrintProduct[]> {
   const summaries = await listSyncProducts()
-  const products: PrintProduct[] = []
 
-  await Promise.all(
-    summaries.map(async (summary) => {
-      const detail = await getSyncProduct(summary.id)
+  const settled = await withConcurrency(
+    summaries.map((summary) => () => getSyncProduct(summary.id)),
+    5,
+  )
+
+  return settled
+    .map((detail, i) => {
       const { title, location } = parseProductName(detail.sync_product.name)
 
       const cheapest = detail.sync_variants.reduce<PrintfulSyncVariant | null>((best, v) => {
@@ -111,19 +143,17 @@ export async function fetchPrintProducts(): Promise<PrintProduct[]> {
         return best
       }, null)
 
-      if (!cheapest) return
+      if (!cheapest) return null
 
-      products.push({
+      return {
         id: String(detail.sync_product.id),
         title,
         location,
         price: parseFloat(cheapest.retail_price),
         currency: cheapest.currency,
-        thumbnailUrl: summary.thumbnail_url,
+        thumbnailUrl: summaries[i].thumbnail_url,
         isLandscape: isLandscape(cheapest.product?.name ?? ''),
-      })
-    }),
-  )
-
-  return products
+      }
+    })
+    .filter((p): p is PrintProduct => p !== null)
 }
