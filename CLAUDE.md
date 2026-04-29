@@ -195,7 +195,7 @@ This rule has been violated multiple times. There are no exceptions.
 
 ## Working Style
 
-- **Baby steps** — small, focused commits. Do not refactor unrelated things in the same PR.
+- **Baby steps** — small, focused commits. Do not refactor unrelated things in the same PR. Do not add unrequested functionality, abstractions, or defensive infrastructure (rate limiting, concurrency caps, etc.) unless explicitly asked.
 - **Ask before big decisions** — if something requires a structural change, new dependency, or deviation from the task order, check first. Surface options; don't decide unilaterally.
 - **Be a sparring partner** — bring ideas to the table proactively. Challenge assumptions constructively. Push back when something seems off.
 - **Product thinking** — frame work in terms of user value, not just code changes. Think about what we're building and _why_ before jumping to _how_.

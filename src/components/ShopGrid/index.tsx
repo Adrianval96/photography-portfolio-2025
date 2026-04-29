@@ -1,96 +1,42 @@
+import Image from 'next/image'
+import type { PrintProduct } from '@/services/printful'
 import '@/components/ShopGrid/styles.css'
 
-type PrintFormat = 'portrait' | 'landscape' | 'cinema'
-
-interface MockProduct {
-  id: string
-  title: string
-  location: string
-  price: number
-  format: PrintFormat
-}
-
-interface PrintSection {
-  format: PrintFormat
-  label: string
-  dims: string
-  products: MockProduct[]
-}
-
-const SECTIONS: PrintSection[] = [
-  {
-    format: 'portrait',
-    label: 'Native Print — Portrait',
-    dims: '18 × 24 in',
-    products: [
-      {
-        id: '1',
-        title: 'Birds Nest',
-        location: 'Dandenong Ranges, VIC',
-        price: 95,
-        format: 'portrait',
-      },
-      {
-        id: '2',
-        title: 'Platform 12',
-        location: 'Flinders Street, VIC',
-        price: 95,
-        format: 'portrait',
-      },
-      { id: '3', title: 'Quiet Hours', location: 'St Kilda, VIC', price: 95, format: 'portrait' },
-      {
-        id: '4',
-        title: 'Southbound',
-        location: 'Great Ocean Road, VIC',
-        price: 95,
-        format: 'portrait',
-      },
-    ],
-  },
-  {
-    format: 'landscape',
-    label: 'Native Print — Landscape',
-    dims: '24 × 18 in',
-    products: [
-      {
-        id: '5',
-        title: 'Down Under',
-        location: 'Great Barrier Reef, QLD',
-        price: 95,
-        format: 'landscape',
-      },
-    ],
-  },
-  {
-    format: 'cinema',
-    label: 'Cinema Poster',
-    dims: '36 × 24 in',
-    products: [
-      {
-        id: '6',
-        title: 'Refractions',
-        location: 'Melbourne CBD, VIC',
-        price: 135,
-        format: 'cinema',
-      },
-    ],
-  },
-]
-
-function PrintCard({ product }: { product: MockProduct }) {
+function PrintCard({ product }: { product: PrintProduct }) {
+  const imageClass = `print-card__image${product.isLandscape ? ' print-card__image--landscape' : ' print-card__image--portrait'}`
   return (
     <article className="print-card">
-      <div className={`print-card__image print-card__image--${product.format}`} />
+      <div className={imageClass}>
+        {product.thumbnailUrl && (
+          <Image
+            src={product.thumbnailUrl}
+            alt={product.title}
+            fill
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            loading="lazy"
+            className="print-card__img"
+          />
+        )}
+      </div>
       <div className="print-card__info">
-        <p className="print-card__title">{product.title}</p>
-        <p className="print-card__location">{product.location}</p>
-        <p className="print-card__price">${product.price} AUD</p>
+        <div className="print-card__meta">
+          <p className="print-card__title">{product.title}</p>
+          <p className="print-card__price">
+            {product.price.toFixed(2)} {product.currency}
+          </p>
+        </div>
+        {product.location && <p className="print-card__location">{product.location}</p>}
+        <p className="print-card__cta">View print →</p>
       </div>
     </article>
   )
 }
 
-export function ShopGrid() {
+interface ShopGridProps {
+  products: PrintProduct[]
+}
+
+export function ShopGrid({ products }: ShopGridProps) {
   return (
     <div className="shop-grid-wrap">
       <header className="shop-hero">
@@ -101,20 +47,15 @@ export function ShopGrid() {
         </p>
       </header>
 
-      <div className="shop-sections">
-        {SECTIONS.map((section) => (
-          <section key={section.format} className="shop-section">
-            <div className="shop-section__header">
-              <span className="shop-section__format">{section.label}</span>
-            </div>
-            <div className="shop-grid">
-              {section.products.map((product) => (
-                <PrintCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+      {products.length > 0 ? (
+        <div className="shop-grid">
+          {products.map((product) => (
+            <PrintCard key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <p className="shop-empty">No prints available at the moment.</p>
+      )}
     </div>
   )
 }
