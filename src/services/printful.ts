@@ -38,6 +38,7 @@ interface PrintfulSyncProductSummary {
 interface PrintfulSyncVariant {
   id: number
   name: string
+  variant_id: number
   retail_price: string
   currency: string
 }
@@ -51,6 +52,12 @@ interface PrintfulSyncProductDetail {
   sync_variants: PrintfulSyncVariant[]
 }
 
+interface PrintfulCatalogVariant {
+  id: number
+  name: string
+  size: string
+}
+
 interface PrintfulListResponse {
   code: number
   result: PrintfulSyncProductSummary[]
@@ -59,6 +66,11 @@ interface PrintfulListResponse {
 interface PrintfulDetailResponse {
   code: number
   result: PrintfulSyncProductDetail
+}
+
+interface PrintfulCatalogVariantResponse {
+  code: number
+  result: { variant: PrintfulCatalogVariant }
 }
 
 // ---- Dimension classification ----
@@ -109,6 +121,15 @@ async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   return data.result
 }
 
+async function getCatalogVariant(variantId: number): Promise<PrintfulCatalogVariant> {
+  const res = await fetch(`${PRINTFUL_BASE}/products/variant/${variantId}`, {
+    next: { revalidate: REVALIDATE },
+  })
+  if (!res.ok) throw new Error(`Printful /products/variant/${variantId} failed: ${res.status}`)
+  const data: PrintfulCatalogVariantResponse = await res.json()
+  return data.result.variant
+}
+
 // ---- Main export ----
 export async function fetchPrintSections(): Promise<PrintSection[]> {
   const summaries = await listSyncProducts()
@@ -120,29 +141,32 @@ export async function fetchPrintSections(): Promise<PrintSection[]> {
       const detail = await getSyncProduct(summary.id)
       const { title, location } = parseProductName(detail.sync_product.name)
 
-      for (const variant of detail.sync_variants) {
-        const dims = parseDimensions(variant.name) ?? parseDimensions(detail.sync_product.name)
-        if (!dims) continue
+      await Promise.all(
+        detail.sync_variants.map(async (variant) => {
+          const catalogVariant = await getCatalogVariant(variant.variant_id)
+          const dims = parseDimensions(catalogVariant.size) ?? parseDimensions(catalogVariant.name)
+          if (!dims) return
 
-        const format = classifyFormat(dims.width, dims.height)
-        const price = parseFloat(variant.retail_price)
-        if (isNaN(price)) continue
+          const format = classifyFormat(dims.width, dims.height)
+          const price = parseFloat(variant.retail_price)
+          if (isNaN(price)) return
 
-        const key = `${detail.sync_product.id}-${format}`
-        const existing = productMap.get(key)
+          const key = `${detail.sync_product.id}-${format}`
+          const existing = productMap.get(key)
 
-        if (!existing || price < existing.price) {
-          productMap.set(key, {
-            id: key,
-            title,
-            location,
-            price,
-            currency: variant.currency,
-            format,
-            thumbnailUrl: summary.thumbnail_url,
-          })
-        }
-      }
+          if (!existing || price < existing.price) {
+            productMap.set(key, {
+              id: key,
+              title,
+              location,
+              price,
+              currency: variant.currency,
+              format,
+              thumbnailUrl: summary.thumbnail_url,
+            })
+          }
+        }),
+      )
     }),
   )
 
