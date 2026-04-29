@@ -80,7 +80,6 @@
 }
 
 .print-card__image {
-  position: relative;
   width: 100%;
   background-color: var(--bg-surface);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -94,7 +93,9 @@
 
 
 .print-card__img {
-  object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
   transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
