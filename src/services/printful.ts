@@ -49,7 +49,13 @@ function isLandscape(catalogName: string): boolean {
   const sep = catalogName.indexOf('×')
   if (sep === -1) return false
   const w = Number(catalogName.slice(0, sep).trim().split(' ').at(-1))
-  const h = Number(catalogName.slice(sep + 1).trim().split(' ').at(0))
+  const h = Number(
+    catalogName
+      .slice(sep + 1)
+      .trim()
+      .split(' ')
+      .at(0),
+  )
   return !isNaN(w) && !isNaN(h) && w > h
 }
 
