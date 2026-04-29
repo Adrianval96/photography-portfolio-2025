@@ -3,10 +3,9 @@ import type { PrintProduct } from '@/services/printful'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: PrintProduct }) {
-  const imageClass = `print-card__image${product.isLandscape ? ' print-card__image--landscape' : ' print-card__image--portrait'}`
   return (
     <article className="print-card">
-      <div className={imageClass}>
+      <div className="print-card__image">
         {product.thumbnailUrl && (
           <Image
             src={product.thumbnailUrl}

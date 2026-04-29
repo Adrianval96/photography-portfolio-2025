@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { PrintProduct } from '@/services/printful'
 import { ShopGrid } from '@/components/ShopGrid'
 import { fetchShopProducts } from '@/data/shop'
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ShopPage() {
-  let products: Awaited<ReturnType<typeof fetchShopProducts>> = []
+  let products: PrintProduct[] = []
   try {
     products = await fetchShopProducts()
   } catch (err) {

@@ -7,7 +7,6 @@ export interface PrintProduct {
   price: number
   currency: string
   thumbnailUrl: string | null
-  isLandscape: boolean
 }
 
 // ---- Printful v1 API types ----
@@ -22,7 +21,6 @@ interface PrintfulSyncVariant {
   name: string
   retail_price: string
   currency: string
-  product: { name: string }
 }
 
 interface PrintfulSyncProductDetail {
@@ -42,21 +40,6 @@ interface PrintfulListResponse {
 interface PrintfulDetailResponse {
   code: number
   result: PrintfulSyncProductDetail
-}
-
-// ---- Orientation detection from catalog product name (e.g. "Enhanced Matte Paper Poster (in) - 18×24") ----
-function isLandscape(catalogName: string): boolean {
-  const sep = catalogName.indexOf('×')
-  if (sep === -1) return false
-  const w = Number(catalogName.slice(0, sep).trim().split(' ').at(-1))
-  const h = Number(
-    catalogName
-      .slice(sep + 1)
-      .trim()
-      .split(' ')
-      .at(0),
-  )
-  return !isNaN(w) && !isNaN(h) && w > h
 }
 
 // ---- Product name parsing ----
@@ -118,7 +101,6 @@ export async function fetchPrintProducts(): Promise<PrintProduct[]> {
         price: parseFloat(cheapest.retail_price),
         currency: cheapest.currency,
         thumbnailUrl: summary.thumbnail_url,
-        isLandscape: isLandscape(cheapest.product?.name ?? ''),
       }
     }),
   )
