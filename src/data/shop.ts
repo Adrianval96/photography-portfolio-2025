@@ -1,8 +1,8 @@
 import { unstable_cache } from 'next/cache'
-import { fetchPrintSections } from '@/services/printful'
+import { fetchPrintProducts } from '@/services/printful'
 import { REVALIDATE_SECONDS } from '@/constants'
 
-export const fetchShopSections = unstable_cache(fetchPrintSections, ['printful-sections'], {
+export const fetchShopProducts = unstable_cache(fetchPrintProducts, ['printful-products'], {
   tags: ['printful-products'],
   revalidate: REVALIDATE_SECONDS,
 })

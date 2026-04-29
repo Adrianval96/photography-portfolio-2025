@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import type { PrintProduct, PrintSection } from '@/services/printful'
+import type { PrintProduct } from '@/services/printful'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: PrintProduct }) {
   return (
     <article className="print-card">
-      <div className={`print-card__image print-card__image--${product.format}`}>
+      <div className="print-card__image">
         {product.thumbnailUrl && (
           <Image
             src={product.thumbnailUrl}
@@ -28,12 +28,10 @@ function PrintCard({ product }: { product: PrintProduct }) {
 }
 
 interface ShopGridProps {
-  sections: PrintSection[]
+  products: PrintProduct[]
 }
 
-export function ShopGrid({ sections }: ShopGridProps) {
-  const visibleSections = sections.filter((s) => s.products.length > 0)
-
+export function ShopGrid({ products }: ShopGridProps) {
   return (
     <div className="shop-grid-wrap">
       <header className="shop-hero">
@@ -45,21 +43,13 @@ export function ShopGrid({ sections }: ShopGridProps) {
       </header>
 
       <div className="shop-sections">
-        {visibleSections.map((section) => (
-          <section key={section.format} className="shop-section">
-            <div className="shop-section__header">
-              <span className="shop-section__format">{section.label}</span>
-              <span className="shop-section__dims">{section.dims}</span>
-            </div>
-            <div className="shop-grid">
-              {section.products.map((product) => (
-                <PrintCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        ))}
-
-        {visibleSections.length === 0 && (
+        {products.length > 0 ? (
+          <div className="shop-grid">
+            {products.map((product) => (
+              <PrintCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
           <p className="shop-empty">No prints available at the moment.</p>
         )}
       </div>
