@@ -82,7 +82,6 @@
 .print-card__image {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
   background-color: var(--bg-surface);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   overflow: hidden;
@@ -93,19 +92,6 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
-.print-card__badge {
-  position: absolute;
-  top: var(--space-sm);
-  left: var(--space-sm);
-  z-index: 1;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  background: rgba(10, 10, 10, 0.75);
-  padding: 3px 8px;
-  backdrop-filter: blur(4px);
-}
 
 .print-card__img {
   object-fit: cover;

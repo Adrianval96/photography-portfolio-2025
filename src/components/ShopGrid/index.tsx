@@ -2,11 +2,17 @@ import Image from 'next/image'
 import type { PrintProduct } from '@/services/printful'
 import '@/components/ShopGrid/styles.css'
 
+function getAspectRatio(dimensions: PrintProduct['dimensions']): string {
+  if (!dimensions) return '3 / 4'
+  const { width, height } = dimensions
+  return `${width} / ${height}`
+}
+
 function PrintCard({ product }: { product: PrintProduct }) {
+  const aspectRatio = getAspectRatio(product.dimensions)
   return (
     <article className="print-card">
-      <div className="print-card__image">
-        <span className="print-card__badge">Edition of 50</span>
+      <div className="print-card__image" style={{ aspectRatio }}>
         {product.thumbnailUrl && (
           <Image
             src={product.thumbnailUrl}

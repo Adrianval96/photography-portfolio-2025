@@ -8,6 +8,7 @@ export interface PrintProduct {
   price: number
   currency: string
   thumbnailUrl: string | null
+  dimensions: { width: number; height: number } | null
 }
 
 // ---- Printful v1 API types ----
@@ -22,6 +23,12 @@ interface PrintfulSyncVariant {
   name: string
   retail_price: string
   currency: string
+  product: {
+    variant_id: number
+    product_id: number
+    image: string
+    name: string
+  }
 }
 
 interface PrintfulSyncProductDetail {
@@ -41,6 +48,13 @@ interface PrintfulListResponse {
 interface PrintfulDetailResponse {
   code: number
   result: PrintfulSyncProductDetail
+}
+
+// ---- Dimension parsing from catalog product name (e.g. "Enhanced Matte Paper Poster (in) - 18×24") ----
+function parseDimensions(catalogName: string): { width: number; height: number } | null {
+  const match = catalogName.match(/(\d+)\s*[×x]\s*(\d+)/i)
+  if (!match) return null
+  return { width: parseInt(match[1], 10), height: parseInt(match[2], 10) }
 }
 
 // ---- Product name parsing ----
@@ -103,6 +117,7 @@ export async function fetchPrintProducts(): Promise<PrintProduct[]> {
         price: parseFloat(cheapest.retail_price),
         currency: cheapest.currency,
         thumbnailUrl: summary.thumbnail_url,
+        dimensions: parseDimensions(cheapest.product?.name ?? ''),
       })
     }),
   )
