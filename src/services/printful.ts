@@ -17,7 +17,7 @@ interface PrintfulSyncProductSummary {
   thumbnail_url: string | null
 }
 
-interface PrintfulSyncVariant {
+export interface PrintfulSyncVariant {
   id: number
   name: string
   retail_price: string
@@ -25,7 +25,7 @@ interface PrintfulSyncVariant {
   product: { name: string }
 }
 
-interface PrintfulSyncProductDetail {
+export interface PrintfulSyncProductDetail {
   sync_product: {
     id: number
     name: string
@@ -77,7 +77,7 @@ async function listSyncProducts(): Promise<PrintfulSyncProductSummary[]> {
   return data.result
 }
 
-async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
+export async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   const res = await fetch(`${PRINTFUL_BASE}/sync/products/${id}`, {
     headers: authHeader(),
     cache: 'no-store',
