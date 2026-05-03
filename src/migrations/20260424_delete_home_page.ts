@@ -10,7 +10,7 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 
   const doc = result.docs[0]
   if (doc) {
-    await payload.delete({ collection: 'pages', id: doc.id })
+    await payload.delete({ collection: 'pages', id: doc.id, overrideAccess: true, context: { disableRevalidate: true } })
     payload.logger.info('Deleted home pages entry — homepage is now driven entirely by the Homepage global')
   }
 }
