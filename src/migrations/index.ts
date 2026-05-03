@@ -26,6 +26,7 @@ import * as migration_20260418_media_blur_data_url from './20260418_media_blur_d
 import * as migration_20260424_delete_home_page from './20260424_delete_home_page'
 import * as migration_20260426_footer_static_nav from './20260426_footer_static_nav'
 import * as migration_20260426_remove_header_global from './20260426_remove_header_global'
+import * as migration_20260503_add_products_collection from './20260503_add_products_collection'
 
 export const migrations = [
   {
@@ -167,5 +168,10 @@ export const migrations = [
     up: migration_20260426_remove_header_global.up,
     down: migration_20260426_remove_header_global.down,
     name: '20260426_remove_header_global',
+  },
+  {
+    up: migration_20260503_add_products_collection.up,
+    down: migration_20260503_add_products_collection.down,
+    name: '20260503_add_products_collection',
   },
 ]
