@@ -76,7 +76,16 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Media, Users, Categories, PortfolioItems, Products, FeatureFlags, ServiceItems],
+  collections: [
+    Pages,
+    Media,
+    Users,
+    Categories,
+    PortfolioItems,
+    Products,
+    FeatureFlags,
+    ServiceItems,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Footer, Homepage, Contact, PortfolioPage, SiteIdentity, SocialLinks],
   plugins: [
