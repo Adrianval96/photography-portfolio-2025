@@ -72,6 +72,7 @@ export interface Config {
     users: User;
     categories: Category;
     'portfolio-items': PortfolioItem;
+    products: Product;
     'feature-flags': FeatureFlag;
     'service-items': ServiceItem;
     redirects: Redirect;
@@ -90,6 +91,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'portfolio-items': PortfolioItemsSelect<false> | PortfolioItemsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     'feature-flags': FeatureFlagsSelect<false> | FeatureFlagsSelect<true>;
     'service-items': ServiceItemsSelect<false> | ServiceItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -106,7 +108,6 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    header: Header;
     footer: Footer;
     homepage: Homepage;
     contact: Contact;
@@ -115,7 +116,6 @@ export interface Config {
     'social-links': SocialLink;
   };
   globalsSelect: {
-    header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
@@ -243,6 +243,9 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Auto-generated blur placeholder for progressive image loading. Set automatically on upload.
+   */
   blurDataUrl?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -727,6 +730,53 @@ export interface PortfolioItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  /**
+   * Printful sync product ID — used as the upsert key on sync.
+   */
+  printfulSyncProductId: number;
+  name: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  status: 'synced' | 'archived';
+  /**
+   * Primary blank-background mockup URL from Printful.
+   */
+  imageUrl?: string | null;
+  /**
+   * Timestamp of last successful sync from Printful.
+   */
+  lastSyncedAt?: string | null;
+  variants?:
+    | {
+        printfulVariantId: number;
+        /**
+         * e.g. "18 × 24 in — Native Print"
+         */
+        format: string;
+        /**
+         * Retail price in AUD.
+         */
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Surface this print in the homepage Selected Work section.
+   */
+  featured?: boolean | null;
+  /**
+   * Grid display sequence — lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "feature-flags".
  */
 export interface FeatureFlag {
@@ -931,6 +981,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'portfolio-items';
         value: number | PortfolioItem;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
       } | null)
     | ({
         relationTo: 'feature-flags';
@@ -1138,6 +1192,7 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  blurDataUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1269,6 +1324,31 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
   featured?: T;
   slug?: T;
   slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  printfulSyncProductId?: T;
+  name?: T;
+  slug?: T;
+  slugLock?: T;
+  status?: T;
+  imageUrl?: T;
+  lastSyncedAt?: T;
+  variants?:
+    | T
+    | {
+        printfulVariantId?: T;
+        format?: T;
+        price?: T;
+        id?: T;
+      };
+  featured?: T;
+  sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1532,30 +1612,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header".
- */
-export interface Header {
-  id: number;
-  navItems?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
@@ -1564,21 +1620,6 @@ export interface Footer {
    * e.g. © 2026 Adrian Valdes
    */
   copyright?: string | null;
-  navItems?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1723,47 +1764,10 @@ export interface SocialLink {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header_select".
- */
-export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
   copyright?: T;
-  navItems?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
