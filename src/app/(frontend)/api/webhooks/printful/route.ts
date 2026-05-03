@@ -105,10 +105,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       limit: 1,
     })
 
-    if (existing.docs.length > 0) {
+    const [existingDoc] = existing.docs
+    if (existingDoc) {
       await payload.update({
         collection: 'products',
-        id: existing.docs[0].id,
+        id: existingDoc.id,
         data: productData,
       })
     } else {
