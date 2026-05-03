@@ -1,4 +1,3 @@
-import { createHmac, timingSafeEqual } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -32,17 +31,6 @@ interface ProductSyncedEvent {
   }
 }
 
-function verifySignature(rawBody: string, header: string | null): boolean {
-  const secret = process.env.PRINTFUL_WEBHOOK_SECRET
-  if (!secret || !header) return false
-  const expected = createHmac('sha256', secret).update(rawBody).digest('hex')
-  try {
-    return timingSafeEqual(Buffer.from(header, 'hex'), Buffer.from(expected, 'hex'))
-  } catch {
-    return false
-  }
-}
-
 async function fetchSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   const key = process.env.PRINTFUL_API_KEY
   if (!key) throw new Error('PRINTFUL_API_KEY is not configured')
@@ -57,11 +45,6 @@ async function fetchSyncProduct(id: number): Promise<PrintfulSyncProductDetail> 
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const rawBody = await req.text()
-  const signature = req.headers.get('x-printful-signature')
-
-  if (!verifySignature(rawBody, signature)) {
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
-  }
 
   let event: unknown
   try {
