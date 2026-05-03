@@ -34,8 +34,7 @@ interface ProductSyncedEvent {
 
 function verifySignature(rawBody: string, header: string | null): boolean {
   const secret = process.env.PRINTFUL_WEBHOOK_SECRET
-  if (!secret) return true
-  if (!header) return false
+  if (!secret || !header) return false
   const expected = createHmac('sha256', secret).update(rawBody).digest('hex')
   try {
     return timingSafeEqual(Buffer.from(header, 'hex'), Buffer.from(expected, 'hex'))
