@@ -17,6 +17,7 @@
     "lint:fix": "eslint src --fix",
     "type-check": "tsc --noEmit",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "seed:products": "node scripts/seed-printful-products.mjs",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
