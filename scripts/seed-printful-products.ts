@@ -13,11 +13,6 @@
  * Required env vars:
  *   PRINTFUL_API_KEY  — personal access token (or store-scoped token)
  *   PRINTFUL_STORE_ID — Printful store ID (required for personal access tokens)
- *   POSTGRES_URL      — Neon connection string for the target database
- *
- * Store IDs:
- *   Staging  — 18115084 (Cinematic State - Staging)
- *   Prod     — 18058032 (Cinematic State Shop)
  */
 
 import { getPayload } from 'payload'
