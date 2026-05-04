@@ -1,9 +1,19 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 import type { Product } from '@/payload-types'
+import { getDimensionsFromImage, getOrientation, type Orientation } from '@/utilities/orientation'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
+  const [orientation, setOrientation] = useState<Orientation>('portrait')
   const price = product.variants?.[0]?.price
+
+  function handleImageLoad(event: React.SyntheticEvent<HTMLImageElement>) {
+    const dimensions = getDimensionsFromImage(event.currentTarget)
+    setOrientation(getOrientation(dimensions))
+  }
 
   return (
     <article className="print-card">
@@ -16,6 +26,7 @@ function PrintCard({ product }: { product: Product }) {
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             loading="lazy"
             className="print-card__img"
+            onLoad={handleImageLoad}
           />
         )}
       </div>
