@@ -1,8 +1,12 @@
-import { unstable_cache } from 'next/cache'
-import { fetchPrintProducts } from '@/services/printful'
-import { REVALIDATE_SECONDS } from '@/constants'
+import { fetchCollectionDocs } from '@/data/helpers'
 
-export const fetchShopProducts = unstable_cache(fetchPrintProducts, ['printful-products'], {
-  tags: ['printful-products'],
-  revalidate: REVALIDATE_SECONDS,
-})
+export const fetchShopProducts = fetchCollectionDocs(
+  'products',
+  'shop-products',
+  {
+    where: { status: { equals: 'synced' } },
+    sort: 'sortOrder',
+    limit: 100,
+  },
+  ['products'],
+)

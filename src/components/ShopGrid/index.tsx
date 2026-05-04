@@ -1,16 +1,17 @@
 import Image from 'next/image'
-import type { PrintProduct } from '@/services/printful'
+import type { Product } from '@/payload-types'
 import '@/components/ShopGrid/styles.css'
 
-function PrintCard({ product }: { product: PrintProduct }) {
-  const imageClass = `print-card__image${product.isLandscape ? ' print-card__image--landscape' : ' print-card__image--portrait'}`
+function PrintCard({ product }: { product: Product }) {
+  const price = product.variants?.[0]?.price
+
   return (
     <article className="print-card">
-      <div className={imageClass}>
-        {product.thumbnailUrl && (
+      <div className="print-card__image print-card__image--portrait">
+        {product.imageUrl && (
           <Image
-            src={product.thumbnailUrl}
-            alt={product.title}
+            src={product.imageUrl}
+            alt={product.name}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             loading="lazy"
@@ -20,12 +21,9 @@ function PrintCard({ product }: { product: PrintProduct }) {
       </div>
       <div className="print-card__info">
         <div className="print-card__meta">
-          <p className="print-card__title">{product.title}</p>
-          <p className="print-card__price">
-            {product.price.toFixed(2)} {product.currency}
-          </p>
+          <p className="print-card__title">{product.name}</p>
+          {price !== undefined && <p className="print-card__price">{price.toFixed(2)} AUD</p>}
         </div>
-        {product.location && <p className="print-card__location">{product.location}</p>}
         <p className="print-card__cta">View print →</p>
       </div>
     </article>
@@ -33,7 +31,7 @@ function PrintCard({ product }: { product: PrintProduct }) {
 }
 
 interface ShopGridProps {
-  products: PrintProduct[]
+  products: Product[]
 }
 
 export function ShopGrid({ products }: ShopGridProps) {

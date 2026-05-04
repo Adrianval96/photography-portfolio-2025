@@ -11,7 +11,7 @@ export default async function ShopPage() {
   try {
     products = await fetchShopProducts()
   } catch (err) {
-    console.error('[ShopPage] Failed to fetch Printful products:', err)
+    console.error('[ShopPage] Failed to fetch products:', err)
   }
 
   return (
