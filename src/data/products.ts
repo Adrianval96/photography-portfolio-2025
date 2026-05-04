@@ -29,10 +29,18 @@ export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<
     sync_variants[0]?.files?.find((f) => f.type === 'preview')?.preview_url ??
     undefined
 
+  const previewFile = sync_variants[0]?.files?.find((f) => f.type === 'preview')
+
+  const productImage = {
+    url: thumbnailUrl ?? null,
+    width: previewFile?.width ?? null,
+    height: previewFile?.height ?? null,
+  }
+
   const productData = {
     printfulSyncProductId: sync_product.id,
     name: sync_product.name,
-    imageUrl: thumbnailUrl,
+    productImage,
     status: 'synced' as const,
     variants: sync_variants.map((v) => ({
       printfulVariantId: v.id,

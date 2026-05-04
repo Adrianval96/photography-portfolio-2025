@@ -743,9 +743,22 @@ export interface Product {
   slugLock?: boolean | null;
   status: 'synced' | 'archived';
   /**
-   * Primary blank-background mockup URL from Printful.
+   * Primary blank-background mockup from Printful.
    */
-  imageUrl?: string | null;
+  productImage?: {
+    /**
+     * Mockup image URL.
+     */
+    url?: string | null;
+    /**
+     * Image width in pixels.
+     */
+    width?: number | null;
+    /**
+     * Image height in pixels.
+     */
+    height?: number | null;
+  };
   /**
    * Timestamp of last successful sync from Printful.
    */
@@ -1337,7 +1350,13 @@ export interface ProductsSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   status?: T;
-  imageUrl?: T;
+  productImage?:
+    | T
+    | {
+        url?: T;
+        width?: T;
+        height?: T;
+      };
   lastSyncedAt?: T;
   variants?:
     | T
