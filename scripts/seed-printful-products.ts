@@ -8,34 +8,46 @@
  * Safe to run multiple times.
  *
  * Usage:
- *   pnpm payload run scripts/seed-printful-products.ts
+ *   NODE_ENV=production POSTGRES_URL=<url> PRINTFUL_STORE_ID=<id> pnpm payload run scripts/seed-printful-products.ts
  *
- * Required env var:
- *   PRINTFUL_API_KEY — store-scoped Printful API token
+ * Required env vars:
+ *   PRINTFUL_API_KEY  — personal access token (or store-scoped token)
+ *   PRINTFUL_STORE_ID — Printful store ID (required for personal access tokens)
+ *   POSTGRES_URL      — Neon connection string for the target database
+ *
+ * Store IDs:
+ *   Staging  — 18115084 (Cinematic State - Staging)
+ *   Prod     — 18058032 (Cinematic State Shop)
  */
 
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { getSyncProduct } from '@/services/printful'
 import { upsertProduct } from '@/data/products'
+import type { PrintfulSyncProductDetail } from '@/services/printful'
 
 const PRINTFUL_BASE = 'https://api.printful.com'
 
 const apiKey = process.env.PRINTFUL_API_KEY
 if (!apiKey) throw new Error('PRINTFUL_API_KEY is not configured')
 
+const storeId = process.env.PRINTFUL_STORE_ID
+if (!storeId) throw new Error('PRINTFUL_STORE_ID is not configured')
+
+const printfulHeaders: HeadersInit = {
+  Authorization: `Bearer ${apiKey}`,
+  'X-PF-Store-Id': storeId,
+}
+
 const payload = await getPayload({ config })
 
-const res = await fetch(`${PRINTFUL_BASE}/sync/products`, {
-  headers: { Authorization: `Bearer ${apiKey}` },
-})
-if (!res.ok) throw new Error(`Printful /sync/products failed: ${res.status}`)
+const listRes = await fetch(`${PRINTFUL_BASE}/sync/products`, { headers: printfulHeaders })
+if (!listRes.ok) throw new Error(`Printful /sync/products failed: ${listRes.status}`)
 
-const { result: summaries } = (await res.json()) as {
+const { result: summaries } = (await listRes.json()) as {
   result: Array<{ id: number; name: string }>
 }
 
-console.log(`Found ${summaries.length} product(s).\n`)
+console.log(`Found ${summaries.length} product(s) in store ${storeId}.\n`)
 
 let synced = 0
 let failed = 0
@@ -43,7 +55,12 @@ let failed = 0
 for (const summary of summaries) {
   process.stdout.write(`  [${summary.id}] ${summary.name} — `)
   try {
-    const detail = await getSyncProduct(summary.id)
+    const detailRes = await fetch(`${PRINTFUL_BASE}/sync/products/${summary.id}`, {
+      headers: printfulHeaders,
+    })
+    if (!detailRes.ok) throw new Error(`detail fetch failed: ${detailRes.status}`)
+    const { result: detail } = (await detailRes.json()) as { result: PrintfulSyncProductDetail }
+
     await upsertProduct(detail)
     console.log('synced')
     synced++
