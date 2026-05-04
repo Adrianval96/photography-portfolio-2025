@@ -2,14 +2,7 @@ import Image from 'next/image'
 import type { Product } from '@/payload-types'
 import '@/components/ShopGrid/styles.css'
 
-function parseName(name: string): { title: string; location: string } {
-  const sep = name.indexOf(' | ')
-  if (sep !== -1) return { title: name.slice(0, sep).trim(), location: name.slice(sep + 3).trim() }
-  return { title: name.trim(), location: '' }
-}
-
 function PrintCard({ product }: { product: Product }) {
-  const { title, location } = parseName(product.name)
   const price = product.variants?.[0]?.price
 
   return (
@@ -18,7 +11,7 @@ function PrintCard({ product }: { product: Product }) {
         {product.imageUrl && (
           <Image
             src={product.imageUrl}
-            alt={title}
+            alt={product.name}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             loading="lazy"
@@ -28,10 +21,9 @@ function PrintCard({ product }: { product: Product }) {
       </div>
       <div className="print-card__info">
         <div className="print-card__meta">
-          <p className="print-card__title">{title}</p>
+          <p className="print-card__title">{product.name}</p>
           {price !== undefined && <p className="print-card__price">{price.toFixed(2)} AUD</p>}
         </div>
-        {location && <p className="print-card__location">{location}</p>}
         <p className="print-card__cta">View print →</p>
       </div>
     </article>
