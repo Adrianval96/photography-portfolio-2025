@@ -13,6 +13,4 @@ describe('getOrientation', () => {
   it('returns square when width equals height', () => {
     expect(getOrientation({ width: 800, height: 800 })).toBe('square')
   })
-
-
 })
