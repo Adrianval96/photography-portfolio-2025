@@ -4,7 +4,9 @@ import { upsertProduct } from '@/data/products'
 
 export const maxDuration = 30
 
-interface ProductSyncedEvent {
+const HANDLED_EVENTS = new Set(['product_synced', 'product_updated'])
+
+interface ProductEvent {
   type: string
   data: {
     sync_product: {
@@ -21,8 +23,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const parsed = event as ProductSyncedEvent
-  if (parsed?.type !== 'product_synced') {
+  const parsed = event as ProductEvent
+  if (!HANDLED_EVENTS.has(parsed?.type)) {
     return NextResponse.json({ received: true })
   }
 
