@@ -2,6 +2,25 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import type { PrintfulSyncProductDetail } from '@/services/printful'
 
+export async function archiveProduct(syncProductId: number): Promise<void> {
+  const payload = await getPayload({ config })
+
+  const existing = await payload.find({
+    collection: 'products',
+    where: { printfulSyncProductId: { equals: syncProductId } },
+    limit: 1,
+  })
+
+  const [existingDoc] = existing.docs
+  if (!existingDoc) return
+
+  await payload.update({
+    collection: 'products',
+    id: existingDoc.id,
+    data: { status: 'archived' as const },
+  })
+}
+
 export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<void> {
   const { sync_product, sync_variants } = detail
 
