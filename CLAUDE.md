@@ -181,6 +181,7 @@ git branch -m <prefix>/<short-description>
 ```
 
 Prefixes:
+
 - `fix/` — bug fixes
 - `add/` — new features or content
 - `change/` — modifications to existing behaviour
@@ -218,3 +219,12 @@ Global agents and rules are configured at `~/.claude/` (outside this repo). When
 - Run `/session-summary` at the end of each session to persist context
 
 **Project `.claude/`:** `settings.local.json` contains Stop and PostToolUse hooks — auto-commit/push/PR on stop, auto `generate:types` after migrations, auto dev-server restart after config edits.
+
+## Service Credentials
+
+**Credential file:** `~/.env`
+
+At the start of any session where you need API access, read this
+file to load credentials. **NEVER display raw credential values
+in output** — mask them if you need to reference them
+(e.g., `API_KEY=6985...26bdc`).
