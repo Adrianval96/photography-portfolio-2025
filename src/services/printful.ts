@@ -40,4 +40,3 @@ export async function getSyncProduct(id: number): Promise<PrintfulSyncProductDet
   const data: PrintfulDetailResponse = await res.json()
   return data.result
 }
-
