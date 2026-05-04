@@ -24,17 +24,12 @@ export async function archiveProduct(syncProductId: number): Promise<void> {
 export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<void> {
   const { sync_product, sync_variants } = detail
 
-  const thumbnailUrl =
-    sync_product.thumbnail_url ??
-    sync_variants[0]?.files?.find((f) => f.type === 'preview')?.preview_url ??
-    undefined
-
-  const previewFile = sync_variants[0]?.files?.find((f) => f.type === 'preview')
+  const defaultFile = sync_variants[0]?.files?.find((f) => f.type === 'default')
 
   const productImage = {
-    url: thumbnailUrl ?? null,
-    width: previewFile?.width ?? null,
-    height: previewFile?.height ?? null,
+    url: defaultFile?.preview_url ?? null,
+    width: defaultFile?.width ?? null,
+    height: defaultFile?.height ?? null,
   }
 
   const productData = {
