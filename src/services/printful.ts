@@ -17,15 +17,17 @@ interface PrintfulSyncProductSummary {
   thumbnail_url: string | null
 }
 
-interface PrintfulSyncVariant {
+export interface PrintfulSyncVariant {
   id: number
   name: string
+  size: string
   retail_price: string
   currency: string
   product: { name: string }
+  files: Array<{ type: string; preview_url: string | null }>
 }
 
-interface PrintfulSyncProductDetail {
+export interface PrintfulSyncProductDetail {
   sync_product: {
     id: number
     name: string
@@ -49,7 +51,13 @@ function isLandscape(catalogName: string): boolean {
   const sep = catalogName.indexOf('×')
   if (sep === -1) return false
   const w = Number(catalogName.slice(0, sep).trim().split(' ').at(-1))
-  const h = Number(catalogName.slice(sep + 1).trim().split(' ').at(0))
+  const h = Number(
+    catalogName
+      .slice(sep + 1)
+      .trim()
+      .split(' ')
+      .at(0),
+  )
   return !isNaN(w) && !isNaN(h) && w > h
 }
 
@@ -77,7 +85,7 @@ async function listSyncProducts(): Promise<PrintfulSyncProductSummary[]> {
   return data.result
 }
 
-async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
+export async function getSyncProduct(id: number): Promise<PrintfulSyncProductDetail> {
   const res = await fetch(`${PRINTFUL_BASE}/sync/products/${id}`, {
     headers: authHeader(),
     cache: 'no-store',
