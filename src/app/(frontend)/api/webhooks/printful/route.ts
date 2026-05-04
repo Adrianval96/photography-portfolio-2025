@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSyncProduct } from '@/services/printful'
-import { upsertProduct } from '@/data/products'
+import { archiveProduct, upsertProduct } from '@/data/products'
 
 export const maxDuration = 30
 
-const HANDLED_EVENTS = new Set(['product_synced', 'product_updated'])
+const UPSERT_EVENTS = new Set(['product_synced', 'product_updated'])
 
 interface ProductEvent {
   type: string
@@ -24,21 +24,33 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const parsed = event as ProductEvent
-  if (!HANDLED_EVENTS.has(parsed?.type)) {
+  const syncProductId = parsed.data?.sync_product?.id
+
+  if (UPSERT_EVENTS.has(parsed?.type)) {
+    if (!syncProductId) {
+      return NextResponse.json({ error: 'Missing sync_product.id' }, { status: 400 })
+    }
+    try {
+      const detail = await getSyncProduct(syncProductId)
+      await upsertProduct(detail)
+    } catch (err) {
+      console.error('Printful webhook: failed to upsert product', err)
+      return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+    }
     return NextResponse.json({ received: true })
   }
 
-  const syncProductId = parsed.data?.sync_product?.id
-  if (!syncProductId) {
-    return NextResponse.json({ error: 'Missing sync_product.id' }, { status: 400 })
-  }
-
-  try {
-    const detail = await getSyncProduct(syncProductId)
-    await upsertProduct(detail)
-  } catch (err) {
-    console.error('Printful webhook: failed to upsert product', err)
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+  if (parsed?.type === 'product_deleted') {
+    if (!syncProductId) {
+      return NextResponse.json({ error: 'Missing sync_product.id' }, { status: 400 })
+    }
+    try {
+      await archiveProduct(syncProductId)
+    } catch (err) {
+      console.error('Printful webhook: failed to archive product', err)
+      return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+    }
+    return NextResponse.json({ received: true })
   }
 
   return NextResponse.json({ received: true })
