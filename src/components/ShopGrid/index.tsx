@@ -1,13 +1,42 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import type { Product } from '@/payload-types'
+import { getDimensionsFromImage, getOrientation, type Orientation } from '@/utilities/orientation'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
+  const [orientation, setOrientation] = useState<Orientation>('portrait')
+  const containerRef = useRef<HTMLDivElement>(null)
   const price = product.variants?.[0]?.price
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const img = container.querySelector('img')
+    if (!img) return
+
+    function applyOrientation() {
+      const dimensions = getDimensionsFromImage(img as HTMLImageElement)
+      if (dimensions.width > 0) {
+        setOrientation(getOrientation(dimensions))
+      }
+    }
+
+    if (img.complete && img.naturalWidth > 0) {
+      applyOrientation()
+      return
+    }
+
+    img.addEventListener('load', applyOrientation)
+    return () => img.removeEventListener('load', applyOrientation)
+  }, [])
 
   return (
     <article className="print-card">
-      <div className="print-card__image print-card__image--portrait">
+      <div ref={containerRef} className={`print-card__image print-card__image--${orientation}`}>
         {product.imageUrl && (
           <Image
             src={product.imageUrl}
