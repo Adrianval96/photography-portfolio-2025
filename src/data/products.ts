@@ -5,14 +5,19 @@ import type { PrintfulSyncProductDetail } from '@/services/printful'
 export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<void> {
   const { sync_product, sync_variants } = detail
 
+  const thumbnailUrl =
+    sync_product.thumbnail_url ??
+    sync_variants[0]?.files?.find((f) => f.type === 'preview')?.preview_url ??
+    undefined
+
   const productData = {
     printfulSyncProductId: sync_product.id,
     name: sync_product.name,
-    imageUrl: sync_product.thumbnail_url ?? undefined,
+    imageUrl: thumbnailUrl,
     status: 'synced' as const,
     variants: sync_variants.map((v) => ({
       printfulVariantId: v.id,
-      format: v.name,
+      format: v.size,
       price: parseFloat(v.retail_price),
     })),
     lastSyncedAt: new Date().toISOString(),
