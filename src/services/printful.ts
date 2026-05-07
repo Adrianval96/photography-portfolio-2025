@@ -7,7 +7,7 @@ export interface PrintfulSyncVariant {
   retail_price: string
   currency: string
   product: { name: string }
-  files: Array<{ type: string; preview_url: string | null }>
+  files: Array<{ type: string; preview_url: string | null; width: number | null; height: number | null }>
 }
 
 export interface PrintfulSyncProductDetail {

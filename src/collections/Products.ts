@@ -50,12 +50,38 @@ export const Products: CollectionConfig = {
       },
     },
     {
-      name: 'imageUrl',
-      type: 'text',
+      name: 'productImage',
+      type: 'group',
       admin: {
-        description: 'Primary blank-background mockup URL from Printful.',
+        description: 'Primary blank-background mockup from Printful.',
         readOnly: true,
       },
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+          admin: {
+            description: 'Mockup image URL.',
+            readOnly: true,
+          },
+        },
+        {
+          name: 'width',
+          type: 'number',
+          admin: {
+            description: 'Image width in pixels.',
+            readOnly: true,
+          },
+        },
+        {
+          name: 'height',
+          type: 'number',
+          admin: {
+            description: 'Image height in pixels.',
+            readOnly: true,
+          },
+        },
+      ],
     },
     {
       name: 'lastSyncedAt',

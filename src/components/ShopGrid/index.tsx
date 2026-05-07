@@ -8,9 +8,9 @@ function PrintCard({ product }: { product: Product }) {
   return (
     <article className="print-card">
       <div className="print-card__image print-card__image--portrait">
-        {product.imageUrl && (
+        {product.productImage?.url && (
           <Image
-            src={product.imageUrl}
+            src={product.productImage.url}
             alt={product.name}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"

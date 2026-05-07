@@ -24,15 +24,18 @@ export async function archiveProduct(syncProductId: number): Promise<void> {
 export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<void> {
   const { sync_product, sync_variants } = detail
 
-  const thumbnailUrl =
-    sync_product.thumbnail_url ??
-    sync_variants[0]?.files?.find((f) => f.type === 'preview')?.preview_url ??
-    undefined
+  const defaultFile = sync_variants[0]?.files?.find((f) => f.type === 'default')
+
+  const productImage = {
+    url: defaultFile?.preview_url ?? null,
+    width: defaultFile?.width ?? null,
+    height: defaultFile?.height ?? null,
+  }
 
   const productData = {
     printfulSyncProductId: sync_product.id,
     name: sync_product.name,
-    imageUrl: thumbnailUrl,
+    productImage,
     status: 'synced' as const,
     variants: sync_variants.map((v) => ({
       printfulVariantId: v.id,
