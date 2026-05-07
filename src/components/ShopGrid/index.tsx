@@ -1,16 +1,18 @@
 import Image from 'next/image'
 import type { Product } from '@/payload-types'
-import { getOrientation } from '@/utilities/orientation'
+import { getOrientationFromDimensions } from '@/utilities/orientation'
+import { groupByCollection } from '@/utilities/shop'
+import type { ProductGroup } from '@/utilities/shop'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
   const price = product.variants?.[0]?.price
   const imageWidth = product.productImage?.width ?? 0
   const imageHeight = product.productImage?.height ?? 0
-  const orientation = getOrientation({ width: imageWidth, height: imageHeight })
+  const orientation = getOrientationFromDimensions(imageWidth, imageHeight)
 
   return (
-    <article className="print-card">
+    <article className={`print-card print-card--${orientation}`}>
       <div className={`print-card__image print-card__image--${orientation}`}>
         {product.productImage?.url && (
           <Image
@@ -34,11 +36,33 @@ function PrintCard({ product }: { product: Product }) {
   )
 }
 
+function SizeSection({ group }: { group: ProductGroup }) {
+  return (
+    <div className="size-section">
+      {group.label && (
+        <div className="size-separator">
+          <span className="size-separator__label">{group.label}</span>
+          <span className="size-separator__count">
+            {group.products.length} {group.products.length === 1 ? 'print' : 'prints'}
+          </span>
+        </div>
+      )}
+      <div className="shop-grid">
+        {group.products.map((product) => (
+          <PrintCard key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 interface ShopGridProps {
   products: Product[]
 }
 
 export function ShopGrid({ products }: ShopGridProps) {
+  const productGroups = groupByCollection(products)
+
   return (
     <div className="shop-grid-wrap">
       <header className="shop-hero">
@@ -49,10 +73,10 @@ export function ShopGrid({ products }: ShopGridProps) {
         </p>
       </header>
 
-      {products.length > 0 ? (
-        <div className="shop-grid">
-          {products.map((product) => (
-            <PrintCard key={product.id} product={product} />
+      {productGroups.length > 0 ? (
+        <div className="shop-sections">
+          {productGroups.map((group) => (
+            <SizeSection key={group.label} group={group} />
           ))}
         </div>
       ) : (
