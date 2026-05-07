@@ -1,13 +1,17 @@
 import Image from 'next/image'
 import type { Product } from '@/payload-types'
+import { getOrientation } from '@/utilities/orientation'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
   const price = product.variants?.[0]?.price
+  const imageWidth = product.productImage?.width ?? 0
+  const imageHeight = product.productImage?.height ?? 0
+  const orientation = getOrientation({ width: imageWidth, height: imageHeight })
 
   return (
     <article className="print-card">
-      <div className="print-card__image print-card__image--portrait">
+      <div className={`print-card__image print-card__image--${orientation}`}>
         {product.productImage?.url && (
           <Image
             src={product.productImage.url}
