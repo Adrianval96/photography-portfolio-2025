@@ -12,7 +12,7 @@ export function getCollectionName(format: string): string {
 
 function parseAreaFromFormat(format: string): number {
   const match = format.match(/(\d+(?:\.\d+)?)\s*[×xX]\s*(\d+(?:\.\d+)?)/)
-  if (!match) return Infinity
+  if (!match || !match[1] || !match[2]) return Infinity
   return parseFloat(match[1]) * parseFloat(match[2])
 }
 
