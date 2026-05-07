@@ -6,7 +6,6 @@
 
 .shop-hero {
   padding: var(--space-5xl) 0 var(--space-3xl);
-  border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-3xl);
 }
 
@@ -45,10 +44,48 @@
   align-items: start;
 }
 
+.shop-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+}
+
+.size-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.size-separator {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.size-separator__label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.size-separator__count {
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
 .print-card {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+}
+
+.print-card--landscape {
+  grid-column: span 2;
 }
 
 .print-card__image {
@@ -65,7 +102,7 @@
 }
 
 .print-card__image--landscape {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
 }
 
 .print-card__image--square {
@@ -190,5 +227,9 @@
 @media (max-width: 480px) {
   .shop-grid {
     grid-template-columns: 1fr;
+  }
+
+  .print-card--landscape {
+    grid-column: span 1;
   }
 }
