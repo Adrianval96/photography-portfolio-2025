@@ -28,6 +28,7 @@ import * as migration_20260426_footer_static_nav from './20260426_footer_static_
 import * as migration_20260426_remove_header_global from './20260426_remove_header_global'
 import * as migration_20260503_add_products_collection from './20260503_add_products_collection'
 import * as migration_20260504_add_product_image_group from './20260504_add_product_image_group'
+import * as migration_20260508_add_product_images_array from './20260508_add_product_images_array'
 
 export const migrations = [
   {
@@ -179,5 +180,10 @@ export const migrations = [
     up: migration_20260504_add_product_image_group.up,
     down: migration_20260504_add_product_image_group.down,
     name: '20260504_add_product_image_group',
+  },
+  {
+    up: migration_20260508_add_product_images_array.up,
+    down: migration_20260508_add_product_images_array.down,
+    name: '20260508_add_product_images_array',
   },
 ]
