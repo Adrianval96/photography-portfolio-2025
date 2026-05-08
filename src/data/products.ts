@@ -29,12 +29,6 @@ export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<
   const defaultFile = firstVariantFiles.find((f) => f.type === 'default')
   const previewFile = firstVariantFiles.find((f) => f.type === 'preview')
 
-  const productImage = {
-    url: defaultFile?.preview_url ?? null,
-    width: defaultFile?.width ?? null,
-    height: defaultFile?.height ?? null,
-  }
-
   type ProductImageEntry = { url: string | null; width: number | null; height: number | null; type: string }
 
   const productImages: ProductImageEntry[] = [
@@ -49,7 +43,6 @@ export async function upsertProduct(detail: PrintfulSyncProductDetail): Promise<
   const productData = {
     printfulSyncProductId: sync_product.id,
     name: sync_product.name,
-    productImage,
     productImages,
     status: 'synced' as const,
     variants: sync_variants.map((v) => ({
