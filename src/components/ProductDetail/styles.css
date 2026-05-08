@@ -55,10 +55,8 @@
 }
 
 .product-detail__title {
-  font-family: var(--font-primary);
   font-size: var(--text-h1);
   font-weight: var(--weight-light);
-  color: var(--text-primary);
   line-height: 1.1;
   margin: 0;
 }
@@ -77,7 +75,6 @@
   padding: var(--space-md) var(--space-xl);
   border: 1px solid var(--border-interactive);
   background: transparent;
-  color: var(--text-primary);
   font-family: inherit;
   font-size: var(--text-caption);
   letter-spacing: 0.12em;
@@ -105,7 +102,6 @@
 
 .product-detail__spec-value {
   font-size: var(--text-caption);
-  color: var(--text-primary);
   letter-spacing: 0.02em;
   margin: 0;
 }
