@@ -1,0 +1,51 @@
+.size-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.size-picker__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.size-picker__pill {
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--border);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: border-color var(--transition-fast), color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.size-picker__pill:hover {
+  border-color: var(--border-interactive);
+  color: var(--text-primary);
+  opacity: 1;
+}
+
+.size-picker__pill--active {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  opacity: 1;
+}
+
+.size-picker__price {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .size-picker__pill {
+    transition: none;
+  }
+}
