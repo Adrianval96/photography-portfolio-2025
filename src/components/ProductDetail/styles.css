@@ -10,17 +10,6 @@
   overflow: hidden;
 }
 
-.product-detail__image-col--portrait {
-  aspect-ratio: 3 / 4;
-}
-
-.product-detail__image-col--landscape {
-  aspect-ratio: 3 / 2;
-}
-
-.product-detail__image-col--square {
-  aspect-ratio: 1;
-}
 
 .product-detail__image {
   object-fit: cover;
@@ -141,7 +130,6 @@
     position: sticky;
     top: 3rem;
     height: calc(100vh - 3rem);
-    aspect-ratio: unset;
   }
 
   .product-detail__info-col {
@@ -158,6 +146,18 @@
   .product-detail {
     grid-template-columns: 1fr;
     min-height: unset;
+  }
+
+  .product-detail__image-col--portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .product-detail__image-col--landscape {
+    aspect-ratio: 3 / 2;
+  }
+
+  .product-detail__image-col--square {
+    aspect-ratio: 1;
   }
 
   .product-detail__info-col {
