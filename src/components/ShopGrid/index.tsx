@@ -7,16 +7,17 @@ import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
   const price = product.variants?.[0]?.price
-  const imageWidth = product.productImage?.width ?? 0
-  const imageHeight = product.productImage?.height ?? 0
+  const primaryImage = product.productImages?.[0]
+  const imageWidth = primaryImage?.width ?? 0
+  const imageHeight = primaryImage?.height ?? 0
   const orientation = getOrientationFromDimensions(imageWidth, imageHeight)
 
   return (
     <article className={`print-card print-card--${orientation}`}>
       <div className={`print-card__image print-card__image--${orientation}`}>
-        {product.productImage?.url && (
+        {primaryImage?.url && (
           <Image
-            src={product.productImage.url}
+            src={primaryImage.url}
             alt={product.name}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
