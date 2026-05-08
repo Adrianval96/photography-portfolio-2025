@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { cache } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { ProductDetail } from '@/components/ProductDetail'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -37,16 +38,9 @@ export default async function ShopProductPage({ params }: PageProps) {
 
   if (!product) notFound()
 
-  const defaultImage = product.productImages?.find((image) => image.type === 'default') ?? null
-  const isLandscape =
-    defaultImage?.width != null &&
-    defaultImage?.height != null &&
-    defaultImage.width > defaultImage.height
-
   return (
-    <main className="pt-16">
-      <p>Product ID: {product.id}</p>
-      <p>Orientation: {isLandscape ? 'landscape' : 'portrait'}</p>
+    <main className="pt-12">
+      <ProductDetail product={product} />
     </main>
   )
 }
