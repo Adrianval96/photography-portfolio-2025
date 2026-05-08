@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Product } from '@/payload-types'
 import { getOrientationFromDimensions } from '@/utilities/orientation'
 import { groupByCollection } from '@/utilities/shop'
@@ -13,7 +14,7 @@ function PrintCard({ product }: { product: Product }) {
   const orientation = getOrientationFromDimensions(imageWidth, imageHeight)
 
   return (
-    <article className={`print-card print-card--${orientation}`}>
+    <Link href={`/shop/${product.slug}`} className={`print-card print-card--${orientation}`}>
       <div className={`print-card__image print-card__image--${orientation}`}>
         {primaryImage?.url && (
           <Image
@@ -33,7 +34,7 @@ function PrintCard({ product }: { product: Product }) {
         </div>
         <p className="print-card__cta">View print →</p>
       </div>
-    </article>
+    </Link>
   )
 }
 
