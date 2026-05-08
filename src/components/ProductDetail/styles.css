@@ -115,7 +115,7 @@
 
 @media (min-width: 769px) {
   .product-detail--portrait {
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 45% 55%;
   }
 
   .product-detail--landscape {
@@ -123,7 +123,7 @@
   }
 
   .product-detail--square {
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 50% 50%;
   }
 
   .product-detail__image-col {
