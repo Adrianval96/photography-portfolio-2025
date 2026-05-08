@@ -760,6 +760,21 @@ export interface Product {
     height?: number | null;
   };
   /**
+   * Gallery images synced from Printful. Index 0 is always the default artwork file.
+   */
+  productImages?:
+    | {
+        url?: string | null;
+        width?: number | null;
+        height?: number | null;
+        /**
+         * 'default' = editorial plate artwork · 'preview' = Printful product mockup
+         */
+        type?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Timestamp of last successful sync from Printful.
    */
   lastSyncedAt?: string | null;
@@ -1356,6 +1371,15 @@ export interface ProductsSelect<T extends boolean = true> {
         url?: T;
         width?: T;
         height?: T;
+      };
+  productImages?:
+    | T
+    | {
+        url?: T;
+        width?: T;
+        height?: T;
+        type?: T;
+        id?: T;
       };
   lastSyncedAt?: T;
   variants?:
