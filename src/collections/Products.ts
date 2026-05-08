@@ -84,6 +84,37 @@ export const Products: CollectionConfig = {
       ],
     },
     {
+      name: 'productImages',
+      type: 'array',
+      admin: {
+        readOnly: true,
+        description:
+          'Gallery images synced from Printful. Index 0 is always the default artwork file.',
+      },
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+        },
+        {
+          name: 'width',
+          type: 'number',
+        },
+        {
+          name: 'height',
+          type: 'number',
+        },
+        {
+          name: 'type',
+          type: 'text',
+          admin: {
+            description:
+              "'default' = editorial plate artwork · 'preview' = Printful product mockup",
+          },
+        },
+      ],
+    },
+    {
       name: 'lastSyncedAt',
       type: 'date',
       admin: {
