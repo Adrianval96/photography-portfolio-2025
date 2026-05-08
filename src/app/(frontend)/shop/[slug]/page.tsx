@@ -39,7 +39,7 @@ export default async function ShopProductPage({ params }: PageProps) {
   if (!product) notFound()
 
   return (
-    <main className="pt-16">
+    <main className="pt-12">
       <ProductDetail product={product} />
     </main>
   )

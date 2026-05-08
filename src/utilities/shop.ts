@@ -1,9 +1,10 @@
 import type { Product } from '@/payload-types'
 
 export const FORMAT_COLLECTION: Record<string, string> = {
-  '18 × 24 in': 'EDITORIAL',
-  '24 × 18 in': 'DOCUMENTARY',
-  '36 × 24 in': 'CINEMA POSTER',
+  '18″×24″': 'EDITORIAL',
+  '24″×18″': 'DOCUMENTARY',
+  '24″×36″': 'CINEMA POSTER',
+  '36″×24″': 'CINEMA POSTER',
 }
 
 export function getCollectionName(format: string): string {
@@ -11,7 +12,7 @@ export function getCollectionName(format: string): string {
 }
 
 function parseAreaFromFormat(format: string): number {
-  const match = format.match(/(\d+(?:\.\d+)?)\s*[×xX]\s*(\d+(?:\.\d+)?)/)
+  const match = format.match(/(\d+(?:\.\d+)?)[″\s]*[×xX][″\s]*(\d+(?:\.\d+)?)/)
   if (!match || !match[1] || !match[2]) return Infinity
   return parseFloat(match[1]) * parseFloat(match[2])
 }

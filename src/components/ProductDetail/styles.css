@@ -100,7 +100,6 @@
   margin: 0;
   padding: var(--space-xl) 0;
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
 
 .product-detail__spec-label {
@@ -140,15 +139,15 @@
 
   .product-detail__image-col {
     position: sticky;
-    top: 4rem;
-    height: calc(100vh - 4rem);
+    top: 3rem;
+    height: calc(100vh - 3rem);
     aspect-ratio: unset;
   }
 
   .product-detail__info-col {
     position: sticky;
-    top: 4rem;
-    height: calc(100vh - 4rem);
+    top: 3rem;
+    height: calc(100vh - 3rem);
     overflow-y: auto;
     padding: var(--space-3xl) var(--space-2xl);
     justify-content: center;
