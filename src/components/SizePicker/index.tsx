@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { CurrencyPriceDisplay } from '@/components/CurrencyPriceDisplay'
 import '@/components/SizePicker/styles.css'
 
 interface SizeVariant {
@@ -46,7 +47,9 @@ export function SizePicker({ variants }: SizePickerProps) {
           })}
         </div>
       )}
-      <p className="size-picker__price">AUD {activeVariant.price.toFixed(2)}</p>
+      <p className="size-picker__price">
+        <CurrencyPriceDisplay audPrice={activeVariant.price} />
+      </p>
     </div>
   )
 }
