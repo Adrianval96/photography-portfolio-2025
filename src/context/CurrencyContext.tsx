@@ -10,7 +10,7 @@ type CurrencyContextValue = {
   currency: Currency
   setCurrency: (currency: Currency) => void
   rate: number
-  stale: boolean
+  isStale: boolean
 }
 
 const CurrencyContext = createContext<CurrencyContextValue | null>(null)
@@ -19,7 +19,7 @@ type CurrencyProviderProps = {
   children: React.ReactNode
   defaultCurrency: Currency
   rate: number
-  stale: boolean
+  isStale: boolean
 }
 
 function subscribe(callback: () => void) {
@@ -36,7 +36,7 @@ export function CurrencyProvider({
   children,
   defaultCurrency,
   rate,
-  stale,
+  isStale,
 }: CurrencyProviderProps) {
   const currency = useSyncExternalStore(
     subscribe,
@@ -46,11 +46,13 @@ export function CurrencyProvider({
 
   function setCurrency(next: Currency) {
     localStorage.setItem(PREFERRED_CURRENCY_KEY, next)
-    window.dispatchEvent(new StorageEvent('storage', { key: PREFERRED_CURRENCY_KEY, newValue: next }))
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: PREFERRED_CURRENCY_KEY, newValue: next }),
+    )
   }
 
   return (
-    <CurrencyContext.Provider value={{ currency, setCurrency, rate, stale }}>
+    <CurrencyContext.Provider value={{ currency, setCurrency, rate, isStale }}>
       {children}
     </CurrencyContext.Provider>
   )

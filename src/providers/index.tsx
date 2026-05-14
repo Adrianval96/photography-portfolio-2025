@@ -21,7 +21,11 @@ export const Providers: React.FC<ProvidersProps> = ({
   return (
     <ThemeProvider>
       <HeaderThemeProvider>
-        <CurrencyProvider defaultCurrency={defaultCurrency} rate={currencyRate} stale={currencyRateStale}>
+        <CurrencyProvider
+          defaultCurrency={defaultCurrency}
+          rate={currencyRate}
+          isStale={currencyRateStale}
+        >
           {children}
         </CurrencyProvider>
       </HeaderThemeProvider>

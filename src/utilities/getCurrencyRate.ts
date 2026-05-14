@@ -6,20 +6,20 @@ const FALLBACK_RATE = 0.58
 
 type CurrencyRateResult = {
   audToEur: number
-  stale: boolean
+  isStale: boolean
 }
 
 async function fetchAudToEurRate(): Promise<CurrencyRateResult> {
   try {
     const response = await fetch('https://api.frankfurter.app/latest?from=AUD&to=EUR')
     if (!response.ok) {
-      return { audToEur: FALLBACK_RATE, stale: true }
+      return { audToEur: FALLBACK_RATE, isStale: true }
     }
     const data = await response.json()
     const audToEurRate: number = data.rates.EUR
-    return { audToEur: audToEurRate, stale: false }
+    return { audToEur: audToEurRate, isStale: false }
   } catch {
-    return { audToEur: FALLBACK_RATE, stale: true }
+    return { audToEur: FALLBACK_RATE, isStale: true }
   }
 }
 

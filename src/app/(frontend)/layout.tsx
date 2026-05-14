@@ -74,7 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const headersList = await headers()
   const ipCountry = headersList.get('x-vercel-ip-country') ?? ''
   const defaultCurrency: Currency = EUROZONE.has(ipCountry) ? 'EUR' : 'AUD'
-  const { audToEur, stale } = await getCurrencyRate()
+  const { audToEur, isStale } = await getCurrencyRate()
 
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
@@ -85,7 +85,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body>
-        <Providers defaultCurrency={defaultCurrency} currencyRate={audToEur} currencyRateStale={stale}>
+        <Providers
+          defaultCurrency={defaultCurrency}
+          currencyRate={audToEur}
+          currencyRateStale={isStale}
+        >
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
