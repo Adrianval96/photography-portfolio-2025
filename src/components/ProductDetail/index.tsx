@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Product } from '@/payload-types'
 import { getOrientationFromDimensions } from '@/utilities/orientation'
 import { getCollectionName } from '@/utilities/shop'
+import { SizePicker } from '@/components/SizePicker'
 import '@/components/ProductDetail/styles.css'
 
 interface ProductDetailProps {
@@ -18,7 +19,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const orientation = getOrientationFromDimensions(imageWidth, imageHeight)
 
   const collectionName = firstVariant?.format ? getCollectionName(firstVariant.format) : null
-  const displayPrice = firstVariant?.price != null ? firstVariant.price.toFixed(2) : null
 
   return (
     <div className={`product-detail product-detail--${orientation}`}>
@@ -46,9 +46,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <span className="product-detail__collection">{collectionName}</span>
           )}
           <h1 className="product-detail__title">{product.name}</h1>
-          {displayPrice && (
-            <p className="product-detail__price">AUD {displayPrice}</p>
-          )}
+          <SizePicker variants={product.variants ?? []} />
         </div>
 
         <button className="product-detail__cart-btn" type="button" disabled>
