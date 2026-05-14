@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run lint && npm run type-check && npm run build",
+  "buildCommand": "npm run lint && npm run type-check && if [ \"$VERCEL_ENV\" != \"production\" ]; then npm run test; fi && npm run build",
   "crons": [
     {
       "path": "/api/payload-jobs/run",
