@@ -4,7 +4,7 @@ vi.mock('next/cache', () => ({
   unstable_cache: (fn: (...args: unknown[]) => unknown) => fn,
 }))
 
-import { getCurrencyRate } from '@/lib/getCurrencyRate'
+import { getCurrencyRate } from '@/utilities/getCurrencyRate'
 
 const EXPECTED_FALLBACK_RATE = 0.58
 
