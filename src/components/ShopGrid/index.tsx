@@ -4,6 +4,7 @@ import type { Product } from '@/payload-types'
 import { getOrientationFromDimensions } from '@/utilities/orientation'
 import { groupByCollection } from '@/utilities/shop'
 import type { ProductGroup } from '@/utilities/shop'
+import { CurrencyPriceDisplay } from '@/components/CurrencyPriceDisplay'
 import '@/components/ShopGrid/styles.css'
 
 function PrintCard({ product }: { product: Product }) {
@@ -30,7 +31,11 @@ function PrintCard({ product }: { product: Product }) {
       <div className="print-card__info">
         <div className="print-card__meta">
           <p className="print-card__title">{product.name}</p>
-          {price !== undefined && <p className="print-card__price">{price.toFixed(2)} AUD</p>}
+          {price !== undefined && (
+            <p className="print-card__price">
+              <CurrencyPriceDisplay audPrice={price} />
+            </p>
+          )}
         </div>
         <p className="print-card__cta">View print →</p>
       </div>
