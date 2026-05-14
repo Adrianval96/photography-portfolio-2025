@@ -13,7 +13,7 @@ describe('getCurrencyRate', () => {
     vi.restoreAllMocks()
   })
 
-  it('returns the live AUD→EUR rate and stale: false on a successful fetch', async () => {
+  it('returns the live AUD→EUR rate and isStale: false on a successful fetch', async () => {
     const liveRate = 0.59
     vi.stubGlobal(
       'fetch',
@@ -25,20 +25,20 @@ describe('getCurrencyRate', () => {
 
     const result = await getCurrencyRate()
 
-    expect(result.stale).toBe(false)
+    expect(result.isStale).toBe(false)
     expect(result.audToEur).toBe(liveRate)
   })
 
-  it('returns the fallback rate and stale: true when fetch throws a network error', async () => {
+  it('returns the fallback rate and isStale: true when fetch throws a network error', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('ETIMEDOUT')))
 
     const result = await getCurrencyRate()
 
-    expect(result.stale).toBe(true)
+    expect(result.isStale).toBe(true)
     expect(result.audToEur).toBe(EXPECTED_FALLBACK_RATE)
   })
 
-  it('returns the fallback rate and stale: true when the API returns a non-OK response', async () => {
+  it('returns the fallback rate and isStale: true when the API returns a non-OK response', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn().mockResolvedValue({
@@ -49,7 +49,7 @@ describe('getCurrencyRate', () => {
 
     const result = await getCurrencyRate()
 
-    expect(result.stale).toBe(true)
+    expect(result.isStale).toBe(true)
     expect(result.audToEur).toBe(EXPECTED_FALLBACK_RATE)
   })
 })
