@@ -1,5 +1,10 @@
 export type Currency = 'AUD' | 'EUR'
 
+export const EUROZONE = new Set([
+  'AT', 'BE', 'CY', 'DE', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR',
+  'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PT', 'SI', 'SK',
+])
+
 export function snapToValidPrice(rawPrice: number): number {
   return Math.floor(rawPrice) + 0.99
 }

@@ -21,8 +21,12 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { fetchSiteIdentity, fetchSocialLinks } from '@/data/globals'
+import { CurrencyProvider } from '@/context/CurrencyContext'
+import { getCurrencyRate } from '@/utilities/getCurrencyRate'
+import { EUROZONE } from '@/utilities/currency'
+import type { Currency } from '@/utilities/currency'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -68,6 +72,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
   const personJsonLd = await getPersonJsonLd()
 
+  const headersList = await headers()
+  const ipCountry = headersList.get('x-vercel-ip-country') ?? ''
+  const defaultCurrency: Currency = EUROZONE.has(ipCountry) ? 'EUR' : 'AUD'
+  const { audToEur, stale } = await getCurrencyRate()
+
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
       <head>
@@ -77,17 +86,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+        <CurrencyProvider defaultCurrency={defaultCurrency} rate={audToEur} stale={stale}>
+          <Providers>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </CurrencyProvider>
         <Analytics />
         <SpeedInsights />
       </body>
