@@ -21,8 +21,11 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { fetchSiteIdentity, fetchSocialLinks } from '@/data/globals'
+import { getCurrencyRate } from '@/utilities/getCurrencyRate'
+import { EUROZONE } from '@/utilities/currency'
+import type { Currency } from '@/utilities/currency'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -68,6 +71,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
   const personJsonLd = await getPersonJsonLd()
 
+  const headersList = await headers()
+  const ipCountry = headersList.get('x-vercel-ip-country') ?? ''
+  const defaultCurrency: Currency = EUROZONE.has(ipCountry) ? 'EUR' : 'AUD'
+  const { audToEur, isStale } = await getCurrencyRate()
+
   return (
     <html className={cn(font.variable)} lang="en" suppressHydrationWarning>
       <head>
@@ -77,7 +85,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body>
-        <Providers>
+        <Providers
+          defaultCurrency={defaultCurrency}
+          currencyRate={audToEur}
+          currencyRateStale={isStale}
+        >
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
