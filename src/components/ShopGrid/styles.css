@@ -9,6 +9,13 @@
   margin-bottom: var(--space-3xl);
 }
 
+.shop-hero__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
 .shop-hero__label {
   display: block;
   font-size: var(--text-label);
@@ -16,7 +23,6 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
 }
 
 .shop-hero__title {

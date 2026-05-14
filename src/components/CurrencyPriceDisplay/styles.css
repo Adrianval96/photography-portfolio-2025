@@ -1,0 +1,6 @@
+.currency-price-display {
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
