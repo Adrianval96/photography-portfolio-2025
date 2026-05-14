@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useSyncExternalStore } from 'react'
 
 import type { Currency } from '@/utilities/currency'
 
@@ -22,19 +22,31 @@ type CurrencyProviderProps = {
   stale: boolean
 }
 
-export function CurrencyProvider({ children, defaultCurrency, rate, stale }: CurrencyProviderProps) {
-  const [currency, setCurrencyState] = useState<Currency>(defaultCurrency)
+function subscribe(callback: () => void) {
+  window.addEventListener('storage', callback)
+  return () => window.removeEventListener('storage', callback)
+}
 
-  useEffect(() => {
-    const stored = localStorage.getItem(PREFERRED_CURRENCY_KEY) as Currency | null
-    if (stored === 'AUD' || stored === 'EUR') {
-      setCurrencyState(stored)
-    }
-  }, [])
+function getStoredCurrency(): Currency | null {
+  const stored = localStorage.getItem(PREFERRED_CURRENCY_KEY)
+  return stored === 'AUD' || stored === 'EUR' ? stored : null
+}
+
+export function CurrencyProvider({
+  children,
+  defaultCurrency,
+  rate,
+  stale,
+}: CurrencyProviderProps) {
+  const currency = useSyncExternalStore(
+    subscribe,
+    () => getStoredCurrency() ?? defaultCurrency,
+    () => defaultCurrency,
+  )
 
   function setCurrency(next: Currency) {
-    setCurrencyState(next)
     localStorage.setItem(PREFERRED_CURRENCY_KEY, next)
+    window.dispatchEvent(new StorageEvent('storage', { key: PREFERRED_CURRENCY_KEY, newValue: next }))
   }
 
   return (

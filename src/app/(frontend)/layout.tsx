@@ -23,7 +23,6 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { SITE_NAME } from '@/constants'
 import { draftMode, headers } from 'next/headers'
 import { fetchSiteIdentity, fetchSocialLinks } from '@/data/globals'
-import { CurrencyProvider } from '@/context/CurrencyContext'
 import { getCurrencyRate } from '@/utilities/getCurrencyRate'
 import { EUROZONE } from '@/utilities/currency'
 import type { Currency } from '@/utilities/currency'
@@ -86,19 +85,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body>
-        <CurrencyProvider defaultCurrency={defaultCurrency} rate={audToEur} stale={stale}>
-          <Providers>
-            <AdminBar
-              adminBarProps={{
-                preview: isEnabled,
-              }}
-            />
+        <Providers defaultCurrency={defaultCurrency} currencyRate={audToEur} currencyRateStale={stale}>
+          <AdminBar
+            adminBarProps={{
+              preview: isEnabled,
+            }}
+          />
 
-            <Header />
-            {children}
-            <Footer />
-          </Providers>
-        </CurrencyProvider>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
         <Analytics />
         <SpeedInsights />
       </body>

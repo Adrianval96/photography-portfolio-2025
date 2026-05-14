@@ -1,14 +1,30 @@
 import React from 'react'
 
+import { CurrencyProvider } from '@/context/CurrencyContext'
+import type { Currency } from '@/utilities/currency'
 import { HeaderThemeProvider } from './HeaderTheme'
 import { ThemeProvider } from './Theme'
 
-export const Providers: React.FC<{
+type ProvidersProps = {
   children: React.ReactNode
-}> = ({ children }) => {
+  defaultCurrency: Currency
+  currencyRate: number
+  currencyRateStale: boolean
+}
+
+export const Providers: React.FC<ProvidersProps> = ({
+  children,
+  defaultCurrency,
+  currencyRate,
+  currencyRateStale,
+}) => {
   return (
     <ThemeProvider>
-      <HeaderThemeProvider>{children}</HeaderThemeProvider>
+      <HeaderThemeProvider>
+        <CurrencyProvider defaultCurrency={defaultCurrency} rate={currencyRate} stale={currencyRateStale}>
+          {children}
+        </CurrencyProvider>
+      </HeaderThemeProvider>
     </ThemeProvider>
   )
 }
