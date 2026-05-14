@@ -14,23 +14,24 @@ interface SizePickerProps {
 }
 
 export function SizePicker({ variants }: SizePickerProps) {
-  const firstVariant = variants[0] ?? null
+  const sortedVariants = [...variants].sort((a, b) => a.price - b.price)
+  const cheapestVariant = sortedVariants[0] ?? null
   const [activeVariantId, setActiveVariantId] = useState<number | null>(
-    firstVariant?.printfulVariantId ?? null,
+    cheapestVariant?.printfulVariantId ?? null,
   )
 
   const activeVariant =
-    variants.find((v) => v.printfulVariantId === activeVariantId) ?? firstVariant
+    sortedVariants.find((v) => v.printfulVariantId === activeVariantId) ?? cheapestVariant
 
   if (!activeVariant) return null
 
-  const showPills = variants.length > 1
+  const showPills = sortedVariants.length > 1
 
   return (
     <div className="size-picker">
       {showPills && (
         <div className="size-picker__pills">
-          {variants.map((variant) => {
+          {sortedVariants.map((variant) => {
             const isActive = variant.printfulVariantId === activeVariantId
             return (
               <button
