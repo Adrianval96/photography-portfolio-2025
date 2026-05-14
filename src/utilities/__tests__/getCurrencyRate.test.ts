@@ -29,22 +29,6 @@ describe('getCurrencyRate', () => {
     expect(result.audToEur).toBe(liveRate)
   })
 
-  it('returns a rate in the expected AUD→EUR range on a successful fetch', async () => {
-    const liveRate = 0.59
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ rates: { EUR: liveRate } }),
-      }),
-    )
-
-    const result = await getCurrencyRate()
-
-    expect(result.audToEur).toBeGreaterThan(0.4)
-    expect(result.audToEur).toBeLessThan(0.7)
-  })
-
   it('returns the fallback rate and stale: true when fetch throws a network error', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('ETIMEDOUT')))
 
