@@ -1,10 +1,10 @@
 import type { Product } from '@/payload-types'
 
 export const FORMAT_COLLECTION: Record<string, string> = {
-  '18″×24″': 'EDITORIAL',
-  '24″×18″': 'DOCUMENTARY',
-  '24″×36″': 'CINEMA POSTER',
-  '36″×24″': 'CINEMA POSTER',
+  '18 × 24 in': 'EDITORIAL',
+  '24 × 18 in': 'DOCUMENTARY',
+  '24 × 36 in': 'CINEMA POSTER',
+  '36 × 24 in': 'CINEMA POSTER',
 }
 
 export function getCollectionName(format: string): string {
