@@ -228,3 +228,17 @@ At the start of any session where you need API access, read this
 file to load credentials. **NEVER display raw credential values
 in output** — mask them if you need to reference them
 (e.g., `API_KEY=6985...26bdc`).
+
+<!-- rtk-instructions v2 -->
+# RTK (Rust Token Killer)
+
+Install: `curl -fsSL https://rtk.ai/install | sh` (or `cargo install rtk`)
+
+**Always prefix commands with `rtk`** — it applies a filter if one exists, otherwise passes through unchanged. Safe to use on everything, including `&&` chains.
+
+```bash
+rtk git add . && rtk git commit -m "msg" && rtk git push
+```
+
+Project-local filters: `.rtk/filters.toml`. Full reference: `second-brain/Resources/tech-references/rtk.md`.
+<!-- /rtk-instructions -->
