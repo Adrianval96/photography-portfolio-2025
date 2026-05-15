@@ -232,6 +232,14 @@ in output** — mask them if you need to reference them
 <!-- rtk-instructions v2 -->
 # RTK (Rust Token Killer) - Token-Optimized Commands
 
+## Install
+
+```bash
+curl -fsSL https://rtk.ai/install | sh   # or: cargo install rtk
+```
+
+Project-local filters live in `.rtk/filters.toml` (committed to this repo).
+
 ## Golden Rule
 
 **Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.

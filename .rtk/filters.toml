@@ -3,11 +3,39 @@
 # Docs: https://github.com/rtk-ai/rtk#custom-filters
 schema_version = 1
 
-# Example: suppress build noise from a custom tool
-# [filters.my-tool]
-# description = "Compact my-tool output"
-# match_command = "^my-tool\\s+build"
-# strip_ansi = true
-# strip_lines_matching = ["^\\s*$", "^Downloading", "^Installing"]
-# max_lines = 30
-# on_empty = "my-tool: ok"
+# Strip Drizzle SQL noise from `pnpm payload migrate` / `npx payload migrate`.
+# Keeps migration names, results, and any error lines — drops raw SQL statements.
+[filters.payload-migrate]
+description = "Compact payload migrate output"
+match_command = "payload migrate"
+strip_ansi = true
+strip_lines_matching = [
+  "^\\s*$",
+  "^\\s*--> ",
+  "^\\s*CREATE ",
+  "^\\s*ALTER ",
+  "^\\s*INSERT ",
+  "^\\s*DROP ",
+  "^\\s*INDEX ",
+  "^\\s*REFERENCES ",
+  "^\\s*CONSTRAINT ",
+  "^\\s*PRIMARY KEY",
+  "^\\s*UNIQUE "
+]
+on_empty = "payload migrate: ok"
+
+# Compact output from `pnpm run generate:types` (runs after every migration).
+[filters.generate-types]
+description = "Compact generate:types output"
+match_command = "generate:types"
+strip_ansi = true
+strip_lines_matching = ["^\\s*$", "^\\s*\\["]
+on_empty = "generate:types: ok"
+
+# Compact output from `pnpm run generate:importmap`.
+[filters.generate-importmap]
+description = "Compact generate:importmap output"
+match_command = "generate:importmap"
+strip_ansi = true
+strip_lines_matching = ["^\\s*$"]
+on_empty = "generate:importmap: ok"
