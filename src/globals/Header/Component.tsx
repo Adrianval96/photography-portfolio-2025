@@ -14,13 +14,11 @@ export async function Header() {
   return (
     <HeaderClient instagramUrl={siteSettings?.instagramUrl ?? null}>
       {showShop && (
-        <>
-          <Link href={ROUTES.shop} className={navStyles.navLink}>
-            Shop
-          </Link>
-          <CartIcon />
-        </>
+        <Link href={ROUTES.shop} className={navStyles.navLink}>
+          Shop
+        </Link>
       )}
+      <CartIcon />
     </HeaderClient>
   )
 }
