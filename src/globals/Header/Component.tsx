@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { HeaderClient } from '@/globals/Header/Component.client'
 import { fetchSocialLinks, fetchShopEnabled } from '@/data/globals'
+import { CartIcon } from '@/components/CartIcon'
 import { ROUTES } from '@/constants'
 import navStyles from '@/globals/Header/Nav/index.module.css'
 
@@ -13,9 +14,12 @@ export async function Header() {
   return (
     <HeaderClient instagramUrl={siteSettings?.instagramUrl ?? null}>
       {showShop && (
-        <Link href={ROUTES.shop} className={navStyles.navLink}>
-          Shop
-        </Link>
+        <>
+          <Link href={ROUTES.shop} className={navStyles.navLink}>
+            Shop
+          </Link>
+          <CartIcon />
+        </>
       )}
     </HeaderClient>
   )
