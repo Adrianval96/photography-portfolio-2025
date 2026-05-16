@@ -24,34 +24,50 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null)
 
-function subscribeToCartStorage(callback: () => void): () => void {
-  window.addEventListener('storage', callback)
-  return () => window.removeEventListener('storage', callback)
-}
+// Module-level store: one source of truth for cart state on the client.
+// Initialised from localStorage when CartProvider first mounts.
+// useSyncExternalStore compares snapshots with Object.is, so reference
+// stability matters — we update this variable directly instead of
+// calling JSON.parse on every render.
+let cartStore: CartItem[] = []
+let notifySubscriber: (() => void) | null = null
 
-// useSyncExternalStore compares snapshots with Object.is. JSON.parse returns a
-// new array reference on every call, so we cache by raw string to keep the
-// reference stable when storage hasn't changed.
-let cachedRaw: string | null = null
-let cachedSnapshot: CartItem[] = []
+function subscribeToCartStorage(callback: () => void): () => void {
+  cartStore = readCartFromStorage()
+  notifySubscriber = callback
+
+  function onCrossTabStorageChange(event: StorageEvent) {
+    if (event.key === CART_STORAGE_KEY) {
+      cartStore = readCartFromStorage()
+      callback()
+    }
+  }
+
+  window.addEventListener('storage', onCrossTabStorageChange)
+  return () => {
+    window.removeEventListener('storage', onCrossTabStorageChange)
+    notifySubscriber = null
+  }
+}
 
 function getCartSnapshot(): CartItem[] {
-  const raw = localStorage.getItem(CART_STORAGE_KEY)
-  if (raw === cachedRaw) return cachedSnapshot
-  cachedRaw = raw
-  cachedSnapshot = raw ? (JSON.parse(raw) as CartItem[]) : []
-  return cachedSnapshot
+  return cartStore
 }
 
-const SERVER_CART_SNAPSHOT: CartItem[] = []
+// Stable empty array for SSR — useSyncExternalStore uses this value during
+// server rendering and hydration before localStorage is accessible.
+const EMPTY_CART: CartItem[] = []
 
 function getServerCartSnapshot(): CartItem[] {
-  return SERVER_CART_SNAPSHOT
+  return EMPTY_CART
 }
 
 function writeAndNotify(items: CartItem[]): void {
+  cartStore = items
   writeCartToStorage(items)
-  window.dispatchEvent(new StorageEvent('storage', { key: CART_STORAGE_KEY }))
+  // Ping React directly for the current tab. Other tabs receive the native
+  // 'storage' event that browsers fire automatically on localStorage writes.
+  notifySubscriber?.()
 }
 
 type CartProviderProps = {
@@ -62,18 +78,15 @@ export function CartProvider({ children }: CartProviderProps) {
   const items = useSyncExternalStore(subscribeToCartStorage, getCartSnapshot, getServerCartSnapshot)
 
   function addItem(incoming: Omit<CartItem, 'addedAt'>): void {
-    const current = readCartFromStorage()
-    writeAndNotify(addItemToCart(current, incoming))
+    writeAndNotify(addItemToCart(cartStore, incoming))
   }
 
   function removeItem(printfulVariantId: number): void {
-    const current = readCartFromStorage()
-    writeAndNotify(removeItemFromCart(current, printfulVariantId))
+    writeAndNotify(removeItemFromCart(cartStore, printfulVariantId))
   }
 
   function setQuantity(printfulVariantId: number, quantity: number): void {
-    const current = readCartFromStorage()
-    writeAndNotify(setItemQuantity(current, printfulVariantId, quantity))
+    writeAndNotify(setItemQuantity(cartStore, printfulVariantId, quantity))
   }
 
   function clear(): void {
