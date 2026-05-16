@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react'
+import React, { createContext, useContext, useSyncExternalStore } from 'react'
 
 import type { CartItem } from '@/utilities/cart'
 import {
@@ -20,7 +20,6 @@ type CartContextValue = {
   removeItem: (printfulVariantId: number) => void
   setQuantity: (printfulVariantId: number, quantity: number) => void
   clear: () => void
-  isHydrated: boolean
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
@@ -48,17 +47,7 @@ type CartProviderProps = {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
-
-  const items = useSyncExternalStore(
-    subscribeToCartStorage,
-    getCartSnapshot,
-    getServerCartSnapshot,
-  )
+  const items = useSyncExternalStore(subscribeToCartStorage, getCartSnapshot, getServerCartSnapshot)
 
   function addItem(incoming: Omit<CartItem, 'addedAt'>): void {
     const current = readCartFromStorage()
@@ -88,7 +77,6 @@ export function CartProvider({ children }: CartProviderProps) {
         removeItem,
         setQuantity,
         clear,
-        isHydrated,
       }}
     >
       {children}
