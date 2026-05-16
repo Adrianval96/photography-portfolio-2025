@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { CartProvider } from '@/context/CartContext'
 import { CurrencyProvider } from '@/context/CurrencyContext'
 import type { Currency } from '@/utilities/currency'
 import { HeaderThemeProvider } from './HeaderTheme'
@@ -26,7 +27,7 @@ export const Providers: React.FC<ProvidersProps> = ({
           rate={currencyRate}
           isStale={currencyRateStale}
         >
-          {children}
+          <CartProvider>{children}</CartProvider>
         </CurrencyProvider>
       </HeaderThemeProvider>
     </ThemeProvider>

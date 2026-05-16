@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { HeaderClient } from '@/globals/Header/Component.client'
 import { fetchSocialLinks, fetchShopEnabled } from '@/data/globals'
+import { CartIcon } from '@/components/CartIcon'
 import { ROUTES } from '@/constants'
 import navStyles from '@/globals/Header/Nav/index.module.css'
 
@@ -17,6 +18,7 @@ export async function Header() {
           Shop
         </Link>
       )}
+      <CartIcon />
     </HeaderClient>
   )
 }
