@@ -29,12 +29,24 @@ function subscribeToCartStorage(callback: () => void): () => void {
   return () => window.removeEventListener('storage', callback)
 }
 
+// useSyncExternalStore compares snapshots with Object.is. JSON.parse returns a
+// new array reference on every call, so we cache by raw string to keep the
+// reference stable when storage hasn't changed.
+let cachedRaw: string | null = null
+let cachedSnapshot: CartItem[] = []
+
 function getCartSnapshot(): CartItem[] {
-  return readCartFromStorage()
+  const raw = localStorage.getItem(CART_STORAGE_KEY)
+  if (raw === cachedRaw) return cachedSnapshot
+  cachedRaw = raw
+  cachedSnapshot = raw ? (JSON.parse(raw) as CartItem[]) : []
+  return cachedSnapshot
 }
 
+const SERVER_CART_SNAPSHOT: CartItem[] = []
+
 function getServerCartSnapshot(): CartItem[] {
-  return []
+  return SERVER_CART_SNAPSHOT
 }
 
 function writeAndNotify(items: CartItem[]): void {
