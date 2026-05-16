@@ -1,11 +1,8 @@
-import type { Currency } from '@/utilities/currency'
-
 export type CartItem = {
   printfulVariantId: number
   productSlug: string
   quantity: number
   addedAt: number
-  currencyAtAdd: Currency
 }
 
 export const MAX_QTY_PER_ITEM = 5
@@ -29,8 +26,7 @@ export function writeCartToStorage(items: CartItem[]): void {
 
 export function addItemToCart(
   items: CartItem[],
-  incoming: Omit<CartItem, 'addedAt' | 'currencyAtAdd'>,
-  currencyAtAdd: Currency,
+  incoming: Omit<CartItem, 'addedAt'>,
 ): CartItem[] {
   const existingIndex = items.findIndex(
     (item) => item.printfulVariantId === incoming.printfulVariantId,
@@ -38,10 +34,7 @@ export function addItemToCart(
 
   if (existingIndex !== -1) {
     const existingItem = items[existingIndex]!
-    const updatedQuantity = Math.min(
-      existingItem.quantity + incoming.quantity,
-      MAX_QTY_PER_ITEM,
-    )
+    const updatedQuantity = Math.min(existingItem.quantity + incoming.quantity, MAX_QTY_PER_ITEM)
     return items.map((item, index) =>
       index === existingIndex ? { ...item, quantity: updatedQuantity } : item,
     )
@@ -51,7 +44,6 @@ export function addItemToCart(
     ...incoming,
     quantity: Math.min(incoming.quantity, MAX_QTY_PER_ITEM),
     addedAt: Date.now(),
-    currencyAtAdd,
   }
   return [...items, newItem]
 }

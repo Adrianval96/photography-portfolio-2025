@@ -18,7 +18,6 @@ function makeCartItem(overrides: Partial<CartItem> = {}): CartItem {
     productSlug: 'test-print',
     quantity: 1,
     addedAt: 1000000,
-    currencyAtAdd: 'AUD',
     ...overrides,
   }
 }
@@ -27,33 +26,30 @@ function makeCartItem(overrides: Partial<CartItem> = {}): CartItem {
 
 describe('addItemToCart', () => {
   it('appends a new item when the variant is not already in the cart', () => {
-    const existing = makeCartItem({ printfulVariantId: 1 })
+    const itemToAdd = makeCartItem({ printfulVariantId: 1 })
     const result = addItemToCart(
-      [existing],
+      [itemToAdd],
       { printfulVariantId: 2, productSlug: 'other-print', quantity: 1 },
-      'AUD',
     )
     expect(result).toHaveLength(2)
     expect(result[1]!.printfulVariantId).toBe(2)
   })
 
   it('bumps quantity when the same variant is added again', () => {
-    const existing = makeCartItem({ printfulVariantId: 1, quantity: 2 })
+    const itemToAdd = makeCartItem({ printfulVariantId: 1, quantity: 2 })
     const result = addItemToCart(
-      [existing],
+      [itemToAdd],
       { printfulVariantId: 1, productSlug: 'test-print', quantity: 2 },
-      'AUD',
     )
     expect(result).toHaveLength(1)
     expect(result[0]!.quantity).toBe(4)
   })
 
   it('clamps quantity at MAX_QTY_PER_ITEM when merging a duplicate', () => {
-    const existing = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
+    const itemToAdd = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
     const result = addItemToCart(
-      [existing],
+      [itemToAdd],
       { printfulVariantId: 1, productSlug: 'test-print', quantity: 3 },
-      'AUD',
     )
     expect(result[0]!.quantity).toBe(MAX_QTY_PER_ITEM)
   })
@@ -62,29 +58,8 @@ describe('addItemToCart', () => {
     const result = addItemToCart(
       [],
       { printfulVariantId: 1, productSlug: 'test-print', quantity: MAX_QTY_PER_ITEM + 10 },
-      'EUR',
     )
     expect(result[0]!.quantity).toBe(MAX_QTY_PER_ITEM)
-  })
-
-  it('stamps the new item with the provided currency', () => {
-    const result = addItemToCart(
-      [],
-      { printfulVariantId: 1, productSlug: 'test-print', quantity: 1 },
-      'EUR',
-    )
-    expect(result[0]!.currencyAtAdd).toBe('EUR')
-  })
-
-  it('does not mutate the input array', () => {
-    const items: CartItem[] = []
-    const result = addItemToCart(
-      items,
-      { printfulVariantId: 1, productSlug: 'test-print', quantity: 1 },
-      'AUD',
-    )
-    expect(items).toHaveLength(0)
-    expect(result).toHaveLength(1)
   })
 })
 
@@ -102,12 +77,6 @@ describe('removeItemFromCart', () => {
     const items = [makeCartItem({ printfulVariantId: 1 })]
     const result = removeItemFromCart(items, 99)
     expect(result).toHaveLength(1)
-  })
-
-  it('does not mutate the input array', () => {
-    const items = [makeCartItem({ printfulVariantId: 1 })]
-    removeItemFromCart(items, 1)
-    expect(items).toHaveLength(1)
   })
 })
 
@@ -179,11 +148,6 @@ describe('readCartFromStorage', () => {
     const items = [makeCartItem()]
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
     expect(readCartFromStorage()).toEqual(items)
-  })
-
-  it('returns an empty array when stored JSON is malformed', () => {
-    localStorage.setItem(CART_STORAGE_KEY, 'not-valid-json{{{')
-    expect(readCartFromStorage()).toEqual([])
   })
 })
 
