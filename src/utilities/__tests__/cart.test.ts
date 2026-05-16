@@ -26,39 +26,43 @@ function makeCartItem(overrides: Partial<CartItem> = {}): CartItem {
 
 describe('addItemToCart', () => {
   it('appends a new item when the variant is not already in the cart', () => {
-    const itemToAdd = makeCartItem({ printfulVariantId: 1 })
-    const result = addItemToCart(
-      [itemToAdd],
-      { printfulVariantId: 2, productSlug: 'other-print', quantity: 1 },
-    )
+    const itemInCart = makeCartItem({ printfulVariantId: 1 })
+    const result = addItemToCart([itemInCart], {
+      printfulVariantId: 2,
+      productSlug: 'other-print',
+      quantity: 1,
+    })
     expect(result).toHaveLength(2)
     expect(result[1]!.printfulVariantId).toBe(2)
   })
 
   it('bumps quantity when the same variant is added again', () => {
-    const itemToAdd = makeCartItem({ printfulVariantId: 1, quantity: 2 })
-    const result = addItemToCart(
-      [itemToAdd],
-      { printfulVariantId: 1, productSlug: 'test-print', quantity: 2 },
-    )
+    const itemInCart = makeCartItem({ printfulVariantId: 1, quantity: 2 })
+    const result = addItemToCart([itemInCart], {
+      printfulVariantId: 1,
+      productSlug: 'test-print',
+      quantity: 2,
+    })
     expect(result).toHaveLength(1)
     expect(result[0]!.quantity).toBe(4)
   })
 
   it('clamps quantity at MAX_QTY_PER_ITEM when merging a duplicate', () => {
-    const itemToAdd = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
-    const result = addItemToCart(
-      [itemToAdd],
-      { printfulVariantId: 1, productSlug: 'test-print', quantity: 3 },
-    )
+    const itemInCart = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
+    const result = addItemToCart([itemInCart], {
+      printfulVariantId: 1,
+      productSlug: 'test-print',
+      quantity: 3,
+    })
     expect(result[0]!.quantity).toBe(MAX_QTY_PER_ITEM)
   })
 
   it('clamps quantity at MAX_QTY_PER_ITEM for a new item', () => {
-    const result = addItemToCart(
-      [],
-      { printfulVariantId: 1, productSlug: 'test-print', quantity: MAX_QTY_PER_ITEM + 10 },
-    )
+    const result = addItemToCart([], {
+      printfulVariantId: 1,
+      productSlug: 'test-print',
+      quantity: MAX_QTY_PER_ITEM + 10,
+    })
     expect(result[0]!.quantity).toBe(MAX_QTY_PER_ITEM)
   })
 })
