@@ -26,8 +26,8 @@ function makeCartItem(overrides: Partial<CartItem> = {}): CartItem {
 
 describe('addItemToCart', () => {
   it('appends a new item when the variant is not already in the cart', () => {
-    const itemInCart = makeCartItem({ printfulVariantId: 1 })
-    const result = addItemToCart([itemInCart], {
+    const initialItem = makeCartItem({ printfulVariantId: 1 })
+    const result = addItemToCart([initialItem], {
       printfulVariantId: 2,
       productSlug: 'other-print',
       quantity: 1,
@@ -37,8 +37,8 @@ describe('addItemToCart', () => {
   })
 
   it('bumps quantity when the same variant is added again', () => {
-    const itemInCart = makeCartItem({ printfulVariantId: 1, quantity: 2 })
-    const result = addItemToCart([itemInCart], {
+    const initialItem = makeCartItem({ printfulVariantId: 1, quantity: 2 })
+    const result = addItemToCart([initialItem], {
       printfulVariantId: 1,
       productSlug: 'test-print',
       quantity: 2,
@@ -48,8 +48,8 @@ describe('addItemToCart', () => {
   })
 
   it('clamps quantity at MAX_QTY_PER_ITEM when merging a duplicate', () => {
-    const itemInCart = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
-    const result = addItemToCart([itemInCart], {
+    const initialItem = makeCartItem({ printfulVariantId: 1, quantity: MAX_QTY_PER_ITEM })
+    const result = addItemToCart([initialItem], {
       printfulVariantId: 1,
       productSlug: 'test-print',
       quantity: 3,
